@@ -64,13 +64,41 @@
       grid-template-rows: auto 1fr auto;
       padding: 48px 58px 34px;
       background:
-        linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.78)),
-        radial-gradient(circle at 100% 0%, rgba(204,43,54,.08), transparent 34%),
-        var(--paper);
+        linear-gradient(116deg, rgba(255,255,255,.98) 0 36%, rgba(255,244,244,.68) 36% 54%, rgba(255,255,255,.92) 54% 100%),
+        linear-gradient(28deg, transparent 0 52%, rgba(204,43,54,.12) 52% 65%, transparent 65% 100%),
+        linear-gradient(150deg, transparent 0 14%, rgba(96,165,250,.10) 14% 27%, transparent 27% 100%),
+        linear-gradient(72deg, transparent 0 68%, rgba(249,168,212,.12) 68% 82%, transparent 82% 100%),
+        #fcfcfb;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      z-index: 0;
+      border: 1px solid rgba(255,255,255,.62);
+      border-radius: 24px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.30), rgba(255,255,255,.08)),
+        repeating-linear-gradient(90deg, rgba(154,24,37,.035) 0 1px, transparent 1px 86px),
+        repeating-linear-gradient(0deg, rgba(154,24,37,.026) 0 1px, transparent 1px 86px);
+      pointer-events: none;
     }
 
     .slide.active {
       display: grid;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      right: 56px;
+      bottom: 22px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      background: url("zettai-logo-transparent.png") center / contain no-repeat;
+      pointer-events: none;
     }
 
     .kicker {
@@ -82,6 +110,8 @@
       font-size: 14px;
       line-height: 1.3;
       font-weight: 650;
+      position: relative;
+      z-index: 1;
     }
 
     .kicker b {
@@ -94,6 +124,8 @@
       align-content: center;
       min-height: 0;
       gap: 26px;
+      position: relative;
+      z-index: 1;
     }
 
     .foot {
@@ -101,9 +133,12 @@
       justify-content: space-between;
       align-items: end;
       gap: 18px;
+      padding-right: 58px;
       color: var(--muted);
       font-size: 12px;
       font-weight: 680;
+      position: relative;
+      z-index: 1;
     }
 
     .bar {
@@ -180,6 +215,102 @@
       grid-template-columns: minmax(0, 1fr) 420px;
       align-items: end;
       gap: 58px;
+    }
+
+    .company-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 58px;
+    }
+
+    .company-mark {
+      display: grid;
+      place-items: center;
+      min-height: 430px;
+      border: 0;
+      background: transparent;
+    }
+
+    .company-mark img {
+      width: min(86%, 430px);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 18px 30px rgba(77, 38, 44, .12));
+    }
+
+    .company-meta {
+      display: grid;
+      gap: 18px;
+    }
+
+    .company-name {
+      color: var(--red-900);
+      font-size: clamp(58px, 5.8vw, 92px);
+      line-height: .96;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .company-line {
+      width: 96px;
+      height: 6px;
+      background: var(--red-500);
+      border-radius: 999px;
+    }
+
+    .company-copy {
+      max-width: 760px;
+      color: var(--text);
+      font-size: clamp(23px, 2.15vw, 34px);
+      line-height: 1.42;
+      font-weight: 660;
+    }
+
+    .agenda-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 18px;
+      align-items: center;
+      min-height: 118px;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .agenda-no {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--red-100);
+      color: var(--red-700);
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 820;
+    }
+
+    .agenda-item h3 {
+      margin-bottom: 6px;
+      color: var(--red-900);
+    }
+
+    .agenda-item p {
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 580;
     }
 
     .photo-card {
@@ -595,6 +726,158 @@
       font-weight: 820;
     }
 
+    .process-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .process-node {
+      position: relative;
+      min-height: 138px;
+      padding: 20px 20px 18px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--red-500);
+      background: rgba(255,255,255,.76);
+    }
+
+    .process-node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -17px;
+      z-index: 2;
+      width: 18px;
+      height: 2px;
+      background: var(--red-500);
+    }
+
+    .process-node b,
+    .chart-card b {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--red-900);
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .process-node span {
+      display: block;
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .chart-card {
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.76);
+    }
+
+    .bar-chart {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 128px 1fr 58px;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .bar-track {
+      height: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      background: var(--red-500);
+    }
+
+    .bar-fill.muted {
+      background: #d7c5c8;
+    }
+
+    .delta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .delta-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .delta-card strong {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .delta-card span {
+      display: block;
+      color: var(--red-900);
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .risk-map {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .risk-bars {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.76);
+    }
+
+    .risk-line {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .risk-track {
+      height: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .risk-track span {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      background: var(--red-500);
+    }
+
     .controls {
       position: fixed;
       left: 50%;
@@ -730,7 +1013,50 @@
 </head>
 <body>
   <main class="deck">
-    <section class="slide active" data-title="タイトル">
+    <section class="slide active" data-title="株式会社ZETTAI">
+      <div class="kicker"><b>株式会社ZETTAI</b><span>Back Office x Claude Code</span></div>
+      <div class="body company-layout">
+        <div class="company-mark">
+          <img alt="株式会社ZETTAI ロゴ" src="zettai-logo-transparent.png">
+        </div>
+        <div class="company-meta">
+          <p class="eyebrow">Seminar Presented by</p>
+          <h1 class="company-name">株式会社ZETTAI</h1>
+          <div class="company-line"></div>
+          <p class="company-copy">現場の業務知識を、明日から使える自動化の仕組みに変える。</p>
+        </div>
+      </div>
+      <div class="foot"><span>株式会社ZETTAI</span><span>contact@zettai.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="目次">
+      <div class="kicker"><b>Agenda</b><span>60 min</span></div>
+      <div class="body">
+        <p class="eyebrow">本日の流れ</p>
+        <h2>バックオフィス業務を、AIでどう変えるか</h2>
+        <div class="agenda-list">
+          <article class="agenda-item">
+            <span class="agenda-no">01</span>
+            <div><h3>導入イメージ</h3><p>今日のゴール、月末業務の課題、AI活用マップを確認します。</p></div>
+          </article>
+          <article class="agenda-item">
+            <span class="agenda-no">02</span>
+            <div><h3>安全な始め方</h3><p>Claude Codeの役割と、読み取り専用・差分確認・最小権限の考え方を整理します。</p></div>
+          </article>
+          <article class="agenda-item">
+            <span class="agenda-no">03</span>
+            <div><h3>実演デモ</h3><p>請求書チェックを題材に、手順書から業務ツールを作る流れを見ます。</p></div>
+          </article>
+          <article class="agenda-item">
+            <span class="agenda-no">04</span>
+            <div><h3>社内展開</h3><p>業務選定、稟議Q&A、今日帰ったら行う30分チェックリストまで落とし込みます。</p></div>
+          </article>
+        </div>
+      </div>
+      <div class="foot"><span>Agenda</span><div class="bar"><span></span></div></div>
+    </section>
+
+    <section class="slide" data-title="タイトル">
       <div class="kicker"><b>CLAUDECODE研修</b><span>2026.06.19 FRI 20:00-21:00</span></div>
       <div class="body title-layout">
         <div>
@@ -765,6 +1091,11 @@
           <article class="panel pad tile"><h3>必要なもの</h3><p>あなたの業務知識だけ</p></article>
           <article class="panel pad tile"><h3>今日の進め方</h3><p>デモは全部、日本語の指示だけで動かします</p></article>
         </div>
+        <div class="process-strip">
+          <div class="process-node"><b>INPUT</b><span>業務マニュアル</span></div>
+          <div class="process-node"><b>CLAUDE CODE</b><span>ルールを読み取り、処理を作る</span></div>
+          <div class="process-node"><b>OUTPUT</b><span>毎月使える業務ツール</span></div>
+        </div>
       </div>
       <div class="foot"><span>Goal</span><div class="bar"><span></span></div></div>
     </section>
@@ -781,6 +1112,13 @@
         </article>
         <div>
           <h2>毎回同じルールなのに、毎回人が見ている</h2>
+          <div class="chart-card" style="margin-top:22px;">
+            <b>月末作業時間の削減イメージ</b>
+            <div class="bar-chart">
+              <div class="bar-row"><span>手作業</span><span class="bar-track"><span class="bar-fill muted" style="--w:100%;"></span></span><span>4h</span></div>
+              <div class="bar-row"><span>確認中心</span><span class="bar-track"><span class="bar-fill" style="--w:25%;"></span></span><span>1h</span></div>
+            </div>
+          </div>
           <div class="quote-list" style="margin-top:28px;">
             <div class="quote">請求書50件を1枚ずつExcelと突合。月4時間。</div>
             <div class="quote">勘定科目を、毎回マニュアル見ながら判定。</div>
@@ -999,6 +1337,10 @@ freeeインポート用CSVに変換して</div>
             <p class="small">同じ5件をコマンド1つで処理。来月からは自動化へ。</p>
           </article>
         </div>
+        <div class="delta-grid">
+          <div class="delta-card"><strong>手作業の工程</strong><span>5</span></div>
+          <div class="delta-card"><strong>人が残す工程</strong><span>1</span></div>
+        </div>
       </div>
       <div class="foot"><span>同じやり方で勤怠集計・経費精算にも展開できます</span><div class="bar"><span></span></div></div>
     </section>
@@ -1034,11 +1376,19 @@ freeeインポート用CSVに変換して</div>
       <div class="kicker"><b>Part 3</b><span>社内稟議・セキュリティQ&A</span></div>
       <div class="body">
         <h2>稟議で聞かれやすい4点</h2>
-        <div class="qa">
-          <div class="qa-row"><b>データが漏れない？</b><span>ローカル実行。送信範囲を制御可能。</span></div>
-          <div class="qa-row"><b>費用は？</b><span>月額約$20から。初月でROI回収。</span></div>
-          <div class="qa-row"><b>既存フローを壊さない？</b><span>読み取り専用から。上乗せするだけ。</span></div>
-          <div class="qa-row"><b>誰が管理？</b><span>CLAUDE.mdが引き継ぎ資料。属人化しにくい。</span></div>
+        <div class="risk-map">
+          <div class="qa">
+            <div class="qa-row"><b>データが漏れない？</b><span>ローカル実行。送信範囲を制御可能。</span></div>
+            <div class="qa-row"><b>費用は？</b><span>月額約$20から。初月でROI回収。</span></div>
+            <div class="qa-row"><b>既存フローを壊さない？</b><span>読み取り専用から。上乗せするだけ。</span></div>
+            <div class="qa-row"><b>誰が管理？</b><span>CLAUDE.mdが引き継ぎ資料。属人化しにくい。</span></div>
+          </div>
+          <div class="risk-bars">
+            <div class="risk-line"><span>情報管理</span><span class="risk-track"><span style="--w:74%;"></span></span></div>
+            <div class="risk-line"><span>費用対効果</span><span class="risk-track"><span style="--w:58%;"></span></span></div>
+            <div class="risk-line"><span>業務影響</span><span class="risk-track"><span style="--w:42%;"></span></span></div>
+            <div class="risk-line"><span>運用責任</span><span class="risk-track"><span style="--w:66%;"></span></span></div>
+          </div>
         </div>
       </div>
       <div class="foot"><span>安全性・費用対効果・運用責任を明確に</span><div class="bar"><span></span></div></div>
@@ -1096,7 +1446,7 @@ freeeインポート用CSVに変換して</div>
 
   <nav class="controls" aria-label="Slide navigation">
     <button class="nav" type="button" data-action="prev" aria-label="前へ">‹</button>
-    <span class="count" id="count">1 / 17</span>
+    <span class="count" id="count">1 / 19</span>
     <button class="nav" type="button" data-action="next" aria-label="次へ">›</button>
     <button class="nav" type="button" data-action="print" aria-label="印刷">⌘</button>
   </nav>
