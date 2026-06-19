@@ -14,13 +14,13 @@
       --line: #ded8d2;
       --orange: #d86f32;
       --orange-2: #eda56a;
-      --orange-soft: #fff4ea;
+      --orange-soft: #fff7f1;
       --rose: #c9655c;
       --rose-soft: #fff0ed;
       --green: #3f8b52;
       --red: #c64b3c;
-      --glass: rgba(255,255,255,.88);
-      --glass-strong: rgba(255,255,255,.94);
+      --glass: rgba(255,255,255,.96);
+      --glass-strong: rgba(255,255,255,.98);
       --shadow: 0 24px 58px rgba(30, 24, 18, .10);
       --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
     }
@@ -83,21 +83,7 @@
     }
 
     .slide::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 780px;
-      height: 520px;
-      border: 1px solid rgba(255,255,255,.36);
-      border-radius: 999px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.26), rgba(255,255,255,.04)),
-        radial-gradient(ellipse at 50% 50%, rgba(216,111,50,.07), transparent 60%);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.42);
-      opacity: .30;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      content: none;
     }
 
     .slide:nth-of-type(n+3) {
@@ -117,13 +103,7 @@
     }
 
     .slide:nth-of-type(n+3)::after {
-      top: -130px;
-      left: auto;
-      right: -170px;
-      width: 620px;
-      height: 430px;
-      transform: none;
-      opacity: .34;
+      content: none;
     }
 
     .kicker,
@@ -198,6 +178,14 @@
       height: 1px;
       background: rgba(150,142,134,.72);
       pointer-events: none;
+    }
+
+    .no-footer-rule .foot::before {
+      display: none;
+    }
+
+    .no-footer-rule .curriculum-step::after {
+      display: none;
     }
 
     .brand {
@@ -307,6 +295,31 @@
 
     .center { text-align: center; }
 
+    .accent-text {
+      color: var(--orange);
+    }
+
+    .orange-heading {
+      color: var(--orange);
+    }
+
+    .highlight-text {
+      display: inline;
+      padding: 0 .12em .04em;
+      color: var(--orange);
+      background: linear-gradient(180deg, transparent 58%, rgba(237,165,106,.28) 58%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .highlight-strong {
+      display: inline-block;
+      padding: .05em .18em .1em;
+      color: var(--ink);
+      background: rgba(255,244,234,.95);
+      border-bottom: 3px solid var(--orange);
+    }
+
     .body:not(.center) h2,
     .body:not(.center) .lead {
       text-align: left;
@@ -317,7 +330,7 @@
     }
 
     .company-cover .body {
-      grid-template-columns: .86fr 1.14fr;
+      grid-template-columns: .78fr 1.22fr;
       align-items: center;
       gap: 58px;
     }
@@ -338,12 +351,7 @@
 
     .company-wordmark::before,
     .company-wordmark::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(24px);
-      opacity: .24;
-      pointer-events: none;
+      content: none;
     }
 
     .company-wordmark::before {
@@ -381,12 +389,38 @@
 
     .company-copy {
       color: var(--text);
-      font-size: clamp(20px, 1.75vw, 28px);
+      font-size: clamp(17px, 1.38vw, 22px);
       line-height: 1.5;
       font-weight: 540;
       text-wrap: balance;
       line-break: strict;
       white-space: nowrap;
+    }
+
+    .cover-product {
+      display: grid;
+      gap: 6px;
+      margin-top: 20px;
+      margin-bottom: 24px;
+    }
+
+    .cover-product strong {
+      color: var(--ink);
+      font-size: clamp(22px, 2vw, 32px);
+      line-height: 1.2;
+      font-weight: 760;
+    }
+
+    .cover-product span {
+      color: var(--orange);
+      font-size: clamp(18px, 1.55vw, 25px);
+      line-height: 1.35;
+      font-weight: 680;
+    }
+
+    .title-product {
+      justify-items: center;
+      margin: 0;
     }
 
     .nowrap {
@@ -404,6 +438,42 @@
       text-align: left;
     }
 
+    .title-slide h1 {
+      font-size: clamp(44px, 4.15vw, 66px);
+      white-space: nowrap;
+    }
+
+    .title-slide .lead {
+      font-size: clamp(20px, 1.75vw, 28px);
+      white-space: nowrap;
+    }
+
+    .title-slide .lead-title {
+      color: var(--orange);
+    }
+
+    .single-line-heading {
+      font-size: clamp(30px, 3vw, 48px);
+      white-space: nowrap;
+    }
+
+    .single-line-heading--long {
+      font-size: clamp(26px, 2.45vw, 39px);
+      white-space: nowrap;
+    }
+
+    .training-heading {
+      font-size: clamp(24px, 2.25vw, 36px);
+      line-height: 1.16;
+      white-space: nowrap;
+      max-width: none;
+    }
+
+    .single-line-copy {
+      font-size: clamp(17px, 1.55vw, 24px);
+      white-space: nowrap;
+    }
+
     .meta-lines {
       display: grid;
       gap: 10px;
@@ -411,6 +481,13 @@
       font-size: 22px;
       line-height: 1.5;
       text-align: center;
+    }
+
+    .cover-meta {
+      margin-top: 26px;
+      gap: 6px;
+      font-size: 18px;
+      text-align: left;
     }
 
     .grid-2,
@@ -426,10 +503,10 @@
 
     .card,
     .panel {
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       background: var(--glass);
-      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
+      box-shadow: none;
     }
 
     .card {
@@ -451,17 +528,17 @@
     }
 
     .icon {
-      display: inline-grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(216,111,50,.40);
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255,241,230,.95), rgba(255,232,228,.72));
+      display: block;
+      width: auto;
+      height: auto;
+      margin-bottom: 14px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
       color: var(--orange);
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 720;
+      line-height: 1;
     }
 
     .check-list,
@@ -540,20 +617,20 @@
       position: relative;
       min-height: 170px;
       padding: 22px;
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       background: var(--glass);
-      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
+      box-shadow: none;
     }
 
     .tool-step:not(:last-child)::after {
-      content: "→";
+      content: "";
       position: absolute;
       top: 50%;
       right: -18px;
-      color: var(--orange);
-      font-size: 26px;
-      font-weight: 700;
+      width: 18px;
+      height: 1px;
+      background: var(--line);
       transform: translateY(-50%);
     }
 
@@ -575,12 +652,386 @@
       font-weight: 620;
     }
 
+    .diagram-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .compare-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .claude-character {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 8px;
+      color: var(--orange);
+      opacity: .96;
+    }
+
+    .claude-character svg {
+      display: block;
+      width: 104px;
+      height: auto;
+      shape-rendering: crispEdges;
+    }
+
+    .claude-character figcaption {
+      display: grid;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .claude-character figcaption strong {
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 740;
+    }
+
+    .claude-character figcaption span {
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 560;
+      white-space: nowrap;
+    }
+
+    .flow-node--character {
+      min-height: 144px;
+      padding: 10px;
+    }
+
+    .claude-character .pixel-fill {
+      fill: currentColor;
+    }
+
+    .claude-character .pixel-eye {
+      fill: #3f332f;
+    }
+
+    .map-lane {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .map-lane h3 {
+      margin: 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lane-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .flow-node {
+      display: grid;
+      align-content: center;
+      min-height: 108px;
+      padding: 16px;
+      border: 1px solid rgba(222,216,210,.92);
+      background: rgba(255,255,255,.82);
+    }
+
+    .flow-node small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .flow-node strong {
+      display: block;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 720;
+    }
+
+    .flow-node.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.78);
+    }
+
+    .flow-node.is-key strong {
+      color: var(--orange);
+    }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--orange);
+      font-size: 28px;
+      font-weight: 620;
+    }
+
+    .hub-map {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, .82fr) minmax(0, 1fr);
+      grid-template-rows: repeat(3, minmax(84px, auto));
+      gap: 16px 20px;
+      align-items: stretch;
+    }
+
+    .hub-center {
+      grid-column: 2;
+      grid-row: 1 / 4;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 12px;
+      align-self: center;
+      min-height: 260px;
+      border: 2px solid rgba(216,111,50,.58);
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 62%),
+        rgba(255,255,255,.92);
+      color: var(--ink);
+      text-align: center;
+      font-size: 30px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .hub-center .accent-text {
+      font-size: 1.08em;
+    }
+
+    .hub-center .claude-character svg {
+      width: 124px;
+    }
+
+    .hub-center .claude-character figcaption strong {
+      font-size: 22px;
+    }
+
+    .hub-center .claude-character figcaption span {
+      font-size: 14px;
+    }
+
+    .hub-item {
+      position: relative;
+      display: grid;
+      align-content: center;
+      min-height: 88px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .hub-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .hub-item span {
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 660;
+    }
+
+    .time-diagram {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .time-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .time-bar {
+      display: grid;
+      grid-template-columns: 120px 1fr 76px;
+      gap: 14px;
+      align-items: center;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.3;
+      font-weight: 620;
+    }
+
+    .time-track {
+      height: 22px;
+      border: 1px solid rgba(222,216,210,.95);
+      background: rgba(255,255,255,.82);
+    }
+
+    .time-fill {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--orange-2));
+    }
+
+    .automation-card {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+    }
+
+    .automation-card strong {
+      color: var(--orange);
+      font-size: 86px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .automation-card span {
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 720;
+    }
+
+    .automation-card .highlight-text {
+      color: var(--ink);
+      background: linear-gradient(180deg, transparent 54%, rgba(237,165,106,.34) 54%);
+    }
+
+    .pipeline-diagram {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .pipeline-box {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 14px;
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+      text-align: center;
+    }
+
+    .pipeline-box b {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .pipeline-box strong {
+      color: var(--ink);
+      font-size: 29px;
+      line-height: 1.25;
+      font-weight: 740;
+    }
+
+    .pipeline-box span {
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 540;
+    }
+
+    .pipeline-box.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.78);
+    }
+
+    .pipeline-box.is-key strong {
+      color: var(--orange);
+    }
+
+    .curriculum-map {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .curriculum-step {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+      min-height: 260px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .curriculum-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -19px;
+      z-index: 1;
+      width: 20px;
+      height: 1px;
+      background: var(--orange);
+    }
+
+    .step-no {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .curriculum-step h3 {
+      margin: 0;
+      font-size: 29px;
+      line-height: 1.25;
+    }
+
+    .curriculum-step.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.72);
+    }
+
+    .mini-flow {
+      display: grid;
+      gap: 8px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 560;
+    }
+
+    .mini-flow span {
+      padding: 8px 10px;
+      border-left: 3px solid rgba(216,111,50,.64);
+      background: rgba(255,255,255,.70);
+    }
+
     .band {
       padding: 20px 24px;
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(255,255,255,.90), rgba(255,247,240,.80));
-      box-shadow: 0 10px 24px rgba(52,42,34,.05), inset 0 1px 0 rgba(255,255,255,.92);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255,255,255,.94);
+      box-shadow: none;
       color: var(--text);
       font-size: 20px;
       line-height: 1.6;
@@ -596,10 +1047,10 @@
 
     .category {
       padding: 18px;
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       background: var(--glass);
-      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
+      box-shadow: none;
     }
 
     .category strong {
@@ -659,6 +1110,13 @@
       font-weight: 540;
     }
 
+    .toc-head .single-line-copy {
+      font-size: clamp(17px, 1.45vw, 23px);
+      line-height: 1.45;
+      white-space: nowrap;
+      text-wrap: nowrap;
+    }
+
     .toc-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -705,8 +1163,8 @@
       gap: 16px;
       align-items: center;
       padding: 20px;
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       background: var(--glass);
     }
 
@@ -715,8 +1173,9 @@
       place-items: center;
       width: 54px;
       height: 54px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange-soft), var(--rose-soft));
+      border-radius: 0;
+      background: transparent;
+      border-left: 3px solid var(--orange);
       color: var(--orange);
       font-size: 19px;
       font-weight: 680;
@@ -728,16 +1187,52 @@
       gap: 10px;
     }
 
+    .logo-grid.partners {
+      grid-template-columns: .9fr .9fr .9fr 1.32fr 1.02fr;
+      gap: 12px;
+    }
+
     .logo-box {
       display: grid;
       place-items: center;
       min-height: 92px;
-      border: 1px solid rgba(222,216,210,.86);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
       background: var(--glass);
       color: var(--text);
       font-size: 13px;
       font-weight: 560;
+    }
+
+    .logo-grid.partners .logo-box {
+      min-height: 142px;
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .logo-box.logo-fines {
+      font-weight: 640;
+      text-transform: lowercase;
+    }
+
+    .logo-box.logo-long {
+      padding: 18px 12px;
+      font-size: 16px;
+      line-height: 1.38;
+      text-align: center;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+
+    .logo-box.logo-service {
+      padding: 18px 12px;
+      font-size: 20px;
+      line-height: 1.34;
+      text-align: center;
+      word-break: keep-all;
     }
 
     .contact-stack {
@@ -791,16 +1286,16 @@
       gap: 6px;
       padding: 7px;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.74);
-      box-shadow: 0 12px 34px rgba(54, 40, 26, .12);
+      border-radius: 0;
+      background: rgba(255,255,255,.92);
+      box-shadow: none;
     }
 
     .nav {
       width: 38px;
       height: 38px;
       border: 0;
-      border-radius: 50%;
+      border-radius: 0;
       background: transparent;
       color: var(--orange);
       cursor: pointer;
@@ -808,7 +1303,7 @@
       line-height: 1;
     }
 
-    .nav:hover { background: var(--orange-soft); }
+    .nav:hover { background: #f6f1ec; }
 
     .count {
       min-width: 62px;
@@ -816,6 +1311,184 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 760;
+    }
+
+    @keyframes slideRise {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineReveal {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes nodePunch {
+      0% { opacity: 0; transform: translateY(18px); }
+      70% { opacity: 1; transform: translateY(-3px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes barGrow {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    @keyframes clawdPop {
+      0% { opacity: 0; transform: translateY(18px) scale(.86); }
+      72% { opacity: 1; transform: translateY(-4px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide.active .kicker {
+      animation: slideRise .78s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active h1,
+    .slide.active h2 {
+      animation: slideRise .92s cubic-bezier(.2,.8,.2,1) .14s both;
+    }
+
+    .slide.active .lead,
+    .slide.active .sub,
+    .slide.active .band {
+      animation: slideRise .86s cubic-bezier(.2,.8,.2,1) .38s both;
+    }
+
+    .slide.active .foot::before,
+    .slide.active .map-lane h3,
+    .slide.active .comparison h3,
+    .slide.active .toc-list,
+    .slide.active .toc-item,
+    .slide.active .rule {
+      transform-origin: left center;
+      animation: lineReveal .96s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active .card,
+    .slide.active .panel,
+    .slide.active .hub-item,
+    .slide.active .map-lane,
+    .slide.active .flow-node,
+    .slide.active .tool-step,
+    .slide.active .pipeline-box,
+    .slide.active .curriculum-step,
+    .slide.active .category,
+    .slide.active .time-stack,
+    .slide.active .automation-card,
+    .slide.active .logo-box,
+    .slide.active .contact-line {
+      animation: nodePunch .84s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active .hub-center,
+    .slide.active .flow-node--character .claude-character {
+      animation: clawdPop 1.05s cubic-bezier(.2,.8,.2,1) .40s both;
+    }
+
+    .slide.active .time-fill {
+      animation: barGrow 1.35s cubic-bezier(.2,.8,.2,1) .40s both;
+    }
+
+    .slide.active .card:nth-child(2),
+    .slide.active .panel:nth-child(2),
+    .slide.active .hub-item:nth-child(3),
+    .slide.active .flow-node:nth-child(3),
+    .slide.active .tool-step:nth-child(2),
+    .slide.active .pipeline-box:nth-child(3),
+    .slide.active .curriculum-step:nth-child(2),
+    .slide.active .category:nth-child(2),
+    .slide.active .time-bar:nth-child(2),
+    .slide.active .logo-box:nth-child(2) {
+      animation-delay: .28s;
+    }
+
+    .slide.active .card:nth-child(3),
+    .slide.active .hub-item:nth-child(4),
+    .slide.active .flow-node:nth-child(5),
+    .slide.active .tool-step:nth-child(3),
+    .slide.active .pipeline-box:nth-child(5),
+    .slide.active .curriculum-step:nth-child(3),
+    .slide.active .category:nth-child(3),
+    .slide.active .time-bar:nth-child(3),
+    .slide.active .logo-box:nth-child(3) {
+      animation-delay: .46s;
+    }
+
+    .slide.active .card:nth-child(4),
+    .slide.active .hub-item:nth-child(5),
+    .slide.active .tool-step:nth-child(4),
+    .slide.active .category:nth-child(4),
+    .slide.active .time-bar:nth-child(4),
+    .slide.active .logo-box:nth-child(4) {
+      animation-delay: .64s;
+    }
+
+    .slide.active .card:nth-child(5),
+    .slide.active .hub-item:nth-child(6),
+    .slide.active .logo-box:nth-child(5) {
+      animation-delay: .82s;
+    }
+
+    .slide.active .card:nth-child(6),
+    .slide.active .hub-item:nth-child(7),
+    .slide.active .logo-box:nth-child(n+6) {
+      animation-delay: 1s;
+    }
+
+    .slide.active .hub-map .hub-center {
+      animation-delay: .34s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(1) {
+      animation-delay: .82s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(2) {
+      animation-delay: 1.22s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(3) {
+      animation-delay: 1.62s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(4) {
+      animation-delay: 2.02s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(5) {
+      animation-delay: 2.42s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(6) {
+      animation-delay: 2.82s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) {
+      animation-duration: 1.65s;
+      animation-delay: 2.05s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(1) {
+      animation-delay: 2.55s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(3) {
+      animation-delay: 3.30s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(5) {
+      animation-delay: 4.05s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
     }
 
     @media (max-width: 980px) {
@@ -830,6 +1503,12 @@
       .comparison,
       .before-after,
       .arrow-row,
+      .compare-map,
+      .lane-flow,
+      .hub-map,
+      .time-diagram,
+      .pipeline-diagram,
+      .curriculum-map,
       .grid-2,
       .grid-3,
       .grid-4,
@@ -839,6 +1518,12 @@
         grid-template-columns: 1fr;
       }
       .tool-step::after { display: none; }
+      .hub-center {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 160px;
+      }
+      .curriculum-step::after { display: none; }
     }
 
     @media print {
@@ -875,21 +1560,21 @@
         <div class="company-wordmark"><span class="brand">ZETTAI<i></i></span></div>
         <div>
           <h1 class="company-title">株式会社ZETTAI</h1>
-          <p class="company-copy" style="margin-top:26px;">バックオフィスの現場知を、明日から使える業務改善に変える。</p>
+          <div class="meta-lines cover-meta">
+            <p>小潟 一翔｜株式会社ZETTAI 代表取締役</p>
+            <p>2026年 6月19日（金）20:00-21:00</p>
+          </div>
         </div>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="タイトル">
+    <section class="slide title-slide" data-title="タイトル">
       <div class="kicker">CLAUDE CODE × BACK OFFICE</div>
       <div class="body center">
-        <h1>バックオフィスでの<br>Claude Code活用法</h1>
-        <p class="lead">経理・総務・労務<br>非エンジニアが自分で業務ツールを作る</p>
-        <div class="meta-lines">
-          <p>2026年 6月19日（金）20:00-21:00</p>
-          <p>小潟 一翔｜株式会社ZETTAI 代表取締役</p>
-        </div>
+        <h1>バックオフィスでのClaude Code活用法</h1>
+        <p class="lead lead-title">バックオフィスの現場知を、明日から使える業務改善に変える。</p>
+        <p class="lead">経理・総務・労務　非エンジニアが自分で業務ツールを作る</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -899,10 +1584,10 @@
       <div class="body">
         <div class="toc-head">
           <h2>本日の流れ</h2>
-          <p>実物のデモを見ながら、バックオフィス業務をAIに任せる考え方と手順を整理します。</p>
+          <p class="single-line-copy">実物のデモを見ながら、バックオフィス業務をAIに任せる考え方と手順を整理する。</p>
         </div>
         <div class="toc-list">
-          <div class="toc-item"><span class="toc-no">01</span><div><strong>今日の到達点</strong><span>何ができるようになるか</span></div></div>
+          <div class="toc-item"><span class="toc-no">01</span><div><strong>今日の到達点</strong><span>業務で使える領域</span></div></div>
           <div class="toc-item"><span class="toc-no">02</span><div><strong>Claude Codeとは</strong><span>チャットAIとの違い</span></div></div>
           <div class="toc-item"><span class="toc-no">03</span><div><strong>経理ツールデモ</strong><span>請求書から仕訳・CSVまで</span></div></div>
           <div class="toc-item"><span class="toc-no">04</span><div><strong>業務化の4ステップ</strong><span>まとめる、渡す、育てる、自動化</span></div></div>
@@ -916,14 +1601,14 @@
     <section class="slide" data-title="到達点">
       <div class="kicker split"><b>Goal</b><span>01</span></div>
       <div class="body">
-        <h2>60分後、あなたの業務のどこにAIが使えるか<br>見え方が変わる</h2>
+        <h2 class="single-line-heading">60分後、<span class="highlight-text">自分の業務</span>のどこに<span class="highlight-text">AIが使えるか</span>見え方が変わる</h2>
         <div class="comparison">
           <div class="panel">
             <h3>このセミナーでやること</h3>
             <ul class="check-list">
-              <li>経理ツールの実物を、自分の目で操作してみます</li>
-              <li>同じツールを、AIにゼロから作らせる様子をライブで見ます</li>
-              <li>AIに業務を任せるための「4ステップ」を具体的に理解します</li>
+              <li>経理ツールの実物を、自分の目で操作する</li>
+              <li>同じツールを、AIにゼロから作らせる様子をライブで見る</li>
+              <li>AIに業務を任せるための「4ステップ」を具体的に理解する</li>
             </ul>
           </div>
           <div class="panel">
@@ -935,35 +1620,38 @@
             </ul>
           </div>
         </div>
-        <p class="band">今ある業務マニュアルをAIに渡す。それだけで定型作業が自動化されます。</p>
+        <p class="band">今ある<span class="highlight-text">業務マニュアル</span>をAIに渡す。それだけで<span class="highlight-strong">定型作業</span>は自動化できる。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Claude Codeとは">
+    <section class="slide claude-explain-slide" data-title="Claude Codeとは">
       <div class="kicker split"><b>What is Claude Code?</b><span>02</span></div>
       <div class="body">
-        <h2>日本語で話しかけると、<br>ファイルを読み書きして仕事をしてくれるAI</h2>
-        <div class="arrow-row">
-          <div class="panel card">
+        <h2 class="single-line-heading">バックオフィス業務で、<span class="highlight-text">ファイルを読み書き</span>して仕事を進めるAI</h2>
+        <div class="compare-map">
+          <div class="map-lane">
             <h3>従来のAIチャット</h3>
-            <ul class="small">
-              <li>代わりに答えてくれる</li>
-              <li>回答をもらって自分でコピペ</li>
-              <li>毎回同じ説明を伝え直す</li>
-            </ul>
+            <div class="lane-flow">
+              <div class="flow-node"><small>人</small><strong>質問を書く</strong></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node"><small>AI</small><strong>文章で答える</strong></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node"><small>人</small><strong>自分で転記・修正</strong></div>
+            </div>
           </div>
-          <div class="arrow">→</div>
-          <div class="panel card">
-            <h3>Claude Code</h3>
-            <ul class="small">
-              <li>仕事環境を把握して動く</li>
-              <li>ファイルを読み取ってCSVを出力</li>
-              <li>業務の手順を覚えて実行</li>
-            </ul>
+          <div class="map-lane">
+            <h3>バックオフィスでのClaude Code</h3>
+            <div class="lane-flow">
+              <div class="flow-node is-key"><small>経理・総務</small><strong>やりたい作業を伝える</strong></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node"><small>Claude Code</small><strong>帳票・CSVを読んで編集</strong></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node is-key"><small>完成</small><strong>仕訳・集計・資料ができる</strong></div>
+            </div>
           </div>
         </div>
-        <p class="lead">答えるAIではなく、作業するAIです。</p>
+        <p class="lead">経理・総務・労務の定型作業を、<span class="highlight-strong">回答</span>ではなく<span class="highlight-strong">成果物</span>に変える。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -972,34 +1660,53 @@
       <div class="kicker split"><b>Use cases</b><span>03</span></div>
       <div class="body">
         <h2>Claude Codeでできること</h2>
-        <div class="grid-3">
-          <div class="card"><span class="icon">01</span><h3>ファイル操作</h3><p>CSV・Excel・PDFを読み取り、別の形式に変換・出力。</p></div>
-          <div class="card"><span class="icon">02</span><h3>ツール作成</h3><p>業務用の入力画面や自動処理の仕組みをその場で構築。</p></div>
-          <div class="card"><span class="icon">03</span><h3>外部連携</h3><p>freee・Gmail・Slack・Googleカレンダーなどに接続。</p></div>
-          <div class="card"><span class="icon">04</span><h3>自動化</h3><p>毎月・毎週のスケジュール実行、繰り返し作業をゼロに。</p></div>
-          <div class="card"><span class="icon">05</span><h3>修正・改善</h3><p>「ここを直して」の一言でルールや画面を修正。</p></div>
-          <div class="card"><span class="icon">06</span><h3>記録</h3><p>実行内容や結果を残し、引き継ぎ資料として使える形に。</p></div>
+        <div class="hub-map">
+          <div class="hub-item"><strong>01</strong><span>CSV・Excel・PDFを読む</span></div>
+          <div class="hub-center">
+            <figure class="claude-character" aria-label="Claude CodeのマスコットClawd">
+              <figcaption><strong>Claude Code</strong><span>ファイルを読んで作業するAI</span></figcaption>
+              <svg viewBox="0 0 216 158" role="img">
+                <rect class="pixel-fill" x="64" y="43" width="109" height="44"/>
+                <rect class="pixel-fill" x="46" y="87" width="146" height="23"/>
+                <rect class="pixel-fill" x="64" y="110" width="109" height="22"/>
+                <rect class="pixel-fill" x="73" y="132" width="12" height="22"/>
+                <rect class="pixel-fill" x="94" y="132" width="8" height="22"/>
+                <rect class="pixel-fill" x="138" y="132" width="13" height="22"/>
+                <rect class="pixel-fill" x="160" y="132" width="8" height="22"/>
+                <rect class="pixel-eye" x="83" y="65" width="9" height="23"/>
+                <rect class="pixel-eye" x="146" y="65" width="9" height="23"/>
+              </svg>
+            </figure>
+          </div>
+          <div class="hub-item"><strong>02</strong><span>入力画面を作る</span></div>
+          <div class="hub-item"><strong>03</strong><span>freee・Gmail・Slackにつなぐ</span></div>
+          <div class="hub-item"><strong>04</strong><span>毎月の作業を予約実行</span></div>
+          <div class="hub-item"><strong>05</strong><span>日本語で修正・改善</span></div>
+          <div class="hub-item"><strong>06</strong><span>実行記録を資料化</span></div>
         </div>
-        <p class="band">これらを全部、日本語の指示だけで実現できます。</p>
+        <p class="band">これらはすべて、<span class="highlight-strong">日本語の指示だけ</span>で実現できる。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="請求書処理の現状">
+    <section class="slide no-footer-rule" data-title="請求書処理の現状">
       <div class="kicker split"><b>Problem</b><span>04</span></div>
       <div class="body">
-        <h2>月10時間を請求書処理に使っている</h2>
-        <div class="category-row">
-          <div class="category"><strong>入力4時間</strong><p>毎月の入力・突合作業</p></div>
-          <div class="category"><strong>科目判定ミス</strong><p>金額や用途ごとの判断</p></div>
-          <div class="category"><strong>転記ミス</strong><p>人手で起こる確認戻り</p></div>
-          <div class="category"><strong>同じ作業の繰り返し</strong><p>毎月ほぼ同じルール</p></div>
+        <h2 class="orange-heading"><span class="highlight-text">月10時間</span>を請求書処理に使っている</h2>
+        <p class="lead">つまり、手順が決まっている<span class="highlight-strong">定型業務</span>から始めるのが最もわかりやすい。</p>
+        <div class="time-diagram">
+          <div class="time-stack">
+            <div class="time-bar"><span>入力</span><span class="time-track"><span class="time-fill" style="--w:40%;"></span></span><b>4h</b></div>
+            <div class="time-bar"><span>科目判定</span><span class="time-track"><span class="time-fill" style="--w:20%;"></span></span><b>2h</b></div>
+            <div class="time-bar"><span>転記確認</span><span class="time-track"><span class="time-fill" style="--w:20%;"></span></span><b>2h</b></div>
+            <div class="time-bar"><span>例外対応</span><span class="time-track"><span class="time-fill" style="--w:20%;"></span></span><b>2h</b></div>
+          </div>
+          <div class="automation-card">
+            <strong>8割</strong>
+            <span>請求書処理の<span class="highlight-text">8割はClaudeに任せられる</span></span>
+            <p class="small">入力・判定・転記はAI、人は例外対応と最後の確認を担当する。</p>
+          </div>
         </div>
-        <div class="comparison">
-          <div class="panel card"><h3>すぐできる</h3><p>請求書仕訳、勤怠集計、経費精算</p></div>
-          <div class="panel card"><h3>確認付き</h3><p>税務判断、給与判断、契約確認</p></div>
-        </div>
-        <p class="lead">この8割は「ルールが決まった作業」→ AIに渡せます。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1008,29 +1715,31 @@
       <div class="kicker split"><b>Demo</b><span>05</span></div>
       <div class="body">
         <h2>百聞は一見にしかず。</h2>
-        <p class="lead">今から、経理ツールの実物をお見せします</p>
-        <div class="grid-3">
-          <div class="card"><span class="icon">A</span><h3>請求書5件を一瞬で読み取り</h3></div>
-          <div class="card"><span class="icon">B</span><h3>勘定科目を自動で仕訳</h3></div>
-          <div class="card"><span class="icon">C</span><h3>CSV出力・レポートまで完成</h3></div>
+        <p class="lead">ここから、経理ツールの実物を見る</p>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>INPUT</b><strong>請求書PDF</strong><span>5件をまとめて投入</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>PROCESS</b><strong>読取・仕訳</strong><span>金額、取引先、科目を判定</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>CSV・レポート</strong><span>freee取り込み用に整形</span></div>
         </div>
-        <p class="band">これを全部、プログラミングなし・日本語の指示だけで作りました。</p>
+        <p class="band">これはすべて、<span class="highlight-strong">プログラミングなし</span>・<span class="highlight-strong">日本語の指示だけ</span>で作ったものである。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="AIが同じツールを作る">
-      <div class="kicker split"><b>Live build</b><span>06</span></div>
+    <section class="slide" data-title="実演の整理">
+      <div class="kicker split"><b>Demo recap</b><span>06</span></div>
       <div class="body">
-        <h2>今この瞬間、AIが同じツールを<br>ゼロから作っています</h2>
-        <div class="band">請求書 → 仕訳 → CSV</div>
-        <div class="tool-flow">
-          <div class="tool-step"><b>STEP 1</b><span>指示を読む</span></div>
-          <div class="tool-step"><b>STEP 2</b><span>業務ルールを整理</span></div>
-          <div class="tool-step"><b>STEP 3</b><span>画面を作る</span></div>
-          <div class="tool-step"><b>STEP 4</b><span>出力を整える</span></div>
+        <h2 class="single-line-heading">Claude Codeを使えば、<span class="highlight-text">自分で業務ツールを作れる</span></h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>INPUT</b><strong>自分の業務ルール</strong><span>普段の手順をそのまま渡す</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>CLAUDE CODE</b><strong>読み取り・判定・作成</strong><span>日本語の指示でツールを作る</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>自分専用の業務ツール</strong><span>確認しながら毎月使える形にする</span></div>
         </div>
-        <p class="sub">さっき渡したのは「業務の手順書」1つだけ。セミナーの最後に、完成したものをお見せします。</p>
+        <p class="band"><span class="highlight-text">外注や情シス待ちではなく</span>、現場の人が自分で小さなツールを作れる状態になる。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1038,14 +1747,14 @@
     <section class="slide" data-title="4ステップ">
       <div class="kicker split"><b>Framework</b><span>07</span></div>
       <div class="body">
-        <h2>業務のやり方をまとめる → AIに渡す<br>直しながら育てる → 自動化</h2>
+        <h2>自分で作るために必要なのは、<span class="highlight-text">この4ステップ</span></h2>
         <div class="tool-flow">
-          <div class="tool-step"><b>① まとめる</b><span>普段やっている業務の手順を文章にする</span></div>
-          <div class="tool-step"><b>② 渡す</b><span>AIに読み込ませて処理させる</span></div>
-          <div class="tool-step"><b>③ 育てる</b><span>間違いを直して精度を上げる</span></div>
-          <div class="tool-step"><b>④ 自動化</b><span>保存して毎月同じ作業を回す</span></div>
+          <div class="tool-step"><b>STEP 1</b><span>自分の定型業務を1つ選ぶ</span></div>
+          <div class="tool-step"><b>STEP 2</b><span>判断ルールを日本語で書く</span></div>
+          <div class="tool-step"><b>STEP 3</b><span>Claude Codeで試作品を作る</span></div>
+          <div class="tool-step"><b>STEP 4</b><span>確認しながら自分で改善する</span></div>
         </div>
-        <p class="band">経理でも総務でも労務でも、この4ステップは変わりません。</p>
+        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">この4ステップ</span>を自分の業務で実際に練習する。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1053,24 +1762,40 @@
     <section class="slide" data-title="事例">
       <div class="kicker split"><b>Examples</b><span>08</span></div>
       <div class="body">
-        <h2>今見た経理ツールは、ほんの一例です</h2>
-        <div class="grid-2">
-          <div class="card"><h3>事例① 勤怠集計ツール</h3><p>出退勤データ → 残業時間・有休残数を自動計算 → 月次レポート</p></div>
-          <div class="card"><h3>事例② 経費精算チェッカー</h3><p>領収書データ → 科目判定 + 上限超過アラート → 一覧表</p></div>
-          <div class="card"><h3>事例③ 契約更新リマインダー</h3><p>契約一覧 → 更新期限の30日前に自動通知 → チェックリスト</p></div>
-          <div class="card"><h3>事例④ 社内問い合わせ自動回答</h3><p>就業規則をAIに読み込み → 社員の質問に自動回答</p></div>
+        <h2>自分で作れるツールは、<span class="highlight-text">バックオフィスに限らない</span></h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">バックオフィス</span><h3>請求・契約・勤怠</h3><p>請求書チェック、契約更新、勤怠集計を自分で作る。</p></div>
+          <div class="card"><span class="icon">営業・CS</span><h3>見積・問い合わせ</h3><p>見積作成、顧客対応メモ、問い合わせ分類を自分で作る。</p></div>
+          <div class="card"><span class="icon">現場・管理</span><h3>日報・在庫・進捗</h3><p>日報整理、在庫チェック、進捗レポートを自分で作る。</p></div>
         </div>
-        <p class="band">全部、プログラミングなし。業務の手順書を渡すだけで作れます。</p>
+        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">職種を問わず</span>、受講者自身の業務を題材にして「自分で作る力」を身につける。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="問い">
-      <div class="kicker split"><b>Question</b><span>09</span></div>
-      <div class="body center">
-        <h2>Claude Codeを使いこなせるようになったら、<br>何をしたいですか？</h2>
-        <p class="sub">日本語の指示だけで業務ツールが作れるとしたら、<br>あなたの日常業務で何を自動化したいですか？</p>
-        <p class="band">チャットに書いてみてください。どんな内容でもOKです。</p>
+    <section class="slide" data-title="業務の選び方">
+      <div class="kicker split"><b>Choose</b><span>09</span></div>
+      <div class="body">
+        <h2>最初に作る業務は、<span class="highlight-text">こう選ぶ</span></h2>
+        <div class="comparison">
+          <div class="panel pad">
+            <h3>まず作りやすい業務</h3>
+            <ul class="check-list">
+              <li>毎月同じ手順でくり返している</li>
+              <li>元データと完成形が決まっている</li>
+              <li>最後は人が確認できる</li>
+            </ul>
+          </div>
+          <div class="panel pad">
+            <h3>最初は避ける業務</h3>
+            <ul class="x-list">
+              <li>例外が多く、ルールにできない</li>
+              <li>法的判断や最終承認が中心</li>
+              <li>必要なデータの場所が分からない</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">自分の業務</span>から最初に作るツールを一緒に選ぶ。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1078,13 +1803,37 @@
     <section class="slide" data-title="研修スタート">
       <div class="kicker split"><b>Training</b><span>10</span></div>
       <div class="body">
-        <h2>「プログラミングって何？」から始めた方たちが、<br>今では自分で業務ツールを作っています</h2>
-        <div class="grid-3">
-          <div class="card"><h3>事務</h3><p>Excel・PDF・CSVを整理</p></div>
-          <div class="card"><h3>総務</h3><p>問い合わせ対応を効率化</p></div>
-          <div class="card"><h3>営業事務</h3><p>見積・契約書の作成を補助</p></div>
+        <h2 class="training-heading">株式会社ZETTAIの研修を受けた受講者は、Claude Codeで<span class="highlight-text">自分の業務ツールを作れる</span></h2>
+        <div class="curriculum-map">
+          <div class="curriculum-step">
+            <span class="step-no">STEP 1</span>
+            <h3>業務を整理する</h3>
+            <div class="mini-flow">
+              <span>手順を書き出す</span>
+              <span>入力・出力を決める</span>
+              <span>AIに渡す形にする</span>
+            </div>
+          </div>
+          <div class="curriculum-step">
+            <span class="step-no">STEP 2</span>
+            <h3>Claude Codeで作る</h3>
+            <div class="mini-flow">
+              <span>Claude Codeで試作</span>
+              <span>実データで確認</span>
+              <span>日本語で修正</span>
+            </div>
+          </div>
+          <div class="curriculum-step">
+            <span class="step-no">GOAL</span>
+            <h3>自分で改善する</h3>
+            <div class="mini-flow">
+              <span>チームに説明できる</span>
+              <span>来月も同じ手順で使う</span>
+              <span>必要なら自分で改善</span>
+            </div>
+          </div>
         </div>
-        <p class="band">全員、非エンジニア。研修前はAIに触れたこともない状態からのスタートでした。</p>
+        <p class="band">研修前にAIへ触れたことがない場合でも、<span class="highlight-strong">自分の業務を題材</span>にして作り方を身につけられる。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1092,7 +1841,7 @@
     <section class="slide" data-title="Before After">
       <div class="kicker split"><b>Before / After</b><span>11</span></div>
       <div class="body">
-        <h2>研修前と研修後で、これだけ変わります</h2>
+        <h2><span class="highlight-text">研修前と研修後</span>で、これだけ変わる</h2>
         <div class="before-after">
           <div class="panel">
             <h3>Before</h3>
@@ -1116,16 +1865,40 @@
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="学ぶこと">
+    <section class="slide no-footer-rule" data-title="学ぶこと">
       <div class="kicker split"><b>Curriculum</b><span>12</span></div>
       <div class="body">
-        <h2>今お見せしたツールの作り方、<br>ゼロから学べます</h2>
-        <div class="grid-3">
-          <div class="card"><span class="icon">1</span><h3>設計方法</h3><p>AIに業務を正しく伝えるための設計方法</p></div>
-          <div class="card"><span class="icon">2</span><h3>構築・改善</h3><p>業務ツールの構築・改善の進め方</p></div>
-          <div class="card"><span class="icon">3</span><h3>連携・自動化</h3><p>自動化や他ツールとの連携方法</p></div>
+        <h2 class="single-line-heading">今見たツールの作り方は、<span class="highlight-text">ゼロから学べる</span></h2>
+        <div class="curriculum-map">
+          <div class="curriculum-step">
+            <span class="step-no">STEP 1</span>
+            <h3>設計方法</h3>
+            <div class="mini-flow">
+              <span>業務を書き出す</span>
+              <span>入力と出力を決める</span>
+              <span>AIに渡す形に整える</span>
+            </div>
+          </div>
+          <div class="curriculum-step">
+            <span class="step-no">STEP 2</span>
+            <h3>構築・改善</h3>
+            <div class="mini-flow">
+              <span>小さく作る</span>
+              <span>実データで試す</span>
+              <span>日本語で直す</span>
+            </div>
+          </div>
+          <div class="curriculum-step">
+            <span class="step-no">STEP 3</span>
+            <h3>連携・自動化</h3>
+            <div class="mini-flow">
+              <span>freee・Gmailへ接続</span>
+              <span>定期実行にする</span>
+              <span>毎月の業務で使う</span>
+            </div>
+          </div>
         </div>
-        <p class="band">初心者でも一から身につけられる研修を、株式会社ZETTAIが提供しています。</p>
+        <p class="band"><span class="highlight-strong">初心者でも一から身につけられる研修</span>を、株式会社ZETTAIが提供している。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1133,14 +1906,14 @@
     <section class="slide" data-title="伴走支援">
       <div class="kicker split"><b>Support</b><span>13</span></div>
       <div class="body">
-        <h2 class="one-line-title">あなたの業務に密着して、ゼロから伴走します</h2>
+        <h2 class="one-line-title">自分の業務に密着して、<span class="highlight-text">ゼロから伴走する</span></h2>
         <div class="grid-2">
           <div class="card"><h3>期間を選べる</h3><p>2日間の集中コース / 4日間のじっくりコースなど</p></div>
-          <div class="card"><h3>あなたの業務が教材</h3><p>実際の業務データ・手順書を使って、実務に直結するAIの使い方を設計</p></div>
+          <div class="card"><h3>自社業務が教材</h3><p>実際の業務データ・手順書を使って、実務に直結するAIの使い方を設計</p></div>
           <div class="card"><h3>研修後に手に入る力</h3><p>業務の手順をAIに渡す力 / ツールを自分で改善する力</p></div>
           <div class="card"><h3>サポート</h3><p>研修後もチャットで質問OK</p></div>
         </div>
-        <p class="lead">詳細・お問い合わせ → claudecode.co.jp</p>
+        <p class="lead">詳細・問い合わせ → claudecode.co.jp</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1148,12 +1921,15 @@
     <section class="slide" data-title="実績">
       <div class="kicker split"><b>Proof</b><span>14</span></div>
       <div class="body">
-        <h2>これまでにお伝えしてきた企業の<br>一部をご紹介します</h2>
-        <div class="logo-grid">
-          <div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div>
-          <div class="logo-box">研修風景</div><div class="logo-box">研修風景</div><div class="logo-box">研修風景</div><div class="logo-box">上場準備中企業・大手企業など</div><div class="logo-box">実務導入あり</div>
+        <h2 class="single-line-heading">これまでに研修・支援を行ってきた企業</h2>
+        <div class="logo-grid partners">
+          <div class="logo-box logo-wiz">Wiz</div>
+          <div class="logo-box logo-fines">fines</div>
+          <div class="logo-box logo-xim">XIM</div>
+          <div class="logo-box logo-long">株式会社アセットビジネス<br>コンサルティング</div>
+          <div class="logo-box logo-service">他会社の社長の<br>個別研修</div>
         </div>
-        <p class="band">業種・規模を問わず、非エンジニアの方が成果を出しています。</p>
+        <p class="band">法人研修・個別研修のどちらも、業務に合わせてClaude Codeを使える状態まで支援。<br>他にも研修依頼を多数いただいている。</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1161,8 +1937,8 @@
     <section class="slide" data-title="Q&A">
       <div class="kicker split"><b>Q&A</b><span>15</span></div>
       <div class="body center">
-        <h2>ご質問をどうぞ</h2>
-        <p class="sub">チャット欄にお気軽に書き込んでください</p>
+        <h2>質問受付</h2>
+        <p class="sub">チャット欄に質問募集</p>
       </div>
       <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
@@ -1171,7 +1947,7 @@
       <div class="kicker split"><b>Contact</b><span>16</span></div>
       <div class="body center">
         <h2>本日はありがとうございました</h2>
-        <p class="sub">個別相談・導入支援のご依頼はお気軽に</p>
+        <p class="sub">個別相談・導入支援の依頼先</p>
         <div class="contact-stack">
           <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAI</span></p>
           <div class="contact-list">
