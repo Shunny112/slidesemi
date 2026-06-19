@@ -312,6 +312,10 @@
       -webkit-box-decoration-break: clone;
     }
 
+    .highlight-nowrap {
+      white-space: nowrap;
+    }
+
     .highlight-strong {
       display: inline-block;
       padding: .05em .18em .1em;
@@ -488,6 +492,477 @@
       gap: 6px;
       font-size: 18px;
       text-align: left;
+    }
+
+    .zettai-profile .body {
+      gap: 24px;
+    }
+
+    .profile-hero {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 34px;
+      align-items: stretch;
+    }
+
+    .profile-photo {
+      position: relative;
+      min-height: 470px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.88) contrast(.96);
+    }
+
+    .profile-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(18,18,18,.34), transparent 58%),
+        linear-gradient(180deg, transparent 62%, rgba(18,18,18,.30));
+      pointer-events: none;
+    }
+
+    .profile-logo-photo {
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      border: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 54%),
+        radial-gradient(ellipse at 52% 56%, rgba(201,101,92,.10), transparent 44%);
+    }
+
+    .profile-logo-photo::after {
+      content: none;
+    }
+
+    .profile-logo-photo img {
+      width: min(76%, 430px);
+      height: 310px;
+      object-fit: contain;
+      opacity: .92;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 12px 20px rgba(103,63,35,.10));
+    }
+
+    .profile-logo-photo .photo-caption {
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .profile-visual-stack {
+      display: grid;
+      grid-template-rows: 132px 1fr;
+      gap: 12px;
+      min-height: 470px;
+    }
+
+    .profile-logo-block {
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.18), transparent 58%),
+        radial-gradient(ellipse at 52% 56%, rgba(201,101,92,.09), transparent 48%);
+    }
+
+    .profile-logo-block img {
+      width: min(58%, 260px);
+      height: 110px;
+      object-fit: contain;
+      opacity: .92;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 8px 16px rgba(103,63,35,.10));
+    }
+
+    .profile-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 170px 140px;
+      gap: 10px;
+    }
+
+    .profile-gallery figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .profile-gallery figure:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .profile-gallery img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .profile-gallery__room img {
+      object-position: 50% 52%;
+    }
+
+    .profile-gallery__meeting img {
+      object-position: 50% 48%;
+    }
+
+    .profile-gallery__workshop img {
+      object-position: 50% 50%;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      z-index: 1;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 620;
+    }
+
+    .profile-copy {
+      display: grid;
+      align-content: center;
+      gap: 22px;
+    }
+
+    .profile-copy h2 {
+      text-align: left;
+      font-size: clamp(34px, 3.2vw, 52px);
+    }
+
+    .profile-copy .lead {
+      text-align: left;
+      font-size: clamp(20px, 1.75vw, 28px);
+      line-height: 1.55;
+    }
+
+    .profile-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: rgba(255,255,255,.82);
+    }
+
+    .profile-fact {
+      display: grid;
+      gap: 6px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-fact b {
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .profile-fact span {
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.4;
+      font-weight: 620;
+    }
+
+    .source-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 520;
+    }
+
+    .service-overview {
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .service-photo {
+      min-height: 430px;
+    }
+
+    .service-list {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .service-overview--text {
+      display: block;
+    }
+
+    .service-overview--photos {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .business-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, 160px);
+      gap: 10px;
+      min-height: 330px;
+    }
+
+    .business-photo-grid figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .business-photo-grid img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .business-photo-grid__wide img {
+      object-position: 50% 50%;
+    }
+
+    .business-photo-grid__table img {
+      object-position: 50% 55%;
+    }
+
+    .business-photo-grid__dev img {
+      object-position: 50% 47%;
+    }
+
+    .business-photo-grid__room img {
+      object-position: 50% 52%;
+    }
+
+    .service-list--wide {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-content: stretch;
+    }
+
+    .service-line {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(150,142,134,.42);
+    }
+
+    .service-line b {
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .service-line strong {
+      display: block;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .service-line span {
+      display: block;
+      margin-top: 6px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 540;
+    }
+
+    .service-list--wide .service-line {
+      grid-template-columns: 56px 1fr;
+      align-items: start;
+      min-height: 150px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .service-list--wide .service-line strong {
+      font-size: 26px;
+    }
+
+    .service-list--wide .service-line span {
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .service-overview--photos .service-list--wide {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .service-overview--photos .service-list--wide .service-line {
+      grid-template-columns: 44px 1fr;
+      min-height: auto;
+      padding: 14px 16px;
+    }
+
+    .service-overview--photos .service-list--wide .service-line strong {
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .service-overview--photos .service-list--wide .service-line span {
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .team-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .team-panel {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 26px 30px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .team-metric {
+      display: grid;
+      gap: 4px;
+    }
+
+    .team-metric b {
+      color: var(--orange);
+      font-size: clamp(60px, 6vw, 96px);
+      line-height: .95;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .team-metric span {
+      color: var(--ink);
+      font-size: 26px;
+      line-height: 1.25;
+      font-weight: 720;
+    }
+
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .student-dot {
+      display: block;
+      aspect-ratio: 1;
+      border: 1px solid rgba(216,111,50,.36);
+      background:
+        radial-gradient(circle at 50% 38%, rgba(216,111,50,.18) 0 23%, transparent 24%),
+        linear-gradient(180deg, rgba(255,247,241,.96), rgba(255,255,255,.84));
+    }
+
+    .team-note {
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: 560;
+    }
+
+    .team-photo-layout {
+      grid-template-columns: .86fr 1.14fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .team-copy-panel {
+      min-height: 420px;
+    }
+
+    .team-copy-panel .check-list {
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .team-copy-panel .team-metric span {
+      font-size: 22px;
+      white-space: nowrap;
+    }
+
+    .team-photo-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-height: 420px;
+    }
+
+    .team-photo {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .team-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .team-photo--night img {
+      object-position: 50% 49%;
+    }
+
+    .team-photo--office img {
+      object-position: 50% 45%;
+    }
+
+    .team-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(18,18,18,.50));
+      pointer-events: none;
+    }
+
+    .team-photo figcaption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 12px;
+      z-index: 1;
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 640;
+      text-shadow: 0 1px 8px rgba(0,0,0,.34);
     }
 
     .grid-2,
@@ -1089,18 +1564,23 @@
 
     .toc-slide .body {
       align-content: center;
-      gap: 34px;
+      gap: 28px;
     }
 
     .toc-head {
       display: grid;
-      grid-template-columns: .72fr 1fr;
-      gap: 56px;
-      align-items: end;
+      grid-template-columns: max-content 1fr;
+      gap: 44px;
+      align-items: center;
     }
 
     .toc-head h2 {
       text-align: left;
+      width: max-content;
+      max-width: none;
+      font-size: clamp(44px, 4.1vw, 64px);
+      white-space: nowrap;
+      text-wrap: nowrap;
     }
 
     .toc-head p {
@@ -1120,8 +1600,11 @@
     .toc-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 56px;
+      grid-template-rows: repeat(4, auto);
+      grid-auto-flow: column;
+      gap: 0;
       border-top: 1px solid rgba(150,142,134,.58);
+      column-gap: 56px;
     }
 
     .toc-item {
@@ -1129,7 +1612,7 @@
       grid-template-columns: 54px 1fr;
       gap: 18px;
       align-items: baseline;
-      padding: 22px 0;
+      padding: 13px 0;
       border-bottom: 1px solid rgba(150,142,134,.48);
     }
 
@@ -1143,7 +1626,7 @@
     .toc-item strong {
       display: block;
       color: var(--ink);
-      font-size: 25px;
+      font-size: 23px;
       line-height: 1.35;
       font-weight: 680;
     }
@@ -1505,6 +1988,11 @@
       .arrow-row,
       .compare-map,
       .lane-flow,
+      .profile-hero,
+      .profile-facts,
+      .service-overview,
+      .team-layout,
+      .team-photo-board,
       .hub-map,
       .time-diagram,
       .pipeline-diagram,
@@ -1555,18 +2043,112 @@
 <body>
   <main class="deck">
     <section class="slide active company-cover" data-title="会社紹介">
-      <div class="kicker split"><b>株式会社ZETTAI</b></div>
+      <div class="kicker split"><b>株式会社ZETTAi</b></div>
       <div class="body">
-        <div class="company-wordmark"><span class="brand">ZETTAI<i></i></span></div>
+        <div class="company-wordmark"><span class="brand">ZETTAi<i></i></span></div>
         <div>
-          <h1 class="company-title">株式会社ZETTAI</h1>
+          <h1 class="company-title">株式会社ZETTAi</h1>
           <div class="meta-lines cover-meta">
-            <p>小潟 一翔｜株式会社ZETTAI 代表取締役</p>
+            <p>小潟 一翔｜株式会社ZETTAi 代表取締役</p>
             <p>2026年 6月19日（金）20:00-21:00</p>
           </div>
         </div>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide toc-slide" data-title="目次">
+      <div class="kicker split"><b>Agenda</b><span>00</span></div>
+      <div class="body">
+        <div class="toc-head">
+          <h2>本日の流れ</h2>
+          <p class="single-line-copy">株式会社ZETTAiの紹介から、バックオフィス業務をAIに任せる考え方と手順を整理する。</p>
+        </div>
+        <div class="toc-list">
+          <div class="toc-item"><span class="toc-no">01</span><div><strong>株式会社ZETTAiについて</strong><span>会社概要・事業・チーム体制</span></div></div>
+          <div class="toc-item"><span class="toc-no">02</span><div><strong>今日の到達点</strong><span>業務で使える領域</span></div></div>
+          <div class="toc-item"><span class="toc-no">03</span><div><strong>Claude Codeとは</strong><span>チャットAIとの違い</span></div></div>
+          <div class="toc-item"><span class="toc-no">04</span><div><strong>経理ツールデモ</strong><span>請求書から仕訳・CSVまで</span></div></div>
+          <div class="toc-item"><span class="toc-no">05</span><div><strong>業務化の4ステップ</strong><span>まとめる、渡す、育てる、自動化</span></div></div>
+          <div class="toc-item"><span class="toc-no">06</span><div><strong>バックオフィス事例</strong><span>経理・総務・労務への展開</span></div></div>
+          <div class="toc-item"><span class="toc-no">07</span><div><strong>研修と伴走支援</strong><span>社内で使える力に変える</span></div></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile" data-title="株式会社ZETTAiについて">
+      <div class="kicker split"><b>Company Profile</b><span>00-1</span></div>
+      <div class="body">
+        <div class="profile-hero">
+          <figure class="profile-photo profile-logo-photo">
+            <img src="zettai-logo-transparent.png" alt="株式会社ZETTAi ロゴ">
+            <figcaption class="photo-caption">株式会社ZETTAi</figcaption>
+          </figure>
+          <div class="profile-copy">
+            <h2>AIを、現場で使える<span class="highlight-text highlight-nowrap">業務改善の力</span>に変える会社</h2>
+            <p class="lead">株式会社ZETTAiは、AIコンサルティング・DX支援、Web・iOS・AIプロダクト開発、AI研修事業を展開している。</p>
+            <div class="profile-facts">
+              <div class="profile-fact"><b>設立</b><span>2025年7月22日</span></div>
+              <div class="profile-fact"><b>代表</b><span>小潟 一翔</span></div>
+              <div class="profile-fact"><b>資本金</b><span>1175万円</span></div>
+              <div class="profile-fact"><b>従業員数</b><span>35名</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>zettai.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile" data-title="事業領域">
+      <div class="kicker split"><b>Business Domain</b><span>00-2</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">ZETTAiは、<span class="highlight-text">AI内製化</span>を軸に事業を展開している</h2>
+        <div class="service-overview service-overview--photos">
+          <div class="business-photo-grid" aria-label="株式会社ZETTAiの研修風景">
+            <figure class="business-photo-grid__wide"><img src="S__6135830.jpg" alt="株式会社ZETTAiの研修風景"></figure>
+            <figure class="business-photo-grid__room"><img src="S__6135835.jpg" alt="株式会社ZETTAiの研修会場"></figure>
+            <figure class="business-photo-grid__table"><img src="S__6135829.jpg" alt="株式会社ZETTAiの研修中の様子"></figure>
+            <figure class="business-photo-grid__dev"><img src="S__6135831.jpg" alt="株式会社ZETTAiの開発支援の様子"></figure>
+          </div>
+          <div class="service-list service-list--wide">
+            <div class="service-line"><b>01</b><div><strong>AI内製化研修</strong><span>Claude Code研修を通じて、非エンジニアでも業務ツールを作れる状態を目指す。</span></div></div>
+            <div class="service-line"><b>02</b><div><strong>AIコンサルティング・DX支援</strong><span>業務課題を題材にし、本番導入まで伴走する。</span></div></div>
+            <div class="service-line"><b>03</b><div><strong>Web・iOS・AIプロダクト開発</strong><span>企画、開発、運用までをワンストップで支援する。</span></div></div>
+            <div class="service-line"><b>04</b><div><strong>AI人材・AIサービス</strong><span>AI人材バンク、AI活用代行、検索対策など周辺領域も展開する。</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile no-footer-rule" data-title="専門チーム">
+      <div class="kicker split"><b>Expert Team</b><span>00-3</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">Claude Codeや生成AIを使い込む<span class="highlight-text">専門チーム</span>が支える</h2>
+        <div class="team-layout team-photo-layout">
+          <div class="team-panel team-copy-panel">
+            <div class="team-metric"><b>25</b><span>Claude Code・生成AI専門の学生メンバー</span></div>
+            <p class="team-note">現場の課題に合わせて、調査・設計・試作・改善までを細かく回せる体制。</p>
+            <ul class="check-list">
+              <li>Claude Codeや生成AIを日常的に使い込む学生が中心</li>
+              <li>バックオフィス向けの試作を高速に回せる</li>
+              <li>非エンジニアにも伝わる研修へ落とし込む</li>
+            </ul>
+          </div>
+          <div class="team-photo-board">
+            <figure class="team-photo team-photo--office">
+              <img src="S__13877304.jpg" alt="株式会社ZETTAiの学生メンバー集合写真">
+              <figcaption>研修・開発支援を支える専門チーム</figcaption>
+            </figure>
+            <figure class="team-photo team-photo--night">
+              <img src="S__13631533.jpg" alt="株式会社ZETTAiの学生メンバー集合写真">
+              <figcaption>Claude Code・生成AIを使い込む学生メンバー</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>zettai.co.jp</span></div>
     </section>
 
     <section class="slide title-slide" data-title="タイトル">
@@ -1576,26 +2158,7 @@
         <p class="lead lead-title">バックオフィスの現場知を、明日から使える業務改善に変える。</p>
         <p class="lead">経理・総務・労務　非エンジニアが自分で業務ツールを作る</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
-    </section>
-
-    <section class="slide toc-slide" data-title="目次">
-      <div class="kicker split"><b>Agenda</b><span>00</span></div>
-      <div class="body">
-        <div class="toc-head">
-          <h2>本日の流れ</h2>
-          <p class="single-line-copy">実物のデモを見ながら、バックオフィス業務をAIに任せる考え方と手順を整理する。</p>
-        </div>
-        <div class="toc-list">
-          <div class="toc-item"><span class="toc-no">01</span><div><strong>今日の到達点</strong><span>業務で使える領域</span></div></div>
-          <div class="toc-item"><span class="toc-no">02</span><div><strong>Claude Codeとは</strong><span>チャットAIとの違い</span></div></div>
-          <div class="toc-item"><span class="toc-no">03</span><div><strong>経理ツールデモ</strong><span>請求書から仕訳・CSVまで</span></div></div>
-          <div class="toc-item"><span class="toc-no">04</span><div><strong>業務化の4ステップ</strong><span>まとめる、渡す、育てる、自動化</span></div></div>
-          <div class="toc-item"><span class="toc-no">05</span><div><strong>バックオフィス事例</strong><span>経理・総務・労務への展開</span></div></div>
-          <div class="toc-item"><span class="toc-no">06</span><div><strong>研修と伴走支援</strong><span>社内で使える力に変える</span></div></div>
-        </div>
-      </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="到達点">
@@ -1622,7 +2185,7 @@
         </div>
         <p class="band">今ある<span class="highlight-text">業務マニュアル</span>をAIに渡す。それだけで<span class="highlight-strong">定型作業</span>は自動化できる。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide claude-explain-slide" data-title="Claude Codeとは">
@@ -1653,7 +2216,7 @@
         </div>
         <p class="lead">経理・総務・労務の定型作業を、<span class="highlight-strong">回答</span>ではなく<span class="highlight-strong">成果物</span>に変える。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="できること">
@@ -1686,7 +2249,7 @@
         </div>
         <p class="band">これらはすべて、<span class="highlight-strong">日本語の指示だけ</span>で実現できる。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide no-footer-rule" data-title="請求書処理の現状">
@@ -1708,7 +2271,7 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="実物デモ">
@@ -1725,7 +2288,7 @@
         </div>
         <p class="band">これはすべて、<span class="highlight-strong">プログラミングなし</span>・<span class="highlight-strong">日本語の指示だけ</span>で作ったものである。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="実演の整理">
@@ -1741,7 +2304,7 @@
         </div>
         <p class="band"><span class="highlight-text">外注や情シス待ちではなく</span>、現場の人が自分で小さなツールを作れる状態になる。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="4ステップ">
@@ -1754,9 +2317,9 @@
           <div class="tool-step"><b>STEP 3</b><span>Claude Codeで試作品を作る</span></div>
           <div class="tool-step"><b>STEP 4</b><span>確認しながら自分で改善する</span></div>
         </div>
-        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">この4ステップ</span>を自分の業務で実際に練習する。</p>
+        <p class="band">株式会社ZETTAiの研修では、<span class="highlight-strong">この4ステップ</span>を自分の業務で実際に練習する。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="事例">
@@ -1768,9 +2331,9 @@
           <div class="card"><span class="icon">営業・CS</span><h3>見積・問い合わせ</h3><p>見積作成、顧客対応メモ、問い合わせ分類を自分で作る。</p></div>
           <div class="card"><span class="icon">現場・管理</span><h3>日報・在庫・進捗</h3><p>日報整理、在庫チェック、進捗レポートを自分で作る。</p></div>
         </div>
-        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">職種を問わず</span>、受講者自身の業務を題材にして「自分で作る力」を身につける。</p>
+        <p class="band">株式会社ZETTAiの研修では、<span class="highlight-strong">職種を問わず</span>、受講者自身の業務を題材にして「自分で作る力」を身につける。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="業務の選び方">
@@ -1795,15 +2358,15 @@
             </ul>
           </div>
         </div>
-        <p class="band">株式会社ZETTAIの研修では、<span class="highlight-strong">自分の業務</span>から最初に作るツールを一緒に選ぶ。</p>
+        <p class="band">株式会社ZETTAiの研修では、<span class="highlight-strong">自分の業務</span>から最初に作るツールを一緒に選ぶ。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="研修スタート">
       <div class="kicker split"><b>Training</b><span>10</span></div>
       <div class="body">
-        <h2 class="training-heading">株式会社ZETTAIの研修を受けた受講者は、Claude Codeで<span class="highlight-text">自分の業務ツールを作れる</span></h2>
+        <h2 class="training-heading">株式会社ZETTAiの研修を受けた受講者は、Claude Codeで<span class="highlight-text">自分の業務ツールを作れる</span></h2>
         <div class="curriculum-map">
           <div class="curriculum-step">
             <span class="step-no">STEP 1</span>
@@ -1835,7 +2398,7 @@
         </div>
         <p class="band">研修前にAIへ触れたことがない場合でも、<span class="highlight-strong">自分の業務を題材</span>にして作り方を身につけられる。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Before After">
@@ -1862,7 +2425,7 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide no-footer-rule" data-title="学ぶこと">
@@ -1898,9 +2461,9 @@
             </div>
           </div>
         </div>
-        <p class="band"><span class="highlight-strong">初心者でも一から身につけられる研修</span>を、株式会社ZETTAIが提供している。</p>
+        <p class="band"><span class="highlight-strong">初心者でも一から身につけられる研修</span>を、株式会社ZETTAiが提供している。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="伴走支援">
@@ -1915,7 +2478,7 @@
         </div>
         <p class="lead">詳細・問い合わせ → claudecode.co.jp</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="実績">
@@ -1931,7 +2494,7 @@
         </div>
         <p class="band">法人研修・個別研修のどちらも、業務に合わせてClaude Codeを使える状態まで支援。<br>他にも研修依頼を多数いただいている。</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Q&A">
@@ -1940,7 +2503,7 @@
         <h2>質問受付</h2>
         <p class="sub">チャット欄に質問募集</p>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Thank you">
@@ -1949,14 +2512,14 @@
         <h2>本日はありがとうございました</h2>
         <p class="sub">個別相談・導入支援の依頼先</p>
         <div class="contact-stack">
-          <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAI</span></p>
+          <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAi</span></p>
           <div class="contact-list">
             <span class="contact-line">contact@zettai.co.jp</span>
             <span class="contact-line">claudecode.co.jp</span>
           </div>
         </div>
       </div>
-      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
   </main>
 
