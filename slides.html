@@ -6,6 +6,8 @@
   <title>バックオフィスでのClaude Code活用法</title>
   <style>
     :root {
+      --slide-scale: 1;
+      --viewport-pad: clamp(8px, 1.8vmin, 22px);
       --paper: #ffffff;
       --paper-2: #fafafa;
       --ink: #121212;
@@ -30,6 +32,7 @@
     html,
     body {
       margin: 0;
+      width: 100%;
       min-height: 100%;
       background: #f2f2f2;
       color: var(--ink);
@@ -38,20 +41,37 @@
 
     body {
       display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
       place-items: center;
-      padding: 22px;
+      gap: clamp(8px, 1.4vmin, 14px);
+      min-height: 100svh;
+      padding: var(--viewport-pad);
       overflow: hidden;
     }
 
     button { font: inherit; }
 
-    .deck {
+    .stage {
       position: relative;
-      width: min(96vw, 1600px);
-      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      align-self: center;
+      justify-self: center;
+      overflow: visible;
+    }
+
+    .deck {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1600px;
+      height: 900px;
       background: var(--paper);
       box-shadow: var(--shadow);
       overflow: hidden;
+      transform: scale(var(--slide-scale));
+      transform-origin: top left;
+      will-change: transform;
     }
 
     .slide {
@@ -1759,13 +1779,11 @@
     }
 
     .controls {
-      position: fixed;
-      left: 50%;
-      bottom: 34px;
+      position: relative;
       z-index: 10;
-      transform: translateX(-50%);
       display: flex;
       align-items: center;
+      justify-self: center;
       gap: 6px;
       padding: 7px;
       border: 1px solid var(--line);
@@ -1974,46 +1992,6 @@
       }
     }
 
-    @media (max-width: 980px) {
-      body { padding: 10px; }
-      .slide { padding: 28px 30px 22px; }
-      h1 { font-size: 46px; }
-      h2 { font-size: 36px; }
-      .lead { font-size: 22px; }
-      .company-cover .body,
-      .toc-head,
-      .toc-list,
-      .comparison,
-      .before-after,
-      .arrow-row,
-      .compare-map,
-      .lane-flow,
-      .profile-hero,
-      .profile-facts,
-      .service-overview,
-      .team-layout,
-      .team-photo-board,
-      .hub-map,
-      .time-diagram,
-      .pipeline-diagram,
-      .curriculum-map,
-      .grid-2,
-      .grid-3,
-      .grid-4,
-      .tool-flow,
-      .category-row,
-      .agenda-list {
-        grid-template-columns: 1fr;
-      }
-      .tool-step::after { display: none; }
-      .hub-center {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: 160px;
-      }
-      .curriculum-step::after { display: none; }
-    }
-
     @media print {
       @page { size: 16in 9in; margin: 0; }
       html,
@@ -2024,10 +2002,19 @@
         background: #fff;
       }
       .deck {
+        position: relative;
+        top: auto;
+        left: auto;
         width: 16in;
         height: 9in;
         box-shadow: none;
         overflow: visible;
+        transform: none;
+      }
+      .stage {
+        display: block;
+        width: 16in !important;
+        height: auto !important;
       }
       .slide {
         position: relative;
@@ -2041,8 +2028,9 @@
   </style>
 </head>
 <body>
-  <main class="deck">
-    <section class="slide active company-cover" data-title="会社紹介">
+  <div class="stage" id="stage">
+    <main class="deck" id="deck">
+      <section class="slide active company-cover" data-title="会社紹介">
       <div class="kicker split"><b>株式会社ZETTAi</b></div>
       <div class="body">
         <div class="company-wordmark"><span class="brand">ZETTAi<i></i></span></div>
@@ -2521,7 +2509,8 @@
       </div>
       <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <nav class="controls" aria-label="Slide navigation">
     <button class="nav" type="button" data-action="prev" aria-label="前へ">‹</button>
@@ -2531,8 +2520,12 @@
   </nav>
 
   <script>
+    const BASE_SLIDE_WIDTH = 1600;
+    const BASE_SLIDE_HEIGHT = 900;
+    const stage = document.getElementById("stage");
     const slides = Array.from(document.querySelectorAll(".slide"));
     const count = document.getElementById("count");
+    const controls = document.querySelector(".controls");
     let current = Number(new URLSearchParams(location.search).get("slide") || 1) - 1;
 
     function clamp(value) {
@@ -2552,6 +2545,28 @@
     function move(delta) {
       current = clamp(current + delta);
       show();
+    }
+
+    function numberFromPx(value) {
+      return Number.parseFloat(value) || 0;
+    }
+
+    function fitSlideToViewport() {
+      const bodyStyle = getComputedStyle(document.body);
+      const paddingX = numberFromPx(bodyStyle.paddingLeft) + numberFromPx(bodyStyle.paddingRight);
+      const paddingY = numberFromPx(bodyStyle.paddingTop) + numberFromPx(bodyStyle.paddingBottom);
+      const rowGap = numberFromPx(bodyStyle.rowGap);
+      const controlsHeight = controls.offsetHeight;
+      const viewport = window.visualViewport;
+      const viewportWidth = viewport ? viewport.width : window.innerWidth;
+      const viewportHeight = viewport ? viewport.height : window.innerHeight;
+      const availableWidth = Math.max(1, viewportWidth - paddingX);
+      const availableHeight = Math.max(1, viewportHeight - paddingY - rowGap - controlsHeight);
+      const scale = Math.max(0.05, Math.min(availableWidth / BASE_SLIDE_WIDTH, availableHeight / BASE_SLIDE_HEIGHT));
+
+      document.documentElement.style.setProperty("--slide-scale", scale.toFixed(5));
+      stage.style.width = `${BASE_SLIDE_WIDTH * scale}px`;
+      stage.style.height = `${BASE_SLIDE_HEIGHT * scale}px`;
     }
 
     document.querySelector('[data-action="prev"]').addEventListener("click", () => move(-1));
@@ -2577,6 +2592,13 @@
       }
     });
 
+    window.addEventListener("resize", fitSlideToViewport);
+    window.addEventListener("orientationchange", fitSlideToViewport);
+    window.addEventListener("load", fitSlideToViewport);
+    window.visualViewport?.addEventListener("resize", fitSlideToViewport);
+    window.visualViewport?.addEventListener("scroll", fitSlideToViewport);
+
+    fitSlideToViewport();
     show();
   </script>
 </body>
