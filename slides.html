@@ -6,33 +6,32 @@
   <title>バックオフィスでのClaude Code活用法</title>
   <style>
     :root {
-      --ink: #201416;
-      --text: #3a2d30;
-      --muted: #756568;
-      --line: #eadfe0;
-      --paper: #fffefd;
-      --wash: #fbf4f4;
-      --wash-strong: #f7e8e9;
-      --red-900: #6d101a;
-      --red-700: #9a1825;
-      --red-500: #cc2b36;
-      --red-100: #fff0f1;
-      --green: #1f8a5b;
-      --amber: #bd7a16;
-      --danger: #c83232;
-      --shadow: 0 24px 60px rgba(77, 38, 44, .14);
+      --paper: #ffffff;
+      --paper-2: #fafafa;
+      --ink: #121212;
+      --text: #2f2f2f;
+      --muted: #5f5b56;
+      --line: #ded8d2;
+      --orange: #d86f32;
+      --orange-2: #eda56a;
+      --orange-soft: #fff4ea;
+      --rose: #c9655c;
+      --rose-soft: #fff0ed;
+      --green: #3f8b52;
+      --red: #c64b3c;
+      --glass: rgba(255,255,255,.88);
+      --glass-strong: rgba(255,255,255,.94);
+      --shadow: 0 24px 58px rgba(30, 24, 18, .10);
       --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html,
     body {
       margin: 0;
       min-height: 100%;
-      background: #eadfe0;
+      background: #f2f2f2;
       color: var(--ink);
       font-family: var(--sans);
     }
@@ -44,9 +43,7 @@
       overflow: hidden;
     }
 
-    button {
-      font: inherit;
-    }
+    button { font: inherit; }
 
     .deck {
       position: relative;
@@ -62,837 +59,741 @@
       inset: 0;
       display: none;
       grid-template-rows: auto 1fr auto;
-      padding: 48px 58px 34px;
+      padding: 46px 54px 34px;
       background:
-        linear-gradient(116deg, rgba(255,255,255,.98) 0 36%, rgba(255,244,244,.68) 36% 54%, rgba(255,255,255,.92) 54% 100%),
-        linear-gradient(28deg, transparent 0 52%, rgba(204,43,54,.12) 52% 65%, transparent 65% 100%),
-        linear-gradient(150deg, transparent 0 14%, rgba(96,165,250,.10) 14% 27%, transparent 27% 100%),
-        linear-gradient(72deg, transparent 0 68%, rgba(249,168,212,.12) 68% 82%, transparent 82% 100%),
-        #fcfcfb;
+        linear-gradient(135deg, rgba(255,255,255,.76), rgba(255,255,255,0) 44%),
+        radial-gradient(ellipse at 50% 45%, rgba(237,165,106,.10), transparent 44%),
+        radial-gradient(ellipse at 52% 58%, rgba(201,101,92,.055), transparent 40%),
+        radial-gradient(ellipse at 48% 50%, rgba(255,220,184,.10), transparent 54%),
+        var(--paper);
     }
+
+    .slide.active { display: grid; }
 
     .slide::before {
       content: "";
       position: absolute;
-      inset: 20px;
-      z-index: 0;
-      border: 1px solid rgba(255,255,255,.62);
-      border-radius: 24px;
+      inset: -120px;
       background:
-        linear-gradient(90deg, rgba(255,255,255,.30), rgba(255,255,255,.08)),
-        repeating-linear-gradient(90deg, rgba(154,24,37,.035) 0 1px, transparent 1px 86px),
-        repeating-linear-gradient(0deg, rgba(154,24,37,.026) 0 1px, transparent 1px 86px);
+        radial-gradient(ellipse at 50% 44%, rgba(237,165,106,.15), transparent 34%),
+        radial-gradient(ellipse at 50% 60%, rgba(201,101,92,.07), transparent 32%);
+      filter: blur(48px);
+      opacity: .44;
       pointer-events: none;
-    }
-
-    .slide.active {
-      display: grid;
     }
 
     .slide::after {
       content: "";
       position: absolute;
-      right: 56px;
-      bottom: 22px;
-      z-index: 2;
-      width: 42px;
-      height: 42px;
-      background: url("zettai-logo-transparent.png") center / contain no-repeat;
+      top: 50%;
+      left: 50%;
+      width: 780px;
+      height: 520px;
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 999px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.26), rgba(255,255,255,.04)),
+        radial-gradient(ellipse at 50% 50%, rgba(216,111,50,.07), transparent 60%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42);
+      opacity: .30;
+      transform: translate(-50%, -50%);
       pointer-events: none;
     }
 
-    .kicker {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.3;
-      font-weight: 650;
+    .slide:nth-of-type(n+3) {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.76), rgba(255,255,255,0) 46%),
+        radial-gradient(ellipse at 84% 16%, rgba(237,165,106,.10), transparent 36%),
+        radial-gradient(ellipse at 18% 84%, rgba(201,101,92,.06), transparent 38%),
+        radial-gradient(ellipse at 86% 22%, rgba(255,220,184,.09), transparent 46%),
+        var(--paper);
+    }
+
+    .slide:nth-of-type(n+3)::before {
+      background:
+        radial-gradient(ellipse at 84% 18%, rgba(237,165,106,.16), transparent 29%),
+        radial-gradient(ellipse at 16% 82%, rgba(201,101,92,.075), transparent 32%);
+      opacity: .44;
+    }
+
+    .slide:nth-of-type(n+3)::after {
+      top: -130px;
+      left: auto;
+      right: -170px;
+      width: 620px;
+      height: 430px;
+      transform: none;
+      opacity: .34;
+    }
+
+    .kicker,
+    .body,
+    .foot {
       position: relative;
       z-index: 1;
     }
 
-    .kicker b {
-      color: var(--red-900);
-      font-weight: 780;
+    .kicker {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+      min-height: 36px;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 680;
+      letter-spacing: 0;
+    }
+
+    .kicker.split {
+      justify-content: space-between;
+      color: var(--text);
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .kicker.split b,
+    .kicker:not(.split) {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .kicker.split span {
+      color: var(--orange);
+      font-weight: 820;
     }
 
     .body {
       display: grid;
       align-content: center;
-      min-height: 0;
       gap: 26px;
-      position: relative;
-      z-index: 1;
+      min-height: 0;
     }
 
     .foot {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: end;
-      gap: 18px;
-      padding-right: 58px;
+      gap: 20px;
+      padding-bottom: 18px;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 680;
-      position: relative;
-      z-index: 1;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: 0;
     }
 
-    .bar {
-      width: 210px;
-      height: 3px;
-      background: #efe0e2;
-      border-radius: 999px;
+    .foot::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 74px;
+      height: 1px;
+      background: rgba(150,142,134,.72);
+      pointer-events: none;
+    }
+
+    .brand {
+      display: inline-block;
+      width: 72px;
+      height: 48px;
       overflow: hidden;
+      background: url("zettai-logo-transparent.png") center / contain no-repeat;
+      color: transparent;
+      font-size: 0;
+      line-height: 0;
     }
 
-    .bar span {
-      display: block;
-      width: var(--p, 0%);
-      height: 100%;
-      background: var(--red-500);
+    .brand i {
+      display: none;
+    }
+
+    .foot .brand {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+      width: 58px;
+      height: 42px;
+      opacity: .62;
+      filter: saturate(.86) contrast(.96);
+    }
+
+    .foot > span:not(.brand) {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: end;
+    }
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: #a99d91;
     }
 
     h1,
     h2,
     h3,
-    p {
+    p,
+    li {
       margin: 0;
+      line-break: strict;
     }
 
     h1 {
-      max-width: 900px;
-      color: var(--red-900);
-      font-size: clamp(52px, 5.2vw, 82px);
-      line-height: 1.04;
-      font-weight: 820;
+      color: var(--ink);
+      font-size: clamp(50px, 4.85vw, 78px);
+      line-height: 1.12;
+      font-weight: 760;
       letter-spacing: 0;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
     }
 
     h2 {
-      max-width: 1040px;
-      color: var(--red-900);
+      color: var(--ink);
       font-size: clamp(36px, 3.7vw, 58px);
-      line-height: 1.12;
-      font-weight: 800;
+      line-height: 1.18;
+      font-weight: 740;
       letter-spacing: 0;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
     }
 
     h3 {
       color: var(--ink);
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.35;
-      font-weight: 780;
+      font-weight: 720;
+      text-wrap: balance;
+      line-break: strict;
     }
 
     .lead {
-      max-width: 980px;
       color: var(--text);
-      font-size: clamp(22px, 2.2vw, 34px);
-      line-height: 1.5;
-      font-weight: 620;
+      font-size: clamp(23px, 2.05vw, 32px);
+      line-height: 1.48;
+      font-weight: 600;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
     }
 
-    .small {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.55;
-      font-weight: 520;
+    .sub {
+      color: var(--text);
+      font-size: 21px;
+      line-height: 1.5;
+      font-weight: 540;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
     }
 
     .eyebrow {
-      color: var(--red-500);
-      font-size: 16px;
-      line-height: 1.3;
-      font-weight: 760;
+      color: var(--orange);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 680;
+      text-align: center;
     }
 
-    .title-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 420px;
-      align-items: end;
-      gap: 58px;
+    .center { text-align: center; }
+
+    .body:not(.center) h2,
+    .body:not(.center) .lead {
+      text-align: left;
     }
 
-    .company-layout {
-      display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    .body:not(.center) h2 {
+      max-width: 1180px;
+    }
+
+    .company-cover .body {
+      grid-template-columns: .86fr 1.14fr;
       align-items: center;
       gap: 58px;
     }
 
-    .company-mark {
+    .company-wordmark {
+      position: relative;
       display: grid;
       place-items: center;
-      min-height: 430px;
+      min-height: 410px;
       border: 0;
-      background: transparent;
+      border-radius: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 52%),
+        radial-gradient(ellipse at 48% 56%, rgba(201,101,92,.12), transparent 42%);
+      box-shadow: none;
+      overflow: visible;
     }
 
-    .company-mark img {
-      width: min(86%, 430px);
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 18px 30px rgba(77, 38, 44, .12));
+    .company-wordmark::before,
+    .company-wordmark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(24px);
+      opacity: .24;
+      pointer-events: none;
     }
 
-    .company-meta {
+    .company-wordmark::before {
+      width: 190px;
+      height: 190px;
+      left: 46px;
+      top: 44px;
+      background: linear-gradient(90deg, rgba(237,165,106,.82), rgba(255,209,173,.58));
+    }
+
+    .company-wordmark::after {
+      width: 210px;
+      height: 210px;
+      right: 34px;
+      bottom: 30px;
+      background: linear-gradient(90deg, rgba(201,101,92,.55), rgba(255,180,150,.42));
+    }
+
+    .company-wordmark .brand {
+      position: relative;
+      z-index: 1;
+      width: min(78%, 430px);
+      height: 300px;
+      opacity: .90;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 12px 18px rgba(103,63,35,.10));
+    }
+
+    .company-title {
+      color: var(--ink);
+      font-size: clamp(50px, 5.15vw, 82px);
+      line-height: 1.04;
+      font-weight: 720;
+      text-align: left;
+    }
+
+    .company-copy {
+      color: var(--text);
+      font-size: clamp(20px, 1.75vw, 28px);
+      line-height: 1.5;
+      font-weight: 540;
+      text-wrap: balance;
+      line-break: strict;
+      white-space: nowrap;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .one-line-title {
+      font-size: clamp(34px, 3.15vw, 50px);
+      line-height: 1.12;
+      text-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .company-cover .eyebrow {
+      text-align: left;
+    }
+
+    .meta-lines {
+      display: grid;
+      gap: 10px;
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
       display: grid;
       gap: 18px;
     }
 
-    .company-name {
-      color: var(--red-900);
-      font-size: clamp(58px, 5.8vw, 92px);
-      line-height: .96;
-      font-weight: 850;
-      letter-spacing: 0;
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card,
+    .panel {
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: var(--glass);
+      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
     }
 
-    .company-line {
-      width: 96px;
-      height: 6px;
-      background: var(--red-500);
-      border-radius: 999px;
+    .card {
+      min-height: 150px;
+      padding: 22px;
     }
 
-    .company-copy {
-      max-width: 760px;
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    .card p,
+    .small {
       color: var(--text);
-      font-size: clamp(23px, 2.15vw, 34px);
-      line-height: 1.42;
-      font-weight: 660;
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 540;
+      text-wrap: pretty;
+    }
+
+    .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(216,111,50,.40);
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,241,230,.95), rgba(255,232,228,.72));
+      color: var(--orange);
+      font-size: 18px;
+      font-weight: 720;
+    }
+
+    .check-list,
+    .x-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.58;
+      font-weight: 560;
+      text-wrap: pretty;
+    }
+
+    .check-list li,
+    .x-list li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 760;
+    }
+
+    .x-list li::before {
+      content: "×";
+      color: var(--red);
+      font-weight: 760;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .comparison .panel {
+      padding: 24px;
+    }
+
+    .comparison h3 {
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .arrow-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .arrow {
+      color: var(--orange);
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 620;
+    }
+
+    .tool-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .tool-step {
+      position: relative;
+      min-height: 170px;
+      padding: 22px;
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: var(--glass);
+      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
+    }
+
+    .tool-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      color: var(--orange);
+      font-size: 26px;
+      font-weight: 700;
+      transform: translateY(-50%);
+    }
+
+    .tool-step b,
+    .case-card b {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--orange);
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .tool-step span {
+      display: block;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.45;
+      font-weight: 620;
+    }
+
+    .band {
+      padding: 20px 24px;
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,.90), rgba(255,247,240,.80));
+      box-shadow: 0 10px 24px rgba(52,42,34,.05), inset 0 1px 0 rgba(255,255,255,.92);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: 560;
+      text-align: center;
+    }
+
+    .category-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .category {
+      padding: 18px;
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: var(--glass);
+      box-shadow: 0 10px 24px rgba(52,42,34,.055), inset 0 1px 0 rgba(255,255,255,.92);
+    }
+
+    .category strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 16px;
+      font-weight: 680;
+    }
+
+    .metric {
+      display: block;
+      color: var(--ink);
+      font-size: 62px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .before-after .panel {
+      min-height: 280px;
+      padding: 28px;
     }
 
     .agenda-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
-      margin-top: 8px;
+    }
+
+    .toc-slide .body {
+      align-content: center;
+      gap: 34px;
+    }
+
+    .toc-head {
+      display: grid;
+      grid-template-columns: .72fr 1fr;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .toc-head h2 {
+      text-align: left;
+    }
+
+    .toc-head p {
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.6;
+      font-weight: 540;
+    }
+
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 56px;
+      border-top: 1px solid rgba(150,142,134,.58);
+    }
+
+    .toc-item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(150,142,134,.48);
+    }
+
+    .toc-no {
+      color: var(--orange);
+      font-size: 16px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .toc-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 25px;
+      line-height: 1.35;
+      font-weight: 680;
+    }
+
+    .toc-item span {
+      display: block;
+      margin-top: 6px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 520;
     }
 
     .agenda-item {
       display: grid;
-      grid-template-columns: 72px 1fr;
-      gap: 18px;
+      grid-template-columns: 70px 1fr;
+      gap: 16px;
       align-items: center;
-      min-height: 118px;
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.76);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      padding: 20px;
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: var(--glass);
     }
 
     .agenda-no {
       display: grid;
       place-items: center;
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
-      background: var(--red-100);
-      color: var(--red-700);
-      font-size: 20px;
-      line-height: 1;
-      font-weight: 820;
-    }
-
-    .agenda-item h3 {
-      margin-bottom: 6px;
-      color: var(--red-900);
-    }
-
-    .agenda-item p {
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.45;
-      font-weight: 580;
-    }
-
-    .photo-card {
-      position: relative;
-      min-height: 430px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      background: #f8f0f1;
-    }
-
-    .photo-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(.88) contrast(.96);
-    }
-
-    .photo-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 38%, rgba(66, 23, 29, .58));
-    }
-
-    .glass-caption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      padding: 24px;
-      border-top: 1px solid rgba(255,255,255,.34);
-      background: rgba(255,255,255,.18);
-      color: #fff;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .glass-caption h3 {
-      margin-bottom: 8px;
-      color: #fff;
-      font-size: 21px;
-    }
-
-    .glass-caption p {
-      color: rgba(255,255,255,.86);
-      font-size: 14px;
-      line-height: 1.55;
-      font-weight: 520;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 30px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 7px 13px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.68);
-      color: var(--text);
-      font-size: 14px;
+      background: linear-gradient(135deg, var(--orange-soft), var(--rose-soft));
+      color: var(--orange);
+      font-size: 19px;
       font-weight: 680;
-      backdrop-filter: blur(10px);
     }
 
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.72);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 16px 42px rgba(77, 38, 44, .07);
-    }
-
-    .panel.pad {
-      padding: 24px;
-    }
-
-    .cols-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .cols-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .tile {
-      padding: 22px;
-      min-height: 180px;
-      border-left: 4px solid var(--red-500);
-    }
-
-    .tile h3 {
-      margin-bottom: 12px;
-      color: var(--red-900);
-    }
-
-    .tile p {
-      color: var(--text);
-      font-size: 21px;
-      line-height: 1.45;
-      font-weight: 620;
-    }
-
-    .quote-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .quote {
-      position: relative;
-      min-height: 148px;
-      padding: 24px 26px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.72);
-      color: var(--text);
-      font-size: 25px;
-      line-height: 1.42;
-      font-weight: 720;
-    }
-
-    .quote::before {
-      content: "";
-      display: block;
-      width: 34px;
-      height: 3px;
-      margin-bottom: 18px;
-      border-radius: 999px;
-      background: var(--red-500);
-    }
-
-    .matrix {
-      display: grid;
-      grid-template-columns: 170px repeat(3, minmax(0, 1fr));
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      overflow: hidden;
-      background: rgba(255,255,255,.74);
-    }
-
-    .matrix div {
-      min-height: 78px;
-      padding: 15px 16px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      color: var(--text);
-      font-size: 18px;
-      line-height: 1.38;
-      font-weight: 620;
-    }
-
-    .matrix div:nth-child(4n) {
-      border-right: 0;
-    }
-
-    .matrix div:nth-last-child(-n+4) {
-      border-bottom: 0;
-    }
-
-    .matrix .head,
-    .matrix .rowhead {
-      background: var(--wash);
-      color: var(--red-900);
-      font-weight: 780;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 760;
-      background: var(--red-100);
-      color: var(--red-700);
-    }
-
-    .tag.good {
-      background: #edf8f2;
-      color: var(--green);
-    }
-
-    .tag.warn {
-      background: #fff4df;
-      color: var(--amber);
-    }
-
-    .tag.bad {
-      background: #fff0f1;
-      color: var(--danger);
-    }
-
-    .split-photo {
-      display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-      gap: 28px;
-      align-items: center;
-    }
-
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .flow-step {
-      min-height: 176px;
-      padding: 18px 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.76);
-    }
-
-    .flow-step b {
-      display: block;
-      margin-bottom: 20px;
-      color: var(--red-500);
-      font-size: 15px;
-    }
-
-    .flow-step span {
-      display: block;
-      color: var(--ink);
-      font-size: 19px;
-      line-height: 1.35;
-      font-weight: 720;
-    }
-
-    .code {
-      padding: 28px;
-      border: 1px solid rgba(255,255,255,.45);
-      border-radius: 14px;
-      background: rgba(67, 27, 33, .92);
-      color: #fff6f7;
-      box-shadow: 0 20px 42px rgba(77, 38, 44, .18);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 22px;
-      line-height: 1.52;
-      white-space: pre-wrap;
-    }
-
-    .rows {
-      display: grid;
-      gap: 10px;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      align-items: center;
-      gap: 14px;
-      min-height: 54px;
-      padding: 12px 16px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(255,255,255,.74);
-      color: var(--text);
-      font-size: 19px;
-      line-height: 1.35;
-      font-weight: 620;
-    }
-
-    .row b {
-      color: var(--red-900);
-      font-weight: 780;
-    }
-
-    .note {
-      padding: 22px 24px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.74);
-    }
-
-    .note h3 {
-      margin-bottom: 12px;
-      color: var(--red-900);
-    }
-
-    .note ul {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      color: var(--text);
-      font-size: 21px;
-      line-height: 1.45;
-      font-weight: 620;
-    }
-
-    .note li {
-      padding-left: 18px;
-      border-left: 3px solid var(--red-500);
-    }
-
-    .note.good li {
-      border-left-color: var(--green);
-    }
-
-    .note.bad li {
-      border-left-color: var(--danger);
-    }
-
-    .command {
-      display: inline-flex;
-      align-items: center;
-      min-height: 64px;
-      padding: 0 22px;
-      border-radius: 12px;
-      background: #2e1a1e;
-      color: #fff;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 30px;
-      font-weight: 720;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    }
-
-    .hub {
+    .logo-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .hub .center {
-      grid-column: 2 / 5;
-      min-height: 150px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      background: var(--red-900);
-      font-size: 34px;
-      font-weight: 800;
-    }
-
-    .hub .tool {
-      min-height: 86px;
-      display: grid;
-      place-items: center;
-      color: var(--text);
-      font-size: 20px;
-      font-weight: 760;
-    }
-
-    .metric {
-      color: var(--red-900);
-      font-size: 54px;
-      line-height: 1;
-      font-weight: 820;
-    }
-
-    .qa {
-      display: grid;
-      gap: 12px;
-    }
-
-    .qa-row {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 12px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.74);
-      color: var(--text);
-      font-size: 19px;
-      line-height: 1.4;
-      font-weight: 620;
-    }
-
-    .qa-row b {
-      color: var(--red-900);
-      font-weight: 780;
-    }
-
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .time-card {
-      min-height: 232px;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.74);
-    }
-
-    .time {
-      margin-bottom: 22px;
-      color: var(--red-500);
-      font-size: 30px;
-      line-height: 1;
-      font-weight: 820;
-    }
-
-    .process-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .process-node {
-      position: relative;
-      min-height: 138px;
-      padding: 20px 20px 18px;
-      border: 1px solid var(--line);
-      border-top: 5px solid var(--red-500);
-      background: rgba(255,255,255,.76);
-    }
-
-    .process-node:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: -17px;
-      z-index: 2;
-      width: 18px;
-      height: 2px;
-      background: var(--red-500);
-    }
-
-    .process-node b,
-    .chart-card b {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--red-900);
-      font-size: 15px;
-      line-height: 1.25;
-      font-weight: 800;
-    }
-
-    .process-node span {
-      display: block;
-      color: var(--text);
-      font-size: 22px;
-      line-height: 1.35;
-      font-weight: 700;
-    }
-
-    .chart-card {
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.76);
-    }
-
-    .bar-chart {
-      display: grid;
-      gap: 12px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 128px 1fr 58px;
-      align-items: center;
-      gap: 12px;
-      color: var(--text);
-      font-size: 15px;
-      line-height: 1.25;
-      font-weight: 700;
-    }
-
-    .bar-track {
-      height: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      display: block;
-      width: var(--w);
-      height: 100%;
-      background: var(--red-500);
-    }
-
-    .bar-fill.muted {
-      background: #d7c5c8;
-    }
-
-    .delta-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .delta-card {
-      padding: 18px;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-
-    .delta-card strong {
-      display: block;
-      margin-bottom: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.2;
-      font-weight: 800;
-    }
-
-    .delta-card span {
-      display: block;
-      color: var(--red-900);
-      font-size: 38px;
-      line-height: 1;
-      font-weight: 850;
-    }
-
-    .risk-map {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .risk-bars {
-      display: grid;
       gap: 10px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.76);
     }
 
-    .risk-line {
+    .logo-box {
       display: grid;
-      grid-template-columns: 112px 1fr;
-      align-items: center;
-      gap: 12px;
+      place-items: center;
+      min-height: 92px;
+      border: 1px solid rgba(222,216,210,.86);
+      border-radius: 12px;
+      background: var(--glass);
       color: var(--text);
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 560;
     }
 
-    .risk-track {
-      height: 14px;
-      border: 1px solid var(--line);
-      background: #fff;
+    .contact-stack {
+      display: grid;
+      justify-items: center;
+      gap: 26px;
+      transform: translateY(-20px);
     }
 
-    .risk-track span {
-      display: block;
-      width: var(--w);
-      height: 100%;
-      background: var(--red-500);
+    .contact-company {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 720;
+      text-align: center;
+    }
+
+    .contact-logo {
+      display: inline-block;
+      width: 34px;
+      height: 34px;
+      background: url("zettai-logo-transparent.png") center / contain no-repeat;
+      filter: saturate(.95) contrast(.98);
+    }
+
+    .contact-list {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .contact-line {
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.45;
+      font-weight: 560;
     }
 
     .controls {
       position: fixed;
       left: 50%;
-      bottom: 18px;
+      bottom: 34px;
       z-index: 10;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
       gap: 6px;
       padding: 7px;
-      border: 1px solid rgba(234, 223, 224, .88);
+      border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,.72);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 12px 36px rgba(77, 38, 44, .13);
+      background: rgba(255,255,255,.74);
+      box-shadow: 0 12px 34px rgba(54, 40, 26, .12);
     }
 
     .nav {
@@ -901,15 +802,13 @@
       border: 0;
       border-radius: 50%;
       background: transparent;
-      color: var(--red-900);
+      color: var(--orange);
       cursor: pointer;
       font-size: 24px;
       line-height: 1;
     }
 
-    .nav:hover {
-      background: var(--wash-strong);
-    }
+    .nav:hover { background: var(--orange-soft); }
 
     .count {
       min-width: 62px;
@@ -920,68 +819,30 @@
     }
 
     @media (max-width: 980px) {
-      body {
-        padding: 10px;
+      body { padding: 10px; }
+      .slide { padding: 28px 30px 22px; }
+      h1 { font-size: 46px; }
+      h2 { font-size: 36px; }
+      .lead { font-size: 22px; }
+      .company-cover .body,
+      .toc-head,
+      .toc-list,
+      .comparison,
+      .before-after,
+      .arrow-row,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .tool-flow,
+      .category-row,
+      .agenda-list {
+        grid-template-columns: 1fr;
       }
-
-      .slide {
-        padding: 28px 30px 22px;
-      }
-
-      h1 {
-        font-size: 48px;
-      }
-
-      h2 {
-        font-size: 34px;
-      }
-
-      .lead {
-        font-size: 22px;
-      }
-
-      .title-layout,
-      .split-photo,
-      .cols-2,
-      .cols-3,
-      .quote-list,
-      .timeline {
-        gap: 12px;
-      }
-
-      .title-layout {
-        grid-template-columns: 1fr 270px;
-      }
-
-      .photo-card {
-        min-height: 300px;
-      }
-
-      .quote,
-      .tile p,
-      .note ul,
-      .row,
-      .qa-row,
-      .flow-step span {
-        font-size: 15px;
-      }
-
-      .flow {
-        gap: 7px;
-      }
-
-      .flow-step {
-        min-height: 136px;
-        padding: 12px 10px;
-      }
+      .tool-step::after { display: none; }
     }
 
     @media print {
-      @page {
-        size: 16in 9in;
-        margin: 0;
-      }
-
+      @page { size: 16in 9in; margin: 0; }
       html,
       body {
         display: block;
@@ -989,14 +850,12 @@
         overflow: visible;
         background: #fff;
       }
-
       .deck {
         width: 16in;
         height: 9in;
         box-shadow: none;
         overflow: visible;
       }
-
       .slide {
         position: relative;
         display: grid !important;
@@ -1004,443 +863,324 @@
         height: 9in;
         page-break-after: always;
       }
-
-      .controls {
-        display: none;
-      }
+      .controls { display: none; }
     }
   </style>
 </head>
 <body>
   <main class="deck">
-    <section class="slide active" data-title="株式会社ZETTAI">
-      <div class="kicker"><b>株式会社ZETTAI</b><span>Back Office x Claude Code</span></div>
-      <div class="body company-layout">
-        <div class="company-mark">
-          <img alt="株式会社ZETTAI ロゴ" src="zettai-logo-transparent.png">
-        </div>
-        <div class="company-meta">
-          <p class="eyebrow">Seminar Presented by</p>
-          <h1 class="company-name">株式会社ZETTAI</h1>
-          <div class="company-line"></div>
-          <p class="company-copy">現場の業務知識を、明日から使える自動化の仕組みに変える。</p>
-        </div>
-      </div>
-      <div class="foot"><span>株式会社ZETTAI</span><span>contact@zettai.co.jp</span></div>
-    </section>
-
-    <section class="slide" data-title="目次">
-      <div class="kicker"><b>Agenda</b><span>60 min</span></div>
+    <section class="slide active company-cover" data-title="会社紹介">
+      <div class="kicker split"><b>株式会社ZETTAI</b></div>
       <div class="body">
-        <p class="eyebrow">本日の流れ</p>
-        <h2>バックオフィス業務を、AIでどう変えるか</h2>
-        <div class="agenda-list">
-          <article class="agenda-item">
-            <span class="agenda-no">01</span>
-            <div><h3>導入イメージ</h3><p>今日のゴール、月末業務の課題、AI活用マップを確認します。</p></div>
-          </article>
-          <article class="agenda-item">
-            <span class="agenda-no">02</span>
-            <div><h3>安全な始め方</h3><p>Claude Codeの役割と、読み取り専用・差分確認・最小権限の考え方を整理します。</p></div>
-          </article>
-          <article class="agenda-item">
-            <span class="agenda-no">03</span>
-            <div><h3>実演デモ</h3><p>請求書チェックを題材に、手順書から業務ツールを作る流れを見ます。</p></div>
-          </article>
-          <article class="agenda-item">
-            <span class="agenda-no">04</span>
-            <div><h3>社内展開</h3><p>業務選定、稟議Q&A、今日帰ったら行う30分チェックリストまで落とし込みます。</p></div>
-          </article>
+        <div class="company-wordmark"><span class="brand">ZETTAI<i></i></span></div>
+        <div>
+          <h1 class="company-title">株式会社ZETTAI</h1>
+          <p class="company-copy" style="margin-top:26px;">バックオフィスの現場知を、明日から使える業務改善に変える。</p>
         </div>
       </div>
-      <div class="foot"><span>Agenda</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="タイトル">
-      <div class="kicker"><b>CLAUDECODE研修</b><span>2026.06.19 FRI 20:00-21:00</span></div>
-      <div class="body title-layout">
-        <div>
-          <p class="eyebrow">経理・総務・労務向けオンラインセミナー</p>
-          <h1>バックオフィスでのClaude Code活用法</h1>
-          <p class="lead" style="margin-top:26px;">非エンジニアが、自分で業務ツールを作るための60分</p>
-          <div class="pill-row">
-            <span class="pill">経理</span>
-            <span class="pill">総務</span>
-            <span class="pill">労務</span>
-            <span class="pill">日本語だけで実演</span>
-          </div>
+      <div class="kicker">CLAUDE CODE × BACK OFFICE</div>
+      <div class="body center">
+        <h1>バックオフィスでの<br>Claude Code活用法</h1>
+        <p class="lead">経理・総務・労務<br>非エンジニアが自分で業務ツールを作る</p>
+        <div class="meta-lines">
+          <p>2026年 6月19日（金）20:00-21:00</p>
+          <p>小潟 一翔｜株式会社ZETTAI 代表取締役</p>
         </div>
-        <article class="photo-card">
-          <img alt="" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop">
-          <div class="glass-caption">
-            <h3>Back-office workflow</h3>
-            <p>請求、勤怠、台帳、稟議。毎月の定型業務を、業務ルールからツールへ変える。</p>
-          </div>
-        </article>
       </div>
-      <div class="foot"><span>株式会社ZETTAi</span><span>contact@zettai.co.jp</span></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="今日のゴール">
-      <div class="kicker"><b>Part 1</b><span>今日のゴール</span></div>
+    <section class="slide toc-slide" data-title="目次">
+      <div class="kicker split"><b>Agenda</b><span>00</span></div>
       <div class="body">
-        <p class="eyebrow">60分で到達する状態</p>
-        <h2>自分の業務マニュアルを、AIに渡せるようになる</h2>
-        <div class="cols-3">
-          <article class="panel pad tile"><h3>覚えること</h3><p>プログラミングは一切不要</p></article>
-          <article class="panel pad tile"><h3>必要なもの</h3><p>あなたの業務知識だけ</p></article>
-          <article class="panel pad tile"><h3>今日の進め方</h3><p>デモは全部、日本語の指示だけで動かします</p></article>
+        <div class="toc-head">
+          <h2>本日の流れ</h2>
+          <p>実物のデモを見ながら、バックオフィス業務をAIに任せる考え方と手順を整理します。</p>
         </div>
-        <div class="process-strip">
-          <div class="process-node"><b>INPUT</b><span>業務マニュアル</span></div>
-          <div class="process-node"><b>CLAUDE CODE</b><span>ルールを読み取り、処理を作る</span></div>
-          <div class="process-node"><b>OUTPUT</b><span>毎月使える業務ツール</span></div>
-        </div>
-      </div>
-      <div class="foot"><span>Goal</span><div class="bar"><span></span></div></div>
-    </section>
-
-    <section class="slide" data-title="月末あるある">
-      <div class="kicker"><b>Part 1</b><span>経理担当の月末あるある</span></div>
-      <div class="body split-photo">
-        <article class="photo-card">
-          <img alt="" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop">
-          <div class="glass-caption">
-            <h3>Month-end close</h3>
-            <p>定型作業ほど、人の集中力を細かく削っていく。</p>
-          </div>
-        </article>
-        <div>
-          <h2>毎回同じルールなのに、毎回人が見ている</h2>
-          <div class="chart-card" style="margin-top:22px;">
-            <b>月末作業時間の削減イメージ</b>
-            <div class="bar-chart">
-              <div class="bar-row"><span>手作業</span><span class="bar-track"><span class="bar-fill muted" style="--w:100%;"></span></span><span>4h</span></div>
-              <div class="bar-row"><span>確認中心</span><span class="bar-track"><span class="bar-fill" style="--w:25%;"></span></span><span>1h</span></div>
-            </div>
-          </div>
-          <div class="quote-list" style="margin-top:28px;">
-            <div class="quote">請求書50件を1枚ずつExcelと突合。月4時間。</div>
-            <div class="quote">勘定科目を、毎回マニュアル見ながら判定。</div>
-            <div class="quote">転記ミスが月末に発覚して残業。</div>
-            <div class="quote">このルール、毎回同じなのに。</div>
-          </div>
+        <div class="toc-list">
+          <div class="toc-item"><span class="toc-no">01</span><div><strong>今日の到達点</strong><span>何ができるようになるか</span></div></div>
+          <div class="toc-item"><span class="toc-no">02</span><div><strong>Claude Codeとは</strong><span>チャットAIとの違い</span></div></div>
+          <div class="toc-item"><span class="toc-no">03</span><div><strong>経理ツールデモ</strong><span>請求書から仕訳・CSVまで</span></div></div>
+          <div class="toc-item"><span class="toc-no">04</span><div><strong>業務化の4ステップ</strong><span>まとめる、渡す、育てる、自動化</span></div></div>
+          <div class="toc-item"><span class="toc-no">05</span><div><strong>バックオフィス事例</strong><span>経理・総務・労務への展開</span></div></div>
+          <div class="toc-item"><span class="toc-no">06</span><div><strong>研修と伴走支援</strong><span>社内で使える力に変える</span></div></div>
         </div>
       </div>
-      <div class="foot"><span>繰り返し・ルール・確認作業が狙い目</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="AI活用マップ">
-      <div class="kicker"><b>Part 1</b><span>領域マップ</span></div>
+    <section class="slide" data-title="到達点">
+      <div class="kicker split"><b>Goal</b><span>01</span></div>
       <div class="body">
-        <h2>経理・総務・労務のAI活用マップ</h2>
-        <div class="matrix">
-          <div class="head"></div>
-          <div class="head">経理</div>
-          <div class="head">総務</div>
-          <div class="head">労務</div>
-          <div class="rowhead"><span class="tag good">すぐ始める</span></div>
-          <div>請求書チェック<br>仕訳候補<br>支払予定表</div>
-          <div>備品台帳<br>契約更新リマインド<br>社内FAQ</div>
-          <div>勤怠集計<br>有休残数<br>入退社手続きリスト</div>
-          <div class="rowhead"><span class="tag warn">確認付き</span></div>
-          <div>税務判断の補助</div>
-          <div>契約条項の一次確認</div>
-          <div>給与計算ダブルチェック</div>
-          <div class="rowhead"><span class="tag bad">AI単独はNG</span></div>
-          <div>最終承認</div>
-          <div>法的判断</div>
-          <div>個人情報の無制限投入</div>
+        <h2>60分後、あなたの業務のどこにAIが使えるか<br>見え方が変わる</h2>
+        <div class="comparison">
+          <div class="panel">
+            <h3>このセミナーでやること</h3>
+            <ul class="check-list">
+              <li>経理ツールの実物を、自分の目で操作してみます</li>
+              <li>同じツールを、AIにゼロから作らせる様子をライブで見ます</li>
+              <li>AIに業務を任せるための「4ステップ」を具体的に理解します</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>このセミナーで使わないもの</h3>
+            <ul class="x-list">
+              <li>プログラミング言語</li>
+              <li>英語のコマンド</li>
+              <li>特別なAIテクニック</li>
+            </ul>
+          </div>
         </div>
+        <p class="band">今ある業務マニュアルをAIに渡す。それだけで定型作業が自動化されます。</p>
       </div>
-      <div class="foot"><span>緑から始め、黄は人間確認、赤は任せない</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Claude Codeとは">
-      <div class="kicker"><b>Part 1</b><span>Claude Codeとは</span></div>
-      <div class="body split-photo">
-        <div>
-          <p class="eyebrow">日本語で話しかけると、コードを書いてくれるAI</p>
-          <h2>書くのはコードではなく、業務ルールです</h2>
-          <div class="cols-3" style="margin-top:30px;">
-            <article class="panel pad tile"><h3>Excel関数の感覚</h3><p>ただし、AIが関数やコードを書く</p></article>
-            <article class="panel pad tile"><h3>直しながら作る</h3><p>間違えたら「ここ直して」で修正</p></article>
-            <article class="panel pad tile"><h3>主役は業務知識</h3><p>あなたは手順とルールを説明する</p></article>
+      <div class="kicker split"><b>What is Claude Code?</b><span>02</span></div>
+      <div class="body">
+        <h2>日本語で話しかけると、<br>ファイルを読み書きして仕事をしてくれるAI</h2>
+        <div class="arrow-row">
+          <div class="panel card">
+            <h3>従来のAIチャット</h3>
+            <ul class="small">
+              <li>代わりに答えてくれる</li>
+              <li>回答をもらって自分でコピペ</li>
+              <li>毎回同じ説明を伝え直す</li>
+            </ul>
+          </div>
+          <div class="arrow">→</div>
+          <div class="panel card">
+            <h3>Claude Code</h3>
+            <ul class="small">
+              <li>仕事環境を把握して動く</li>
+              <li>ファイルを読み取ってCSVを出力</li>
+              <li>業務の手順を覚えて実行</li>
+            </ul>
           </div>
         </div>
-        <article class="photo-card">
-          <img alt="" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
-          <div class="glass-caption">
-            <h3>From rules to tools</h3>
-            <p>専門用語を覚えるより、いつもの手順を正確に渡す。</p>
-          </div>
-        </article>
+        <p class="lead">答えるAIではなく、作業するAIです。</p>
       </div>
-      <div class="foot"><span>業務を説明できる人が主役</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="安全ルール">
-      <div class="kicker"><b>Part 1</b><span>安全ルール</span></div>
+    <section class="slide" data-title="できること">
+      <div class="kicker split"><b>Use cases</b><span>03</span></div>
       <div class="body">
-        <h2>安全ルール3箇条</h2>
-        <div class="cols-3">
-          <article class="panel pad tile"><h3>1. 読み取り専用から始める</h3><p>まずは「見るだけ」。変更や送信は後回し。</p></article>
-          <article class="panel pad tile"><h3>2. 差分を必ず確認</h3><p>実行前に、何が変わるかを人が見る。</p></article>
-          <article class="panel pad tile"><h3>3. 権限は最小限</h3><p>必要なフォルダ、必要な操作だけ許可する。</p></article>
+        <h2>Claude Codeでできること</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>ファイル操作</h3><p>CSV・Excel・PDFを読み取り、別の形式に変換・出力。</p></div>
+          <div class="card"><span class="icon">02</span><h3>ツール作成</h3><p>業務用の入力画面や自動処理の仕組みをその場で構築。</p></div>
+          <div class="card"><span class="icon">03</span><h3>外部連携</h3><p>freee・Gmail・Slack・Googleカレンダーなどに接続。</p></div>
+          <div class="card"><span class="icon">04</span><h3>自動化</h3><p>毎月・毎週のスケジュール実行、繰り返し作業をゼロに。</p></div>
+          <div class="card"><span class="icon">05</span><h3>修正・改善</h3><p>「ここを直して」の一言でルールや画面を修正。</p></div>
+          <div class="card"><span class="icon">06</span><h3>記録</h3><p>実行内容や結果を残し、引き継ぎ資料として使える形に。</p></div>
         </div>
-        <p class="lead">この3つを守れば、安心して小さく始められます。</p>
+        <p class="band">これらを全部、日本語の指示だけで実現できます。</p>
       </div>
-      <div class="foot"><span>Security first</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="デモ全体像">
-      <div class="kicker"><b>Part 2</b><span>実演デモ</span></div>
+    <section class="slide" data-title="請求書処理の現状">
+      <div class="kicker split"><b>Problem</b><span>04</span></div>
       <div class="body">
-        <h2>請求チェックツールを、目の前で作ります</h2>
-        <div class="flow">
-          <div class="flow-step"><b>Step 1</b><span>業務マニュアルを渡す</span></div>
-          <div class="flow-step"><b>Step 2</b><span>請求書を投入</span></div>
-          <div class="flow-step"><b>Step 3</b><span>失敗を見つける</span></div>
-          <div class="flow-step"><b>Step 4</b><span>日本語で修正</span></div>
-          <div class="flow-step"><b>Step 5</b><span>型にする</span></div>
-          <div class="flow-step"><b>Step 6</b><span>ツールとつなぐ</span></div>
+        <h2>月10時間を請求書処理に使っている</h2>
+        <div class="category-row">
+          <div class="category"><strong>入力4時間</strong><p>毎月の入力・突合作業</p></div>
+          <div class="category"><strong>科目判定ミス</strong><p>金額や用途ごとの判断</p></div>
+          <div class="category"><strong>転記ミス</strong><p>人手で起こる確認戻り</p></div>
+          <div class="category"><strong>同じ作業の繰り返し</strong><p>毎月ほぼ同じルール</p></div>
         </div>
-        <div class="cols-2">
-          <p class="lead">Step 1-4が核心。</p>
-          <p class="lead">5・6は来月以降の応用編。</p>
+        <div class="comparison">
+          <div class="panel card"><h3>すぐできる</h3><p>請求書仕訳、勤怠集計、経費精算</p></div>
+          <div class="panel card"><h3>確認付き</h3><p>税務判断、給与判断、契約確認</p></div>
         </div>
+        <p class="lead">この8割は「ルールが決まった作業」→ AIに渡せます。</p>
       </div>
-      <div class="foot"><span>Invoice check tool demo</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Step 1">
-      <div class="kicker"><b>Part 2</b><span>Step 1</span></div>
+    <section class="slide" data-title="実物デモ">
+      <div class="kicker split"><b>Demo</b><span>05</span></div>
       <div class="body">
-        <h2>業務マニュアルをAIに渡す</h2>
-        <p class="lead">プロンプトを覚えるのではなく、今ある手順書をそのまま渡します。</p>
-        <pre class="code">CLAUDE.md
-
-## 仕訳ルール
-- キーワード → 勘定科目
-- 飲食 10,000円超 → 交際費
-
-## 除外ルール
-- 仕訳しないもの一覧
-
-## セキュリティポリシー
-- 読み取り専用から始める</pre>
+        <h2>百聞は一見にしかず。</h2>
+        <p class="lead">今から、経理ツールの実物をお見せします</p>
+        <div class="grid-3">
+          <div class="card"><span class="icon">A</span><h3>請求書5件を一瞬で読み取り</h3></div>
+          <div class="card"><span class="icon">B</span><h3>勘定科目を自動で仕訳</h3></div>
+          <div class="card"><span class="icon">C</span><h3>CSV出力・レポートまで完成</h3></div>
+        </div>
+        <p class="band">これを全部、プログラミングなし・日本語の指示だけで作りました。</p>
       </div>
-      <div class="foot"><span>既存のExcelマニュアルをコピペするだけでOK</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Step 2">
-      <div class="kicker"><b>Part 2</b><span>Step 2</span></div>
+    <section class="slide" data-title="AIが同じツールを作る">
+      <div class="kicker split"><b>Live build</b><span>06</span></div>
       <div class="body">
-        <h2>請求書を投入して変換依頼</h2>
-        <div class="code">invoicesフォルダの請求書を全部読み取って、
-freeeインポート用CSVに変換して</div>
-        <div class="rows">
-          <div class="row"><b>A商事</b><span>消耗品費</span></div>
-          <div class="row"><b>Bコンサル</b><span>源泉徴収あり / 支払報酬料</span></div>
-          <div class="row"><b>Cタクシー</b><span>旅費交通費</span></div>
-          <div class="row"><b>D居酒屋</b><span>31,460円 / 1万円超なので交際費</span></div>
-          <div class="row"><b>AWS</b><span>海外SaaS / 税区分「対象外」</span></div>
+        <h2>今この瞬間、AIが同じツールを<br>ゼロから作っています</h2>
+        <div class="band">請求書 → 仕訳 → CSV</div>
+        <div class="tool-flow">
+          <div class="tool-step"><b>STEP 1</b><span>指示を読む</span></div>
+          <div class="tool-step"><b>STEP 2</b><span>業務ルールを整理</span></div>
+          <div class="tool-step"><b>STEP 3</b><span>画面を作る</span></div>
+          <div class="tool-step"><b>STEP 4</b><span>出力を整える</span></div>
         </div>
+        <p class="sub">さっき渡したのは「業務の手順書」1つだけ。セミナーの最後に、完成したものをお見せします。</p>
       </div>
-      <div class="foot"><span>Demo folder: invoices/</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Step 3-4">
-      <div class="kicker"><b>Part 2</b><span>Step 3-4</span></div>
+    <section class="slide" data-title="4ステップ">
+      <div class="kicker split"><b>Framework</b><span>07</span></div>
       <div class="body">
-        <h2>失敗を見つけ、日本語で修正する</h2>
-        <div class="cols-2">
-          <article class="note bad">
-            <h3>失敗例</h3>
-            <ul>
-              <li>消費税が四捨五入になっている</li>
-              <li>居酒屋31,460円が会議費になっている</li>
-            </ul>
-          </article>
-          <article class="note good">
-            <h3>修正指示</h3>
-            <ul>
-              <li>消費税は切り捨てにして</li>
-              <li>1万円超の飲食は交際費にして</li>
-            </ul>
-          </article>
+        <h2>業務のやり方をまとめる → AIに渡す<br>直しながら育てる → 自動化</h2>
+        <div class="tool-flow">
+          <div class="tool-step"><b>① まとめる</b><span>普段やっている業務の手順を文章にする</span></div>
+          <div class="tool-step"><b>② 渡す</b><span>AIに読み込ませて処理させる</span></div>
+          <div class="tool-step"><b>③ 育てる</b><span>間違いを直して精度を上げる</span></div>
+          <div class="tool-step"><b>④ 自動化</b><span>保存して毎月同じ作業を回す</span></div>
         </div>
-        <p class="lead">最初から完璧じゃなくていい。「直して」が最大の武器です。</p>
+        <p class="band">経理でも総務でも労務でも、この4ステップは変わりません。</p>
       </div>
-      <div class="foot"><span>業務ルールを会話で追加していく</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Step 5">
-      <div class="kicker"><b>Part 2</b><span>Step 5</span></div>
+    <section class="slide" data-title="事例">
+      <div class="kicker split"><b>Examples</b><span>08</span></div>
       <div class="body">
-        <h2>毎回使える「型」にする</h2>
-        <div class="cols-2">
-          <article class="panel pad">
-            <h3>スキル化</h3>
-            <p class="command" style="margin:26px 0 18px;">/invoice-convert</p>
-            <p class="lead">と打つだけで、来月も同じ処理。</p>
-          </article>
-          <article class="panel pad">
-            <h3>スケジュール</h3>
-            <p class="metric" style="margin:28px 0 18px;">毎月1日 9:00</p>
-            <p class="lead">うっかり忘れをなくす。</p>
-          </article>
+        <h2>今見た経理ツールは、ほんの一例です</h2>
+        <div class="grid-2">
+          <div class="card"><h3>事例① 勤怠集計ツール</h3><p>出退勤データ → 残業時間・有休残数を自動計算 → 月次レポート</p></div>
+          <div class="card"><h3>事例② 経費精算チェッカー</h3><p>領収書データ → 科目判定 + 上限超過アラート → 一覧表</p></div>
+          <div class="card"><h3>事例③ 契約更新リマインダー</h3><p>契約一覧 → 更新期限の30日前に自動通知 → チェックリスト</p></div>
+          <div class="card"><h3>事例④ 社内問い合わせ自動回答</h3><p>就業規則をAIに読み込み → 社員の質問に自動回答</p></div>
         </div>
+        <p class="band">全部、プログラミングなし。業務の手順書を渡すだけで作れます。</p>
       </div>
-      <div class="foot"><span>Recurring workflow</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="Step 6">
-      <div class="kicker"><b>Part 2</b><span>Step 6</span></div>
-      <div class="body">
-        <h2>会計ソフト・メールとつなぐ</h2>
-        <div class="hub">
-          <div class="panel tool">freee</div>
-          <div class="panel tool">Gmail</div>
-          <div class="panel tool">Calendar</div>
-          <div class="panel tool">Slack</div>
-          <div class="panel tool">Notion</div>
-          <div class="panel center">Claude Code</div>
-        </div>
-        <div class="cols-2">
-          <p class="lead">転記作業がゼロになる。</p>
-          <p class="lead">いつ・何を・どれだけ効率化したか自動記録。</p>
-        </div>
+    <section class="slide" data-title="問い">
+      <div class="kicker split"><b>Question</b><span>09</span></div>
+      <div class="body center">
+        <h2>Claude Codeを使いこなせるようになったら、<br>何をしたいですか？</h2>
+        <p class="sub">日本語の指示だけで業務ツールが作れるとしたら、<br>あなたの日常業務で何を自動化したいですか？</p>
+        <p class="band">チャットに書いてみてください。どんな内容でもOKです。</p>
       </div>
-      <div class="foot"><span>MCP: 外部ツール接続の仕組み</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="研修スタート">
+      <div class="kicker split"><b>Training</b><span>10</span></div>
+      <div class="body">
+        <h2>「プログラミングって何？」から始めた方たちが、<br>今では自分で業務ツールを作っています</h2>
+        <div class="grid-3">
+          <div class="card"><h3>事務</h3><p>Excel・PDF・CSVを整理</p></div>
+          <div class="card"><h3>総務</h3><p>問い合わせ対応を効率化</p></div>
+          <div class="card"><h3>営業事務</h3><p>見積・契約書の作成を補助</p></div>
+        </div>
+        <p class="band">全員、非エンジニア。研修前はAIに触れたこともない状態からのスタートでした。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Before After">
-      <div class="kicker"><b>Part 2</b><span>Before / After</span></div>
-      <div class="body split-photo">
-        <article class="photo-card">
-          <img alt="" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop">
-          <div class="glass-caption">
-            <h3>Same files, different process</h3>
-            <p>来月も使える形にして、確認作業だけを人に残す。</p>
-          </div>
-        </article>
-        <div class="cols-2">
-          <article class="note">
+      <div class="kicker split"><b>Before / After</b><span>11</span></div>
+      <div class="body">
+        <h2>研修前と研修後で、これだけ変わります</h2>
+        <div class="before-after">
+          <div class="panel">
             <h3>Before</h3>
-            <p class="metric" style="margin:20px 0;">30分-1時間</p>
-            <p class="small">請求書5件を手作業で転記・確認。</p>
-          </article>
-          <article class="note good">
-            <h3>After</h3>
-            <p class="metric" style="margin:20px 0;">数分</p>
-            <p class="small">同じ5件をコマンド1つで処理。来月からは自動化へ。</p>
-          </article>
-        </div>
-        <div class="delta-grid">
-          <div class="delta-card"><strong>手作業の工程</strong><span>5</span></div>
-          <div class="delta-card"><strong>人が残す工程</strong><span>1</span></div>
-        </div>
-      </div>
-      <div class="foot"><span>同じやり方で勤怠集計・経費精算にも展開できます</span><div class="bar"><span></span></div></div>
-    </section>
-
-    <section class="slide" data-title="業務選定">
-      <div class="kicker"><b>Part 3</b><span>最初に選ぶ業務</span></div>
-      <div class="body">
-        <h2>最初に選ぶべき業務 / 選んではいけない業務</h2>
-        <div class="cols-2">
-          <article class="note good">
-            <h3>選ぶべき</h3>
-            <ul>
-              <li>月1回以上発生する</li>
-              <li>手順書がある、または書ける</li>
-              <li>入力と出力が明確</li>
-              <li>間違えても人間が検知できる</li>
+            <ul class="x-list">
+              <li>定型作業を毎月手作業で繰り返し</li>
+              <li>ツールが欲しくても外注・情シス待ち</li>
+              <li>業務改善のアイデアはあるが実現手段がない</li>
             </ul>
-          </article>
-          <article class="note bad">
-            <h3>避けるべき</h3>
-            <ul>
-              <li>例外処理だらけ</li>
-              <li>最終判断・法的リスクが高い</li>
-              <li>データの所在が整理されていない</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-      <div class="foot"><span>小さく、定型で、確認できる業務から</span><div class="bar"><span></span></div></div>
-    </section>
-
-    <section class="slide" data-title="社内Q&A">
-      <div class="kicker"><b>Part 3</b><span>社内稟議・セキュリティQ&A</span></div>
-      <div class="body">
-        <h2>稟議で聞かれやすい4点</h2>
-        <div class="risk-map">
-          <div class="qa">
-            <div class="qa-row"><b>データが漏れない？</b><span>ローカル実行。送信範囲を制御可能。</span></div>
-            <div class="qa-row"><b>費用は？</b><span>月額約$20から。初月でROI回収。</span></div>
-            <div class="qa-row"><b>既存フローを壊さない？</b><span>読み取り専用から。上乗せするだけ。</span></div>
-            <div class="qa-row"><b>誰が管理？</b><span>CLAUDE.mdが引き継ぎ資料。属人化しにくい。</span></div>
           </div>
-          <div class="risk-bars">
-            <div class="risk-line"><span>情報管理</span><span class="risk-track"><span style="--w:74%;"></span></span></div>
-            <div class="risk-line"><span>費用対効果</span><span class="risk-track"><span style="--w:58%;"></span></span></div>
-            <div class="risk-line"><span>業務影響</span><span class="risk-track"><span style="--w:42%;"></span></span></div>
-            <div class="risk-line"><span>運用責任</span><span class="risk-track"><span style="--w:66%;"></span></span></div>
+          <div class="arrow">→</div>
+          <div class="panel">
+            <h3 style="color: var(--orange);">After</h3>
+            <ul class="check-list">
+              <li>定型作業はAIに任せて自動化</li>
+              <li>必要なツールを自分でその日に作れる</li>
+              <li>思いついた改善をすぐ形にできる</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="foot"><span>安全性・費用対効果・運用責任を明確に</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
-    <section class="slide" data-title="30分チェックリスト">
-      <div class="kicker"><b>Part 3</b><span>今日帰ったら30分</span></div>
+    <section class="slide" data-title="学ぶこと">
+      <div class="kicker split"><b>Curriculum</b><span>12</span></div>
       <div class="body">
-        <h2>今日帰ったら30分チェックリスト</h2>
-        <div class="timeline">
-          <article class="time-card">
-            <p class="time">5分</p>
-            <h3>Claude Codeをインストール</h3>
-            <p class="small" style="margin-top:14px;">まず触れる状態を作る。</p>
-          </article>
-          <article class="time-card">
-            <p class="time">10分</p>
-            <h3>定型作業を1つ選ぶ</h3>
-            <p class="small" style="margin-top:14px;">手順が決まっていて、入力と出力が明確なもの。</p>
-          </article>
-          <article class="time-card">
-            <p class="time">15分</p>
-            <h3>手順をCLAUDE.mdに書く</h3>
-            <p class="small" style="margin-top:14px;">今日見た「業務マニュアルを渡す」で始める。</p>
-          </article>
+        <h2>今お見せしたツールの作り方、<br>ゼロから学べます</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">1</span><h3>設計方法</h3><p>AIに業務を正しく伝えるための設計方法</p></div>
+          <div class="card"><span class="icon">2</span><h3>構築・改善</h3><p>業務ツールの構築・改善の進め方</p></div>
+          <div class="card"><span class="icon">3</span><h3>連携・自動化</h3><p>自動化や他ツールとの連携方法</p></div>
         </div>
+        <p class="band">初心者でも一から身につけられる研修を、株式会社ZETTAIが提供しています。</p>
       </div>
-      <div class="foot"><span>Start small tomorrow</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="伴走支援">
+      <div class="kicker split"><b>Support</b><span>13</span></div>
+      <div class="body">
+        <h2 class="one-line-title">あなたの業務に密着して、ゼロから伴走します</h2>
+        <div class="grid-2">
+          <div class="card"><h3>期間を選べる</h3><p>2日間の集中コース / 4日間のじっくりコースなど</p></div>
+          <div class="card"><h3>あなたの業務が教材</h3><p>実際の業務データ・手順書を使って、実務に直結するAIの使い方を設計</p></div>
+          <div class="card"><h3>研修後に手に入る力</h3><p>業務の手順をAIに渡す力 / ツールを自分で改善する力</p></div>
+          <div class="card"><h3>サポート</h3><p>研修後もチャットで質問OK</p></div>
+        </div>
+        <p class="lead">詳細・お問い合わせ → claudecode.co.jp</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="実績">
+      <div class="kicker split"><b>Proof</b><span>14</span></div>
+      <div class="body">
+        <h2>これまでにお伝えしてきた企業の<br>一部をご紹介します</h2>
+        <div class="logo-grid">
+          <div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div><div class="logo-box">LOGO</div>
+          <div class="logo-box">研修風景</div><div class="logo-box">研修風景</div><div class="logo-box">研修風景</div><div class="logo-box">上場準備中企業・大手企業など</div><div class="logo-box">実務導入あり</div>
+        </div>
+        <p class="band">業種・規模を問わず、非エンジニアの方が成果を出しています。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
 
     <section class="slide" data-title="Q&A">
-      <div class="kicker"><b>Q&A</b><span>15 min</span></div>
-      <div class="body title-layout">
-        <div>
-          <p class="eyebrow">ご参加ありがとうございました</p>
-          <h1>ご質問をどうぞ</h1>
-          <p class="lead" style="margin-top:28px;">個別相談・導入支援のご案内も可能です。</p>
-          <div class="pill-row">
-            <span class="pill">contact@zettai.co.jp</span>
-            <span class="pill">株式会社ZETTAi</span>
-            <span class="pill">CLAUDECODE研修</span>
+      <div class="kicker split"><b>Q&A</b><span>15</span></div>
+      <div class="body center">
+        <h2>ご質問をどうぞ</h2>
+        <p class="sub">チャット欄にお気軽に書き込んでください</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="Thank you">
+      <div class="kicker split"><b>Contact</b><span>16</span></div>
+      <div class="body center">
+        <h2>本日はありがとうございました</h2>
+        <p class="sub">個別相談・導入支援のご依頼はお気軽に</p>
+        <div class="contact-stack">
+          <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAI</span></p>
+          <div class="contact-list">
+            <span class="contact-line">contact@zettai.co.jp</span>
+            <span class="contact-line">claudecode.co.jp</span>
           </div>
         </div>
-        <article class="photo-card">
-          <img alt="" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop">
-          <div class="glass-caption">
-            <h3>Next conversation</h3>
-            <p>明日から始める業務、社内説明、導入の順番まで相談できます。</p>
-          </div>
-        </article>
       </div>
-      <div class="foot"><span>Back Office x Claude Code</span><div class="bar"><span></span></div></div>
+      <div class="foot"><span class="brand">ZETTAI<i></i></span><span>claudecode.co.jp</span></div>
     </section>
   </main>
 
@@ -1464,10 +1204,6 @@ freeeインポート用CSVに変換して</div>
       current = clamp(current);
       slides.forEach((slide, index) => {
         slide.classList.toggle("active", index === current);
-        const progress = slide.querySelector(".bar span");
-        if (progress) {
-          progress.style.setProperty("--p", `${((index + 1) / slides.length) * 100}%`);
-        }
       });
       count.textContent = `${current + 1} / ${slides.length}`;
       history.replaceState(null, "", `?slide=${current + 1}`);
