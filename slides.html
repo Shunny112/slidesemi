@@ -1740,9 +1740,18 @@
 
     .contact-stack {
       display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
       justify-items: center;
-      gap: 26px;
+      justify-content: center;
+      gap: 28px 70px;
       transform: translateY(-20px);
+    }
+
+    .contact-copy {
+      display: grid;
+      justify-items: center;
+      gap: 22px;
     }
 
     .contact-company {
@@ -1776,6 +1785,22 @@
       font-size: 24px;
       line-height: 1.45;
       font-weight: 560;
+    }
+
+    .contact-qr {
+      display: grid;
+      justify-items: center;
+      margin: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+    }
+
+    .contact-qr img {
+      display: block;
+      width: 210px;
+      height: 210px;
+      object-fit: contain;
     }
 
     .controls {
@@ -2500,11 +2525,16 @@
         <h2>本日はありがとうございました</h2>
         <p class="sub">個別相談・導入支援の依頼先</p>
         <div class="contact-stack">
-          <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAi</span></p>
-          <div class="contact-list">
-            <span class="contact-line">contact@zettai.co.jp</span>
-            <span class="contact-line">claudecode.co.jp</span>
+          <div class="contact-copy">
+            <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAi</span></p>
+            <div class="contact-list">
+              <span class="contact-line">contact@zettai.co.jp</span>
+              <span class="contact-line">claudecode.co.jp</span>
+            </div>
           </div>
+          <figure class="contact-qr">
+            <img src="assets-lite/L_gainfriends_2dbarcodes_GW.png" alt="LINE相談用QRコード" width="540" height="540" loading="lazy" decoding="async">
+          </figure>
         </div>
       </div>
       <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
