@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI/UX Pro Max"
+  short_description: "Searchable UI/UX design system recommendations"
+  default_prompt: "Use $ui-ux-pro-max to generate a design system for my web app."

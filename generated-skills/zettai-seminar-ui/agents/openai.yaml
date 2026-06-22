@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZETTAi Seminar UI"
+  short_description: "Seminar slide UI system for ZETTAi-style decks"
+  default_prompt: "Use $zettai-seminar-ui to design a clear Japanese seminar slide deck UI."

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seminar Slide Template</title>
+  <style>
+    :root {
+      --slide-scale: 1;
+      --paper: #ffffff;
+      --ink: #121212;
+      --text: #2f2f2f;
+      --muted: #5f5b56;
+      --line: #ded8d2;
+      --orange: #d86f32;
+      --orange-2: #eda56a;
+      --glass: rgba(255,255,255,.96);
+      --shadow: 0 24px 58px rgba(30, 24, 18, .10);
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: #f2f2f2;
+      font-family: var(--sans);
+      color: var(--ink);
+    }
+    .deck {
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      transform: scale(var(--slide-scale));
+      transform-origin: top left;
+    }
+    .slide {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      width: 1600px;
+      height: 900px;
+      padding: 46px 54px 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.76), rgba(255,255,255,0) 46%),
+        radial-gradient(ellipse at 84% 16%, rgba(237,165,106,.10), transparent 36%),
+        radial-gradient(ellipse at 18% 84%, rgba(201,101,92,.06), transparent 38%),
+        var(--paper);
+    }
+    .kicker {
+      display: flex;
+      justify-content: space-between;
+      min-height: 36px;
+      font-size: 14px;
+      font-weight: 680;
+    }
+    .kicker span { color: var(--orange); font-weight: 820; }
+    .body {
+      display: grid;
+      align-content: center;
+      gap: 26px;
+    }
+    h1, h2, h3, p, li {
+      margin: 0;
+      line-break: strict;
+      letter-spacing: 0;
+    }
+    h2 {
+      max-width: 1180px;
+      font-size: clamp(36px, 3.7vw, 58px);
+      line-height: 1.18;
+      font-weight: 740;
+      text-wrap: balance;
+    }
+    .highlight-text {
+      display: inline;
+      padding: 0 .12em .04em;
+      color: var(--orange);
+      background: linear-gradient(180deg, transparent 58%, rgba(237,165,106,.28) 58%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      min-height: 180px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+    .card b {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--orange);
+      font-size: 15px;
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 27px;
+      line-height: 1.25;
+    }
+    .card p {
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.6;
+      font-weight: 540;
+    }
+    .foot {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      padding-bottom: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+    .foot::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 74px;
+      height: 1px;
+      background: rgba(150,142,134,.72);
+    }
+    .brand {
+      width: 58px;
+      height: 42px;
+      background: url("zettai-logo-transparent.png") center / contain no-repeat;
+      opacity: .62;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide">
+      <div class="kicker"><b>Section Label</b><span>01</span></div>
+      <div class="body">
+        <h2>セミナーの要点を、<span class="highlight-text">一目で伝わる構造</span>にする</h2>
+        <div class="grid-3">
+          <div class="card"><b>01</b><strong>課題</strong><p>最初に現状や痛みを短く示す。</p></div>
+          <div class="card"><b>02</b><strong>考え方</strong><p>判断軸や手順を図解で整理する。</p></div>
+          <div class="card"><b>03</b><strong>次の行動</strong><p>受講者が取る行動を明確にする。</p></div>
+        </div>
+      </div>
+      <div class="foot"><span>example.co.jp</span><span class="brand" aria-label="ZETTAi"></span></div>
+    </section>
+  </main>
+</body>
+</html>
