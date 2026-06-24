@@ -564,6 +564,48 @@
       pointer-events: none;
     }
 
+    .slide.speaker-slide {
+      background: var(--paper);
+    }
+
+    .slide.speaker-slide::before,
+    .slide.speaker-slide::after {
+      content: none;
+      background: none;
+    }
+
+    .speaker-slide .foot::before {
+      bottom: 52px;
+    }
+
+    .speaker-body {
+      align-content: stretch;
+      min-height: 0;
+    }
+
+    .speaker-hero {
+      grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+      gap: 40px;
+      align-items: stretch;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .speaker-photo {
+      min-height: 0;
+      min-width: 0;
+      width: 100%;
+      align-self: stretch;
+      justify-self: stretch;
+    }
+
+    .speaker-photo img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
     .profile-logo-photo {
       display: grid;
       place-items: center;
@@ -713,6 +755,170 @@
       font-size: 19px;
       line-height: 1.4;
       font-weight: 620;
+    }
+
+    .speaker-copy {
+      align-content: center;
+      justify-items: center;
+      gap: 0;
+      padding: 0;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .speaker-profile-img {
+      width: 88%;
+      height: auto;
+      max-width: 88%;
+      max-height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+
+    .speaker-kicker {
+      font-size: 15px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 760;
+      color: var(--accent);
+    }
+
+    .speaker-name {
+      font-size: clamp(46px, 4.6vw, 66px);
+      font-weight: 820;
+      line-height: 1.02;
+      letter-spacing: .02em;
+      margin: 4px 0 0;
+    }
+
+    .speaker-romaji {
+      font-size: 16px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 620;
+    }
+
+    .speaker-tagline {
+      margin-top: 12px;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      font-style: italic;
+      font-size: clamp(22px, 2vw, 30px);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .speaker-tagline .tagline-accent {
+      position: relative;
+      color: var(--orange);
+      padding: 0 2px;
+    }
+
+    .speaker-tagline .tagline-accent::after {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      height: 6px;
+      background: rgba(216,111,50,.26);
+      transform: skewX(-12deg);
+      border-radius: 2px;
+    }
+
+    .speaker-quote {
+      margin: 0;
+      padding-left: 20px;
+      border-left: 5px solid var(--accent);
+      font-size: clamp(21px, 1.9vw, 27px);
+      font-weight: 720;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .speaker-link {
+      font-size: 14px;
+      font-weight: 720;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+
+    .speaker-link span {
+      transition: transform .2s;
+      display: inline-block;
+    }
+
+    .speaker-bio {
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--muted);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .speaker-columns {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      gap: 34px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .col-label {
+      font-size: 14px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 760;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .dot-list,
+    .plus-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 13px;
+    }
+
+    .dot-list li,
+    .plus-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 17px;
+      line-height: 1.5;
+      font-weight: 620;
+      color: var(--ink);
+    }
+
+    .dot-list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .plus-list li {
+      font-weight: 560;
+      color: var(--ink);
+    }
+
+    .plus-list li::before {
+      content: "+";
+      position: absolute;
+      left: 0;
+      top: -1px;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 19px;
     }
 
     .source-note {
@@ -2248,6 +2454,21 @@
         </div>
       </div>
       <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile speaker-slide" data-title="登壇者の紹介">
+      <div class="kicker split"><b>登壇者</b><span>00-0</span></div>
+      <div class="body speaker-body">
+        <div class="profile-hero speaker-hero">
+          <figure class="profile-photo speaker-photo">
+            <img src="assets-lite/speaker-kogata.png" alt="小潟 一翔" width="495" height="659" loading="lazy" decoding="async">
+          </figure>
+          <div class="profile-copy speaker-copy">
+            <img class="speaker-profile-img" src="assets-lite/speaker-profile.png" alt="小潟一翔 プロフィール" width="772" height="737" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>zettai.co.jp</span></div>
     </section>
 
     <section class="slide toc-slide" data-title="目次">
