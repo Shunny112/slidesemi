@@ -44,9 +44,15 @@
       grid-template-rows: minmax(0, 1fr) auto;
       place-items: center;
       gap: clamp(8px, 1.4vmin, 14px);
+      height: 100dvh;
       min-height: 100svh;
-      padding: var(--viewport-pad);
+      padding:
+        max(var(--viewport-pad), env(safe-area-inset-top))
+        max(var(--viewport-pad), env(safe-area-inset-right))
+        max(var(--viewport-pad), env(safe-area-inset-bottom))
+        max(var(--viewport-pad), env(safe-area-inset-left));
       overflow: hidden;
+      overflow: clip;
     }
 
     button { font: inherit; }
@@ -55,9 +61,14 @@
       position: relative;
       display: grid;
       place-items: center;
+      width: var(--stage-width, 1600px);
+      height: var(--stage-height, 900px);
+      max-width: 100%;
+      max-height: 100%;
       align-self: center;
       justify-self: center;
       overflow: visible;
+      contain: layout size;
     }
 
     .deck {
@@ -69,9 +80,10 @@
       background: var(--paper);
       box-shadow: var(--shadow);
       overflow: hidden;
-      transform: scale(var(--slide-scale));
+      transform: translate3d(0, 0, 0) scale(var(--slide-scale));
       transform-origin: top left;
       will-change: transform;
+      backface-visibility: hidden;
     }
 
     .slide {
@@ -283,6 +295,7 @@
       line-height: 1.35;
       font-weight: 720;
       text-wrap: balance;
+      white-space: nowrap;
       line-break: strict;
     }
 
@@ -1012,6 +1025,7 @@
 
     .card h3 {
       margin-bottom: 12px;
+      text-wrap: nowrap;
       word-break: auto-phrase;
       overflow-wrap: normal;
     }
@@ -1445,6 +1459,8 @@
       font-size: 29px;
       line-height: 1.25;
       font-weight: 740;
+      white-space: nowrap;
+      text-wrap: nowrap;
     }
 
     .pipeline-box span {
@@ -1897,7 +1913,7 @@
     }
 
     .qa-grid h3 {
-      font-size: 21px;
+      font-size: 18.5px;
       line-height: 1.36;
     }
 
@@ -1911,7 +1927,9 @@
       display: flex;
       align-items: center;
       justify-self: center;
+      flex: 0 0 auto;
       gap: 6px;
+      max-width: calc(100vw - 16px);
       padding: 7px;
       border: 1px solid var(--line);
       border-radius: 0;
@@ -1939,6 +1957,28 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 760;
+    }
+
+    @media (max-width: 520px), (max-height: 520px) {
+      :root {
+        --viewport-pad: clamp(6px, 1.4vmin, 12px);
+      }
+
+      .controls {
+        gap: 4px;
+        padding: 5px;
+      }
+
+      .nav {
+        width: 34px;
+        height: 34px;
+        font-size: 22px;
+      }
+
+      .count {
+        min-width: 56px;
+        font-size: 12px;
+      }
     }
 
     .export-mode body {
@@ -2291,9 +2331,9 @@
       <div class="body">
         <h2 class="single-line-heading">無料セミナーは、<span class="highlight-text">4つの入口</span>からClaude Codeを体感する</h2>
         <div class="grid-4 compact-cards">
-          <div class="card is-key-card"><span class="icon">01</span><h3>はじめての<br>Claude Code</h3><p>ローカルファイルを読ませ、<br>AIがPC内で働く感覚をつかむ。</p></div>
-          <div class="card"><span class="icon">02</span><h3>リサーチ・<br>レポート編</h3><p>調査、要約、保存から<br>資料化までを一連で任せる。</p></div>
-          <div class="card"><span class="icon">03</span><h3>データ整理・<br>分析編</h3><p>散らかったファイルを読み、<br>比較・集計・レポート化する。</p></div>
+          <div class="card is-key-card"><span class="icon">01</span><h3>はじめてのClaude Code</h3><p>ローカルファイルを読ませ、<br>AIがPC内で働く感覚をつかむ。</p></div>
+          <div class="card"><span class="icon">02</span><h3>リサーチ・レポート編</h3><p>調査、要約、保存から<br>資料化までを一連で任せる。</p></div>
+          <div class="card"><span class="icon">03</span><h3>データ整理・分析編</h3><p>散らかったファイルを読み、<br>比較・集計・レポート化する。</p></div>
           <div class="card"><span class="icon">04</span><h3>営業支援編</h3><p>企業調査から<br>提案切り口まで作る。</p></div>
         </div>
         <p class="band">本デッキでは、初回参加者向けの<span class="highlight-strong">はじめてのClaude Code</span>を扱う。</p>
@@ -2439,11 +2479,11 @@
       <div class="body">
         <h2>ファイルやフォルダを、<span class="highlight-text">まとめて扱える</span></h2>
         <div class="pipeline-diagram">
-          <div class="pipeline-box"><b>INPUT</b><strong>散らかった<br>ファイル</strong><span>PDF、Excel、CSV、議事録、画像</span></div>
+          <div class="pipeline-box"><b>INPUT</b><strong>散らかったファイル</strong><span>PDF、Excel、CSV、議事録、画像</span></div>
           <div class="flow-arrow">→</div>
-          <div class="pipeline-box"><b>PROCESS</b><strong>読取・分類・<br>要約</strong><span>内容を見て、用途ごとに整理</span></div>
+          <div class="pipeline-box"><b>PROCESS</b><strong>読取・分類・要約</strong><span>内容を見て、用途ごとに整理</span></div>
           <div class="flow-arrow">→</div>
-          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>整理済み<br>成果物</strong><span>フォルダ分け、一覧表、レポート</span></div>
+          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>整理済み成果物</strong><span>フォルダ分け、一覧表、レポート</span></div>
         </div>
         <p class="band">ファイルを1つずつアップロードする手間を減らせる。</p>
       </div>
@@ -2623,9 +2663,9 @@
       <div class="body">
         <h2>よくある質問</h2>
         <div class="grid-3 qa-grid">
-          <div class="card"><span class="icon">Q</span><h3>プログラミング経験がなくても<br>大丈夫ですか？</h3><p>受講者の多くは非エンジニア。<br>日本語で進める前提で設計している。</p></div>
-          <div class="card"><span class="icon">Q</span><h3>情報セキュリティは<br>大丈夫ですか？</h3><p>ローカルで扱う設計や、<br>会社ルールに合わせた運用を研修で確認する。</p></div>
-          <div class="card"><span class="icon">Q</span><h3>どれくらいで<br>使えるようになりますか？</h3><p>最短10日で、自分のPC上で<br>実務活用の最初の型を作る。</p></div>
+          <div class="card"><span class="icon">Q</span><h3>プログラミング経験がなくても大丈夫ですか？</h3><p>受講者の多くは非エンジニア。<br>日本語で進める前提で設計している。</p></div>
+          <div class="card"><span class="icon">Q</span><h3>情報セキュリティは大丈夫ですか？</h3><p>ローカルで扱う設計や、<br>会社ルールに合わせた運用を研修で確認する。</p></div>
+          <div class="card"><span class="icon">Q</span><h3>どれくらいで使えるようになりますか？</h3><p>最短10日で、自分のPC上で<br>実務活用の最初の型を作る。</p></div>
         </div>
       </div>
       <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
@@ -2638,7 +2678,7 @@
         <div class="grid-3">
           <div class="card"><span class="icon">01</span><h3>PCの中で働く</h3><p>Claude Codeは、ブラウザの外に出てファイルやフォルダを扱う。</p></div>
           <div class="card"><span class="icon">02</span><h3>仕事を進める</h3><p>質問への回答ではなく、途中工程から成果物まで作る。</p></div>
-          <div class="card"><span class="icon">03</span><h3>研修で<br>自分のものにする</h3><p>今日見た使い方を、<br>自分の業務に合わせて再現する。</p></div>
+          <div class="card"><span class="icon">03</span><h3>研修で自分のものにする</h3><p>今日見た使い方を、<br>自分の業務に合わせて再現する。</p></div>
         </div>
         <p class="band">AIは、聞く相手から<span class="highlight-strong">任せる相手</span>へ変わる。</p>
       </div>
@@ -2712,17 +2752,26 @@
       const paddingX = numberFromPx(bodyStyle.paddingLeft) + numberFromPx(bodyStyle.paddingRight);
       const paddingY = numberFromPx(bodyStyle.paddingTop) + numberFromPx(bodyStyle.paddingBottom);
       const rowGap = numberFromPx(bodyStyle.rowGap);
-      const controlsHeight = controls.offsetHeight;
+      const controlsHeight = controls.getBoundingClientRect().height;
       const viewport = window.visualViewport;
-      const viewportWidth = viewport ? viewport.width : window.innerWidth;
-      const viewportHeight = viewport ? viewport.height : window.innerHeight;
+      const viewportWidth = viewport ? viewport.width : document.documentElement.clientWidth;
+      const viewportHeight = viewport ? viewport.height : document.documentElement.clientHeight;
       const availableWidth = Math.max(1, viewportWidth - paddingX);
       const availableHeight = Math.max(1, viewportHeight - paddingY - rowGap - controlsHeight);
       const scale = Math.max(0.05, Math.min(availableWidth / BASE_SLIDE_WIDTH, availableHeight / BASE_SLIDE_HEIGHT));
+      const stageWidth = BASE_SLIDE_WIDTH * scale;
+      const stageHeight = BASE_SLIDE_HEIGHT * scale;
 
-      document.documentElement.style.setProperty("--slide-scale", scale.toFixed(5));
-      stage.style.width = `${BASE_SLIDE_WIDTH * scale}px`;
-      stage.style.height = `${BASE_SLIDE_HEIGHT * scale}px`;
+      document.documentElement.style.setProperty("--slide-scale", scale.toFixed(6));
+      document.documentElement.style.setProperty("--stage-width", `${stageWidth.toFixed(3)}px`);
+      document.documentElement.style.setProperty("--stage-height", `${stageHeight.toFixed(3)}px`);
+    }
+
+    let fitFrame = 0;
+
+    function scheduleFit() {
+      cancelAnimationFrame(fitFrame);
+      fitFrame = requestAnimationFrame(fitSlideToViewport);
     }
 
     document.querySelector('[data-action="prev"]').addEventListener("click", () => move(-1));
@@ -2748,11 +2797,16 @@
       }
     });
 
-    window.addEventListener("resize", fitSlideToViewport);
-    window.addEventListener("orientationchange", fitSlideToViewport);
-    window.addEventListener("load", fitSlideToViewport);
-    window.visualViewport?.addEventListener("resize", fitSlideToViewport);
-    window.visualViewport?.addEventListener("scroll", fitSlideToViewport);
+    const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleFit) : null;
+    resizeObserver?.observe(document.body);
+    resizeObserver?.observe(controls);
+
+    window.addEventListener("resize", scheduleFit);
+    window.addEventListener("orientationchange", scheduleFit);
+    window.addEventListener("load", scheduleFit);
+    window.visualViewport?.addEventListener("resize", scheduleFit);
+    window.visualViewport?.addEventListener("scroll", scheduleFit);
+    document.fonts?.ready.then(scheduleFit);
 
     fitSlideToViewport();
     show();
