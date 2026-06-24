@@ -1,0 +1,3248 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>日本一わかりやすいDESIGN.md入門</title>
+  <style>
+    :root {
+      --slide-scale: 1;
+      --viewport-pad: clamp(8px, 1.8vmin, 22px);
+      --paper: #ffffff;
+      --paper-2: #fafafa;
+      --ink: #121212;
+      --text: #2f2f2f;
+      --muted: #5f5b56;
+      --line: #ded8d2;
+      --orange: #d86f32;
+      --orange-2: #eda56a;
+      --orange-soft: #fff7f1;
+      --rose: #c9655c;
+      --rose-soft: #fff0ed;
+      --green: #3f8b52;
+      --red: #c64b3c;
+      --glass: rgba(255,255,255,.96);
+      --glass-strong: rgba(255,255,255,.98);
+      --shadow: 0 24px 58px rgba(30, 24, 18, .10);
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #f2f2f2;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    body {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      place-items: center;
+      gap: clamp(8px, 1.4vmin, 14px);
+      min-height: 100svh;
+      padding: var(--viewport-pad);
+      overflow: hidden;
+    }
+
+    button { font: inherit; }
+
+    .stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      align-self: center;
+      justify-self: center;
+      overflow: visible;
+    }
+
+    .deck {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1600px;
+      height: 900px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transform: scale(var(--slide-scale));
+      transform-origin: top left;
+      will-change: transform;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      grid-template-rows: auto 1fr auto;
+      padding: 46px 54px 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.76), rgba(255,255,255,0) 44%),
+        radial-gradient(ellipse at 50% 45%, rgba(237,165,106,.10), transparent 44%),
+        radial-gradient(ellipse at 52% 58%, rgba(201,101,92,.055), transparent 40%),
+        radial-gradient(ellipse at 48% 50%, rgba(255,220,184,.10), transparent 54%),
+        var(--paper);
+    }
+
+    .slide.active { display: grid; }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      background:
+        radial-gradient(ellipse at 50% 44%, rgba(237,165,106,.15), transparent 34%),
+        radial-gradient(ellipse at 50% 60%, rgba(201,101,92,.07), transparent 32%);
+      filter: blur(48px);
+      opacity: .44;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: none;
+    }
+
+    .slide:nth-of-type(n+3) {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.76), rgba(255,255,255,0) 46%),
+        radial-gradient(ellipse at 84% 16%, rgba(237,165,106,.10), transparent 36%),
+        radial-gradient(ellipse at 18% 84%, rgba(201,101,92,.06), transparent 38%),
+        radial-gradient(ellipse at 86% 22%, rgba(255,220,184,.09), transparent 46%),
+        var(--paper);
+    }
+
+    .slide:nth-of-type(n+3)::before {
+      background:
+        radial-gradient(ellipse at 84% 18%, rgba(237,165,106,.16), transparent 29%),
+        radial-gradient(ellipse at 16% 82%, rgba(201,101,92,.075), transparent 32%);
+      opacity: .44;
+    }
+
+    .slide:nth-of-type(n+3)::after {
+      content: none;
+    }
+
+    .kicker,
+    .body,
+    .foot {
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+      min-height: 36px;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 680;
+      letter-spacing: 0;
+    }
+
+    .kicker.split {
+      justify-content: space-between;
+      color: var(--text);
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .kicker.split b,
+    .kicker:not(.split) {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .kicker.split span {
+      color: var(--orange);
+      font-weight: 820;
+    }
+
+    .body {
+      display: grid;
+      align-content: center;
+      gap: 26px;
+      min-height: 0;
+    }
+
+    .foot {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 20px;
+      padding-bottom: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .foot::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 74px;
+      height: 1px;
+      background: rgba(150,142,134,.72);
+      pointer-events: none;
+    }
+
+    .no-footer-rule .foot::before {
+      display: none;
+    }
+
+    .no-footer-rule .curriculum-step::after {
+      display: none;
+    }
+
+    .brand {
+      display: inline-block;
+      width: 72px;
+      height: 48px;
+      overflow: hidden;
+      background: url("assets-lite/zettai-logo-transparent.png") center / contain no-repeat;
+      color: transparent;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    .brand i {
+      display: none;
+    }
+
+    .foot .brand {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+      width: 58px;
+      height: 42px;
+      opacity: .62;
+      filter: saturate(.86) contrast(.96);
+    }
+
+    .foot > span:not(.brand) {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: end;
+    }
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: #a99d91;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    li {
+      margin: 0;
+      line-break: strict;
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: clamp(50px, 4.85vw, 78px);
+      line-height: 1.12;
+      font-weight: 760;
+      letter-spacing: 0;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
+    }
+
+    h2 {
+      color: var(--ink);
+      font-size: clamp(36px, 3.7vw, 58px);
+      line-height: 1.18;
+      font-weight: 740;
+      letter-spacing: 0;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
+    }
+
+    h3 {
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 720;
+      text-wrap: balance;
+      line-break: strict;
+    }
+
+    .lead {
+      color: var(--text);
+      font-size: clamp(23px, 2.05vw, 32px);
+      line-height: 1.48;
+      font-weight: 600;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
+    }
+
+    .sub {
+      color: var(--text);
+      font-size: 21px;
+      line-height: 1.5;
+      font-weight: 540;
+      text-align: center;
+      text-wrap: balance;
+      line-break: strict;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 680;
+      text-align: center;
+    }
+
+    .center { text-align: center; }
+
+    .accent-text {
+      color: var(--orange);
+    }
+
+    .orange-heading {
+      color: var(--orange);
+    }
+
+    .highlight-text {
+      display: inline;
+      padding: 0 .12em .04em;
+      color: var(--orange);
+      background: linear-gradient(180deg, transparent 58%, rgba(237,165,106,.28) 58%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .highlight-nowrap {
+      white-space: nowrap;
+    }
+
+    .highlight-strong {
+      display: inline-block;
+      padding: .05em .18em .1em;
+      color: var(--ink);
+      background: rgba(255,244,234,.95);
+      border-bottom: 3px solid var(--orange);
+    }
+
+    .body:not(.center) h2,
+    .body:not(.center) .lead {
+      text-align: left;
+    }
+
+    .body:not(.center) h2 {
+      max-width: 1180px;
+    }
+
+    .company-cover .body {
+      grid-template-columns: .78fr 1.22fr;
+      align-items: center;
+      gap: 58px;
+    }
+
+    .company-wordmark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 410px;
+      border: 0;
+      border-radius: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 52%),
+        radial-gradient(ellipse at 48% 56%, rgba(201,101,92,.12), transparent 42%);
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .company-wordmark::before,
+    .company-wordmark::after {
+      content: none;
+    }
+
+    .company-wordmark::before {
+      width: 190px;
+      height: 190px;
+      left: 46px;
+      top: 44px;
+      background: linear-gradient(90deg, rgba(237,165,106,.82), rgba(255,209,173,.58));
+    }
+
+    .company-wordmark::after {
+      width: 210px;
+      height: 210px;
+      right: 34px;
+      bottom: 30px;
+      background: linear-gradient(90deg, rgba(201,101,92,.55), rgba(255,180,150,.42));
+    }
+
+    .company-wordmark .brand {
+      position: relative;
+      z-index: 1;
+      width: min(78%, 430px);
+      height: 300px;
+      opacity: .90;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 12px 18px rgba(103,63,35,.10));
+    }
+
+    .company-title {
+      color: var(--ink);
+      font-size: clamp(50px, 5.15vw, 82px);
+      line-height: 1.04;
+      font-weight: 720;
+      text-align: left;
+    }
+
+    .company-copy {
+      color: var(--text);
+      font-size: clamp(17px, 1.38vw, 22px);
+      line-height: 1.5;
+      font-weight: 540;
+      text-wrap: balance;
+      line-break: strict;
+      white-space: nowrap;
+    }
+
+    .cover-product {
+      display: grid;
+      gap: 6px;
+      margin-top: 20px;
+      margin-bottom: 24px;
+    }
+
+    .cover-product strong {
+      color: var(--ink);
+      font-size: clamp(22px, 2vw, 32px);
+      line-height: 1.2;
+      font-weight: 760;
+    }
+
+    .cover-product span {
+      color: var(--orange);
+      font-size: clamp(18px, 1.55vw, 25px);
+      line-height: 1.35;
+      font-weight: 680;
+    }
+
+    .title-product {
+      justify-items: center;
+      margin: 0;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .one-line-title {
+      font-size: clamp(34px, 3.15vw, 50px);
+      line-height: 1.12;
+      text-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .company-cover .eyebrow {
+      text-align: left;
+    }
+
+    .title-slide h1 {
+      font-size: clamp(44px, 4.15vw, 66px);
+      white-space: nowrap;
+    }
+
+    .title-slide .lead {
+      font-size: clamp(20px, 1.75vw, 28px);
+      white-space: nowrap;
+    }
+
+    .title-slide .lead-title {
+      color: var(--orange);
+    }
+
+    .single-line-heading {
+      font-size: clamp(30px, 3vw, 48px);
+      white-space: nowrap;
+    }
+
+    .single-line-heading--long {
+      font-size: clamp(26px, 2.45vw, 39px);
+      white-space: nowrap;
+    }
+
+    .training-heading {
+      font-size: clamp(24px, 2.25vw, 36px);
+      line-height: 1.16;
+      white-space: nowrap;
+      max-width: none;
+    }
+
+    .single-line-copy {
+      font-size: clamp(17px, 1.55vw, 24px);
+      white-space: nowrap;
+    }
+
+    .meta-lines {
+      display: grid;
+      gap: 10px;
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .cover-meta {
+      margin-top: 26px;
+      gap: 6px;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .zettai-profile .body {
+      gap: 24px;
+    }
+
+    .profile-hero {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 34px;
+      align-items: stretch;
+    }
+
+    .profile-photo {
+      position: relative;
+      min-height: 470px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.88) contrast(.96);
+    }
+
+    .profile-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(18,18,18,.34), transparent 58%),
+        linear-gradient(180deg, transparent 62%, rgba(18,18,18,.30));
+      pointer-events: none;
+    }
+
+    .profile-logo-photo {
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      border: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 54%),
+        radial-gradient(ellipse at 52% 56%, rgba(201,101,92,.10), transparent 44%);
+    }
+
+    .profile-logo-photo::after {
+      content: none;
+    }
+
+    .profile-logo-photo img {
+      width: min(76%, 430px);
+      height: 310px;
+      object-fit: contain;
+      opacity: .92;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 12px 20px rgba(103,63,35,.10));
+    }
+
+    .profile-logo-photo .photo-caption {
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .profile-visual-stack {
+      display: grid;
+      grid-template-rows: 132px 1fr;
+      gap: 12px;
+      min-height: 470px;
+    }
+
+    .profile-logo-block {
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.18), transparent 58%),
+        radial-gradient(ellipse at 52% 56%, rgba(201,101,92,.09), transparent 48%);
+    }
+
+    .profile-logo-block img {
+      width: min(58%, 260px);
+      height: 110px;
+      object-fit: contain;
+      opacity: .92;
+      filter: saturate(.92) contrast(.98) drop-shadow(0 8px 16px rgba(103,63,35,.10));
+    }
+
+    .profile-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 170px 140px;
+      gap: 10px;
+    }
+
+    .profile-gallery figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .profile-gallery figure:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .profile-gallery img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .profile-gallery__room img {
+      object-position: 50% 52%;
+    }
+
+    .profile-gallery__meeting img {
+      object-position: 50% 48%;
+    }
+
+    .profile-gallery__workshop img {
+      object-position: 50% 50%;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      z-index: 1;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 620;
+    }
+
+    .profile-copy {
+      display: grid;
+      align-content: center;
+      gap: 22px;
+    }
+
+    .profile-copy h2 {
+      text-align: left;
+      font-size: clamp(34px, 3.2vw, 52px);
+    }
+
+    .profile-copy .lead {
+      text-align: left;
+      font-size: clamp(20px, 1.75vw, 28px);
+      line-height: 1.55;
+    }
+
+    .profile-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: rgba(255,255,255,.82);
+    }
+
+    .profile-fact {
+      display: grid;
+      gap: 6px;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-fact b {
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .profile-fact span {
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.4;
+      font-weight: 620;
+    }
+
+    .source-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 520;
+    }
+
+    .service-overview {
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .service-photo {
+      min-height: 430px;
+    }
+
+    .service-list {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .service-overview--text {
+      display: block;
+    }
+
+    .service-overview--photos {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .business-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, 160px);
+      gap: 10px;
+      min-height: 330px;
+    }
+
+    .business-photo-grid figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .business-photo-grid img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .business-photo-grid__wide img {
+      object-position: 50% 50%;
+    }
+
+    .business-photo-grid__table img {
+      object-position: 50% 55%;
+    }
+
+    .business-photo-grid__dev img {
+      object-position: 50% 47%;
+    }
+
+    .business-photo-grid__room img {
+      object-position: 50% 52%;
+    }
+
+    .service-list--wide {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-content: stretch;
+    }
+
+    .service-line {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(150,142,134,.42);
+    }
+
+    .service-line b {
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .service-line strong {
+      display: block;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .service-line span {
+      display: block;
+      margin-top: 6px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 540;
+    }
+
+    .service-list--wide .service-line {
+      grid-template-columns: 56px 1fr;
+      align-items: start;
+      min-height: 150px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .service-list--wide .service-line strong {
+      font-size: 26px;
+    }
+
+    .service-list--wide .service-line span {
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .service-overview--photos .service-list--wide {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .service-overview--photos .service-list--wide .service-line {
+      grid-template-columns: 44px 1fr;
+      min-height: auto;
+      padding: 14px 16px;
+    }
+
+    .service-overview--photos .service-list--wide .service-line strong {
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .service-overview--photos .service-list--wide .service-line span {
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .team-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .team-panel {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 26px 30px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .team-metric {
+      display: grid;
+      gap: 4px;
+    }
+
+    .team-metric b {
+      color: var(--orange);
+      font-size: clamp(60px, 6vw, 96px);
+      line-height: .95;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .team-metric span {
+      color: var(--ink);
+      font-size: 26px;
+      line-height: 1.25;
+      font-weight: 720;
+    }
+
+    .student-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .student-dot {
+      display: block;
+      aspect-ratio: 1;
+      border: 1px solid rgba(216,111,50,.36);
+      background:
+        radial-gradient(circle at 50% 38%, rgba(216,111,50,.18) 0 23%, transparent 24%),
+        linear-gradient(180deg, rgba(255,247,241,.96), rgba(255,255,255,.84));
+    }
+
+    .team-note {
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: 560;
+    }
+
+    .team-photo-layout {
+      grid-template-columns: .86fr 1.14fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .team-copy-panel {
+      min-height: 420px;
+    }
+
+    .team-copy-panel .check-list {
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .team-copy-panel .team-metric span {
+      font-size: 22px;
+      white-space: nowrap;
+    }
+
+    .team-photo-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-height: 420px;
+    }
+
+    .team-photo {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8f4ef;
+    }
+
+    .team-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.94) contrast(.98);
+    }
+
+    .team-photo--night img {
+      object-position: 50% 49%;
+    }
+
+    .team-photo--office img {
+      object-position: 50% 45%;
+    }
+
+    .team-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(18,18,18,.50));
+      pointer-events: none;
+    }
+
+    .team-photo figcaption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 12px;
+      z-index: 1;
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 640;
+      text-shadow: 0 1px 8px rgba(0,0,0,.34);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--glass);
+      box-shadow: none;
+    }
+
+    .card {
+      min-height: 150px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    .card p,
+    .small {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 540;
+      text-wrap: pretty;
+    }
+
+    .icon {
+      display: block;
+      width: auto;
+      height: auto;
+      margin-bottom: 14px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 720;
+      line-height: 1;
+    }
+
+    .check-list,
+    .x-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.58;
+      font-weight: 560;
+      text-wrap: pretty;
+    }
+
+    .check-list li,
+    .x-list li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 760;
+    }
+
+    .x-list li::before {
+      content: "×";
+      color: var(--red);
+      font-weight: 760;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .comparison .panel {
+      padding: 24px;
+    }
+
+    .comparison h3 {
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .arrow-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .arrow {
+      color: var(--orange);
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 620;
+    }
+
+    .tool-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .tool-step {
+      position: relative;
+      min-height: 170px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--glass);
+      box-shadow: none;
+    }
+
+    .tool-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      width: 18px;
+      height: 1px;
+      background: var(--line);
+      transform: translateY(-50%);
+    }
+
+    .tool-step b,
+    .case-card b {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--orange);
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .tool-step span {
+      display: block;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.45;
+      font-weight: 620;
+    }
+
+    .diagram-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .compare-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .claude-character {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 8px;
+      color: var(--orange);
+      opacity: .96;
+    }
+
+    .claude-character svg {
+      display: block;
+      width: 104px;
+      height: auto;
+      shape-rendering: crispEdges;
+    }
+
+    .claude-character figcaption {
+      display: grid;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .claude-character figcaption strong {
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 740;
+    }
+
+    .claude-character figcaption span {
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 560;
+      white-space: nowrap;
+    }
+
+    .flow-node--character {
+      min-height: 144px;
+      padding: 10px;
+    }
+
+    .claude-character .pixel-fill {
+      fill: currentColor;
+    }
+
+    .claude-character .pixel-eye {
+      fill: #3f332f;
+    }
+
+    .map-lane {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .map-lane h3 {
+      margin: 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lane-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .flow-node {
+      display: grid;
+      align-content: center;
+      min-height: 108px;
+      padding: 16px;
+      border: 1px solid rgba(222,216,210,.92);
+      background: rgba(255,255,255,.82);
+    }
+
+    .flow-node small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .flow-node strong {
+      display: block;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 720;
+    }
+
+    .flow-node.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.78);
+    }
+
+    .flow-node.is-key strong {
+      color: var(--orange);
+    }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--orange);
+      font-size: 28px;
+      font-weight: 620;
+    }
+
+    .hub-map {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, .82fr) minmax(0, 1fr);
+      grid-template-rows: repeat(3, minmax(84px, auto));
+      gap: 16px 20px;
+      align-items: stretch;
+    }
+
+    .hub-center {
+      grid-column: 2;
+      grid-row: 1 / 4;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 12px;
+      align-self: center;
+      min-height: 260px;
+      border: 2px solid rgba(216,111,50,.58);
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(237,165,106,.20), transparent 62%),
+        rgba(255,255,255,.92);
+      color: var(--ink);
+      text-align: center;
+      font-size: 30px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .hub-center .accent-text {
+      font-size: 1.08em;
+    }
+
+    .hub-center .claude-character svg {
+      width: 124px;
+    }
+
+    .hub-center .claude-character figcaption strong {
+      font-size: 22px;
+    }
+
+    .hub-center .claude-character figcaption span {
+      font-size: 14px;
+    }
+
+    .hub-item {
+      position: relative;
+      display: grid;
+      align-content: center;
+      min-height: 88px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .hub-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .hub-item span {
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 660;
+    }
+
+    .time-diagram {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .time-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .time-bar {
+      display: grid;
+      grid-template-columns: 120px 1fr 76px;
+      gap: 14px;
+      align-items: center;
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.3;
+      font-weight: 620;
+    }
+
+    .time-track {
+      height: 22px;
+      border: 1px solid rgba(222,216,210,.95);
+      background: rgba(255,255,255,.82);
+    }
+
+    .time-fill {
+      display: block;
+      width: var(--w);
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--orange-2));
+    }
+
+    .automation-card {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+    }
+
+    .automation-card strong {
+      color: var(--orange);
+      font-size: 86px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .automation-card span {
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 720;
+    }
+
+    .automation-card .highlight-text {
+      color: var(--ink);
+      background: linear-gradient(180deg, transparent 54%, rgba(237,165,106,.34) 54%);
+    }
+
+    .pipeline-diagram {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .pipeline-box {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 14px;
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+      text-align: center;
+    }
+
+    .pipeline-box b {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .pipeline-box strong {
+      color: var(--ink);
+      font-size: 29px;
+      line-height: 1.25;
+      font-weight: 740;
+    }
+
+    .pipeline-box span {
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 540;
+    }
+
+    .pipeline-box.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.78);
+    }
+
+    .pipeline-box.is-key strong {
+      color: var(--orange);
+    }
+
+    .curriculum-map {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .curriculum-step {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+      min-height: 260px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .curriculum-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -19px;
+      z-index: 1;
+      width: 20px;
+      height: 1px;
+      background: var(--orange);
+    }
+
+    .step-no {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .curriculum-step h3 {
+      margin: 0;
+      font-size: 29px;
+      line-height: 1.25;
+    }
+
+    .curriculum-step.is-key {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.72);
+    }
+
+    .mini-flow {
+      display: grid;
+      gap: 8px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 560;
+    }
+
+    .mini-flow span {
+      padding: 8px 10px;
+      border-left: 3px solid rgba(216,111,50,.64);
+      background: rgba(255,255,255,.70);
+    }
+
+    .band {
+      padding: 20px 24px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255,255,255,.94);
+      box-shadow: none;
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: 560;
+      text-align: center;
+    }
+
+    .category-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .category {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--glass);
+      box-shadow: none;
+    }
+
+    .category strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 16px;
+      font-weight: 680;
+    }
+
+    .metric {
+      display: block;
+      color: var(--ink);
+      font-size: 62px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .before-after .panel {
+      min-height: 280px;
+      padding: 28px;
+    }
+
+    .agenda-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .toc-slide .body {
+      align-content: center;
+      gap: 28px;
+    }
+
+    .toc-head {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .toc-head h2 {
+      text-align: left;
+      width: max-content;
+      max-width: none;
+      font-size: clamp(44px, 4.1vw, 64px);
+      white-space: nowrap;
+      text-wrap: nowrap;
+    }
+
+    .toc-head p {
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.6;
+      font-weight: 540;
+    }
+
+    .toc-head .single-line-copy {
+      font-size: clamp(17px, 1.45vw, 23px);
+      line-height: 1.45;
+      white-space: nowrap;
+      text-wrap: nowrap;
+    }
+
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(4, auto);
+      grid-auto-flow: column;
+      gap: 0;
+      border-top: 1px solid rgba(150,142,134,.58);
+      column-gap: 56px;
+    }
+
+    .toc-item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(150,142,134,.48);
+    }
+
+    .toc-no {
+      color: var(--orange);
+      font-size: 16px;
+      line-height: 1;
+      font-weight: 720;
+    }
+
+    .toc-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 23px;
+      line-height: 1.35;
+      font-weight: 680;
+    }
+
+    .toc-item span {
+      display: block;
+      margin-top: 6px;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 520;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--glass);
+    }
+
+    .agenda-no {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 0;
+      background: transparent;
+      border-left: 3px solid var(--orange);
+      color: var(--orange);
+      font-size: 19px;
+      font-weight: 680;
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .logo-grid.partners {
+      grid-template-columns: .9fr .9fr .9fr 1.32fr 1.02fr;
+      gap: 12px;
+    }
+
+    .logo-box {
+      display: grid;
+      place-items: center;
+      min-height: 92px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--glass);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 560;
+    }
+
+    .logo-grid.partners .logo-box {
+      min-height: 142px;
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .logo-box.logo-fines {
+      font-weight: 640;
+      text-transform: lowercase;
+    }
+
+    .logo-box.logo-long {
+      padding: 18px 12px;
+      font-size: 16px;
+      line-height: 1.38;
+      text-align: center;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+
+    .logo-box.logo-service {
+      padding: 18px 12px;
+      font-size: 20px;
+      line-height: 1.34;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .contact-stack {
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      gap: 28px 70px;
+      transform: translateY(-20px);
+    }
+
+    .contact-copy {
+      display: grid;
+      justify-items: center;
+      gap: 22px;
+    }
+
+    .contact-company {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 720;
+      text-align: center;
+    }
+
+    .contact-logo {
+      display: inline-block;
+      width: 34px;
+      height: 34px;
+      background: url("assets-lite/zettai-logo-transparent.png") center / contain no-repeat;
+      filter: saturate(.95) contrast(.98);
+    }
+
+    .contact-list {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .contact-line {
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.45;
+      font-weight: 560;
+    }
+
+    .contact-qr {
+      display: grid;
+      justify-items: center;
+      margin: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+    }
+
+    .contact-qr img {
+      display: block;
+      width: 210px;
+      height: 210px;
+      object-fit: contain;
+    }
+
+    .compact-cards .card {
+      min-height: 250px;
+      padding: 20px;
+    }
+
+    .compact-cards h3 {
+      min-height: 70px;
+      font-size: 21px;
+      line-height: 1.28;
+    }
+
+    .compact-cards p {
+      font-size: 15px;
+      line-height: 1.58;
+    }
+
+    .is-key-card {
+      border-color: rgba(216,111,50,.72);
+      background: rgba(255,244,234,.76);
+    }
+
+    .lane-flow-3 {
+      grid-template-columns: 1fr auto 1fr;
+    }
+
+    .pad {
+      padding: 24px;
+    }
+
+    .time-table {
+      display: grid;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr .8fr;
+      min-height: 82px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .time-row > * {
+      display: grid;
+      align-items: center;
+      padding: 16px 20px;
+      border-right: 1px solid var(--line);
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 640;
+    }
+
+    .time-head > * {
+      min-height: 56px;
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .time-row b {
+      color: var(--muted);
+      font-weight: 680;
+    }
+
+    .time-row strong {
+      color: var(--orange);
+      font-size: 30px;
+      font-weight: 760;
+    }
+
+    .roi-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .roi-layout .automation-card strong {
+      font-size: 76px;
+    }
+
+    .qa-grid .card {
+      min-height: 250px;
+    }
+
+    .qa-grid h3 {
+      font-size: 21px;
+      line-height: 1.36;
+    }
+
+    .demo-map .curriculum-step {
+      min-height: 250px;
+    }
+
+    .code-card {
+      display: grid;
+      gap: 12px;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+    }
+
+    .code-card b {
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .code-card pre {
+      margin: 0;
+      white-space: pre-wrap;
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 560;
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .spec-stack {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .spec-stack li {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+    }
+
+    .spec-stack b {
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .spec-stack span {
+      color: var(--ink);
+      font-size: 21px;
+      line-height: 1.38;
+      font-weight: 660;
+    }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .principle {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .principle b {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .principle strong {
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: 740;
+    }
+
+    .principle span {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.58;
+      font-weight: 540;
+    }
+
+    .two-layer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .layer-panel {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      min-height: 300px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+
+    .layer-panel b {
+      color: var(--orange);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .layer-panel strong {
+      color: var(--ink);
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 740;
+    }
+
+    .layer-panel span {
+      color: var(--text);
+      font-size: 19px;
+      line-height: 1.58;
+      font-weight: 560;
+    }
+
+    .controls {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-self: center;
+      gap: 6px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255,255,255,.92);
+      box-shadow: none;
+    }
+
+    .nav {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--orange);
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .nav:hover { background: #f6f1ec; }
+
+    .count {
+      min-width: 62px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    @keyframes slideRise {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lineReveal {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes nodePunch {
+      0% { opacity: 0; transform: translateY(18px); }
+      70% { opacity: 1; transform: translateY(-3px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes barGrow {
+      from { width: 0; }
+      to { width: var(--w); }
+    }
+
+    @keyframes clawdPop {
+      0% { opacity: 0; transform: translateY(18px) scale(.86); }
+      72% { opacity: 1; transform: translateY(-4px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide.active .kicker {
+      animation: slideRise .78s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active h1,
+    .slide.active h2 {
+      animation: slideRise .92s cubic-bezier(.2,.8,.2,1) .14s both;
+    }
+
+    .slide.active .lead,
+    .slide.active .sub,
+    .slide.active .band {
+      animation: slideRise .86s cubic-bezier(.2,.8,.2,1) .38s both;
+    }
+
+    .slide.active .foot::before,
+    .slide.active .map-lane h3,
+    .slide.active .comparison h3,
+    .slide.active .toc-list,
+    .slide.active .toc-item,
+    .slide.active .rule {
+      transform-origin: left center;
+      animation: lineReveal .96s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active .card,
+    .slide.active .panel,
+    .slide.active .hub-item,
+    .slide.active .map-lane,
+    .slide.active .flow-node,
+    .slide.active .tool-step,
+    .slide.active .pipeline-box,
+    .slide.active .curriculum-step,
+    .slide.active .category,
+    .slide.active .time-stack,
+    .slide.active .automation-card,
+    .slide.active .logo-box,
+    .slide.active .contact-line {
+      animation: nodePunch .84s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .slide.active .hub-center,
+    .slide.active .flow-node--character .claude-character {
+      animation: clawdPop 1.05s cubic-bezier(.2,.8,.2,1) .40s both;
+    }
+
+    .slide.active .time-fill {
+      animation: barGrow 1.35s cubic-bezier(.2,.8,.2,1) .40s both;
+    }
+
+    .slide.active .card:nth-child(2),
+    .slide.active .panel:nth-child(2),
+    .slide.active .hub-item:nth-child(3),
+    .slide.active .flow-node:nth-child(3),
+    .slide.active .tool-step:nth-child(2),
+    .slide.active .pipeline-box:nth-child(3),
+    .slide.active .curriculum-step:nth-child(2),
+    .slide.active .category:nth-child(2),
+    .slide.active .time-bar:nth-child(2),
+    .slide.active .logo-box:nth-child(2) {
+      animation-delay: .28s;
+    }
+
+    .slide.active .card:nth-child(3),
+    .slide.active .hub-item:nth-child(4),
+    .slide.active .flow-node:nth-child(5),
+    .slide.active .tool-step:nth-child(3),
+    .slide.active .pipeline-box:nth-child(5),
+    .slide.active .curriculum-step:nth-child(3),
+    .slide.active .category:nth-child(3),
+    .slide.active .time-bar:nth-child(3),
+    .slide.active .logo-box:nth-child(3) {
+      animation-delay: .46s;
+    }
+
+    .slide.active .card:nth-child(4),
+    .slide.active .hub-item:nth-child(5),
+    .slide.active .tool-step:nth-child(4),
+    .slide.active .category:nth-child(4),
+    .slide.active .time-bar:nth-child(4),
+    .slide.active .logo-box:nth-child(4) {
+      animation-delay: .64s;
+    }
+
+    .slide.active .card:nth-child(5),
+    .slide.active .hub-item:nth-child(6),
+    .slide.active .logo-box:nth-child(5) {
+      animation-delay: .82s;
+    }
+
+    .slide.active .card:nth-child(6),
+    .slide.active .hub-item:nth-child(7),
+    .slide.active .logo-box:nth-child(n+6) {
+      animation-delay: 1s;
+    }
+
+    .slide.active .hub-map .hub-center {
+      animation-delay: .34s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(1) {
+      animation-delay: .82s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(2) {
+      animation-delay: 1.22s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(3) {
+      animation-delay: 1.62s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(4) {
+      animation-delay: 2.02s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(5) {
+      animation-delay: 2.42s;
+    }
+
+    .slide.active .hub-map .hub-item:nth-of-type(6) {
+      animation-delay: 2.82s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) {
+      animation-duration: 1.65s;
+      animation-delay: 2.05s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(1) {
+      animation-delay: 2.55s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(3) {
+      animation-delay: 3.30s;
+    }
+
+    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(5) {
+      animation-delay: 4.05s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+
+    @media print {
+      @page { size: 16in 9in; margin: 0; }
+      html,
+      body {
+        display: block;
+        padding: 0;
+        overflow: visible;
+        background: #fff;
+      }
+      .deck {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 16in;
+        height: auto;
+        box-shadow: none;
+        overflow: visible;
+        transform: none;
+      }
+      .stage {
+        display: block;
+        width: 16in !important;
+        height: auto !important;
+      }
+      .slide {
+        position: relative;
+        display: grid !important;
+        width: 16in;
+        height: calc(9in - 1px);
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .slide + .slide {
+        page-break-before: always;
+        break-before: page;
+      }
+      .controls { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <main class="deck" id="deck">
+      <section class="slide active company-cover" data-title="会社紹介">
+      <div class="kicker split"><b>株式会社ZETTAi</b></div>
+      <div class="body">
+        <div class="company-wordmark"><span class="brand">ZETTAi<i></i></span></div>
+        <div>
+          <h1 class="company-title">株式会社ZETTAi</h1>
+          <div class="meta-lines cover-meta">
+            <p>小潟 一翔｜株式会社ZETTAi 代表取締役</p>
+            <p>2026年 6月19日（金）20:00-21:00</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide toc-slide" data-title="目次">
+      <div class="kicker split"><b>Agenda</b><span>00</span></div>
+      <div class="body">
+        <div class="toc-head">
+          <h2>本日の流れ</h2>
+          <p class="single-line-copy">株式会社ZETTAiの紹介から、バックオフィス業務をAIに任せる考え方と手順を整理する。</p>
+        </div>
+        <div class="toc-list">
+          <div class="toc-item"><span class="toc-no">01</span><div><strong>株式会社ZETTAiについて</strong><span>会社概要・事業・チーム体制</span></div></div>
+          <div class="toc-item"><span class="toc-no">02</span><div><strong>今日の到達点</strong><span>業務で使える領域</span></div></div>
+          <div class="toc-item"><span class="toc-no">03</span><div><strong>Claude Codeとは</strong><span>チャットAIとの違い</span></div></div>
+          <div class="toc-item"><span class="toc-no">04</span><div><strong>経理ツールデモ</strong><span>請求書から仕訳・CSVまで</span></div></div>
+          <div class="toc-item"><span class="toc-no">05</span><div><strong>業務化の4ステップ</strong><span>まとめる、渡す、育てる、自動化</span></div></div>
+          <div class="toc-item"><span class="toc-no">06</span><div><strong>バックオフィス事例</strong><span>経理・総務・労務への展開</span></div></div>
+          <div class="toc-item"><span class="toc-no">07</span><div><strong>研修と伴走支援</strong><span>社内で使える力に変える</span></div></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile" data-title="株式会社ZETTAiについて">
+      <div class="kicker split"><b>Company Profile</b><span>00-1</span></div>
+      <div class="body">
+        <div class="profile-hero">
+          <figure class="profile-photo profile-logo-photo">
+            <img src="assets-lite/zettai-logo-transparent.png" alt="株式会社ZETTAi ロゴ" width="512" height="512" loading="lazy" decoding="async">
+            <figcaption class="photo-caption">株式会社ZETTAi</figcaption>
+          </figure>
+          <div class="profile-copy">
+            <h2>AIを、現場で使える<span class="highlight-text highlight-nowrap">業務改善の力</span>に変える会社</h2>
+            <p class="lead">株式会社ZETTAiは、AIコンサルティング・DX支援、Web・iOS・AIプロダクト開発、AI研修事業を展開している。</p>
+            <div class="profile-facts">
+              <div class="profile-fact"><b>設立</b><span>2025年7月22日</span></div>
+              <div class="profile-fact"><b>代表</b><span>小潟 一翔</span></div>
+              <div class="profile-fact"><b>資本金</b><span>1175万円</span></div>
+              <div class="profile-fact"><b>従業員数</b><span>35名</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>zettai.co.jp</span></div>
+    </section>
+
+    <section class="slide zettai-profile" data-title="事業領域">
+      <div class="kicker split"><b>Business Domain</b><span>00-2</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">ZETTAiは、<span class="highlight-text">AI内製化</span>を軸に事業を展開している</h2>
+        <div class="service-overview service-overview--photos">
+          <div class="business-photo-grid" aria-label="株式会社ZETTAiの研修風景">
+            <figure class="business-photo-grid__wide"><img src="assets-lite/S__6135830.jpg" alt="株式会社ZETTAiの研修風景" width="900" height="675" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__room"><img src="assets-lite/S__6135835.jpg" alt="株式会社ZETTAiの研修会場" width="900" height="675" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__table"><img src="assets-lite/S__6135829.jpg" alt="株式会社ZETTAiの研修中の様子" width="675" height="900" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__dev"><img src="assets-lite/S__6135831.jpg" alt="株式会社ZETTAiの開発支援の様子" width="900" height="675" loading="lazy" decoding="async"></figure>
+          </div>
+          <div class="service-list service-list--wide">
+            <div class="service-line"><b>01</b><div><strong>AI内製化研修</strong><span>Claude Code研修を通じて、非エンジニアでも業務ツールを作れる状態を目指す。</span></div></div>
+            <div class="service-line"><b>02</b><div><strong>AIコンサルティング・DX支援</strong><span>業務課題を題材にし、本番導入まで伴走する。</span></div></div>
+            <div class="service-line"><b>03</b><div><strong>Web・iOS・AIプロダクト開発</strong><span>企画、開発、運用までをワンストップで支援する。</span></div></div>
+            <div class="service-line"><b>04</b><div><strong>AI人材・AIサービス</strong><span>AI人材バンク、AI活用代行、検索対策など周辺領域も展開する。</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    
+    <!-- Archived original slides from slide 5 onward. Kept for reference; not rendered in this DESIGN.md deck.
+    <section class="slide title-slide" data-title="はじめてのClaude Code">
+      <div class="kicker">CLAUDE CODE INTRODUCTION</div>
+      <div class="body center">
+        <h1>日本一わかりやすい<br>Claude Code研修</h1>
+        <p class="lead lead-title">はじめてのClaude Code</p>
+        <p class="lead">AIが、あなたのPCの中で働く時代へ</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+    -->
+
+    <section class="slide title-slide" data-title="DESIGN.md入門">
+      <div class="kicker">DESIGN.md INTRODUCTION</div>
+      <div class="body center">
+        <h1>日本一わかりやすい<br>DESIGN.md入門</h1>
+        <p class="lead lead-title">AI時代のデザインシステム設計</p>
+        <p class="lead">見た目の好みを、再現できる設計情報に変える</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>github.com/google-labs-code/design.md</span></div>
+    </section>
+
+    <section class="slide toc-slide" data-title="本編の流れ">
+      <div class="kicker split"><b>Agenda</b><span>01</span></div>
+      <div class="body">
+        <div class="toc-head">
+          <h2>本編の流れ</h2>
+          <p class="single-line-copy">DESIGN.mdを「AIに渡すデザイン仕様書」として理解し、現場導入まで整理する。</p>
+        </div>
+        <div class="toc-list">
+          <div class="toc-item"><span class="toc-no">01</span><div><strong>なぜ必要か</strong><span>AI生成UIで起きるデザインの揺れ</span></div></div>
+          <div class="toc-item"><span class="toc-no">02</span><div><strong>DESIGN.mdとは</strong><span>人とAIが読めるデザインの共通言語</span></div></div>
+          <div class="toc-item"><span class="toc-no">03</span><div><strong>ファイル構造</strong><span>YAMLトークンとMarkdownの意図</span></div></div>
+          <div class="toc-item"><span class="toc-no">04</span><div><strong>書き方の勘所</strong><span>具体的な参照、制約、Do/Don't</span></div></div>
+          <div class="toc-item"><span class="toc-no">05</span><div><strong>検証と運用</strong><span>lint、diff、exportで崩れを防ぐ</span></div></div>
+          <div class="toc-item"><span class="toc-no">06</span><div><strong>社内導入</strong><span>デザインをリポジトリ資産にする</span></div></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: google-labs-code/design.md</span></div>
+    </section>
+
+    <section class="slide" data-title="なぜ必要か">
+      <div class="kicker split"><b>Problem</b><span>02</span></div>
+      <div class="body">
+        <h2>AIで画面を作るほど、<span class="highlight-text">デザインの再現性</span>が課題になる</h2>
+        <div class="comparison">
+          <div class="panel pad">
+            <h3>よく起きる状態</h3>
+            <ul class="x-list">
+              <li>毎回「シンプルで高級感」と説明している</li>
+              <li>画面ごとに色、余白、角丸、文字サイズが変わる</li>
+              <li>担当者やAIエージェントが変わると雰囲気が崩れる</li>
+            </ul>
+          </div>
+          <div class="panel pad">
+            <h3>必要な状態</h3>
+            <ul class="check-list">
+              <li>ブランドの見た目と理由が一箇所にまとまっている</li>
+              <li>AIが同じ判断軸でUIを生成できる</li>
+              <li>変更差分や品質を機械的に確認できる</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">DESIGN.mdは、AIにデザインの「記憶」と「判断基準」を渡すための形式。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: README.md / docs/spec.md</span></div>
+    </section>
+
+    <section class="slide" data-title="DESIGN.mdとは">
+      <div class="kicker split"><b>Definition</b><span>03</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">DESIGN.mdは、<span class="highlight-text">デザインシステムをAIに渡す</span>ためのMarkdown</h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>INPUT</b><strong>ブランドの<br>見た目</strong><span>色、文字、余白、形、コンポーネント</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>FORMAT</b><strong>DESIGN.md</strong><span>機械が読める値と、人が読める意図を同居</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>一貫した<br>UI生成</strong><span>別のAIや別セッションでも判断を引き継ぐ</span></div>
+        </div>
+        <p class="lead">ポイントは「値の表」ではなく、デザインの理由まで残すこと。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: github.com/google-labs-code/design.md</span></div>
+    </section>
+
+    <section class="slide" data-title="2層構造">
+      <div class="kicker split"><b>File Anatomy</b><span>04</span></div>
+      <div class="body">
+        <h2>1つのファイルに、<span class="highlight-text">機械が読む値</span>と<span class="highlight-text">人が読む意図</span>を入れる</h2>
+        <div class="two-layer">
+          <div class="layer-panel">
+            <b>YAML FRONT MATTER</b>
+            <strong>デザイントークン</strong>
+            <span>色、文字、角丸、余白、コンポーネント値を構造化して記述する。AIやCLIが正確に読み取れる。</span>
+          </div>
+          <div class="flow-arrow">＋</div>
+          <div class="layer-panel">
+            <b>MARKDOWN BODY</b>
+            <strong>デザインの理由</strong>
+            <span>なぜその色なのか、どう使い分けるのか、何を避けるのかを文章で伝える。</span>
+          </div>
+        </div>
+        <p class="band">トークンは値を固定し、文章は判断を固定する。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: docs/spec.md</span></div>
+    </section>
+
+    <section class="slide" data-title="最小サンプル">
+      <div class="kicker split"><b>Example</b><span>05</span></div>
+      <div class="body">
+        <h2>最小形は、<span class="highlight-text">トークンと説明文</span>だけで始められる</h2>
+        <div class="token-grid">
+          <div class="code-card">
+            <b>DESIGN.md</b>
+            <pre>---
+name: Heritage
+colors:
+  primary: "#1A1C1E"
+  secondary: "#6C7278"
+  tertiary: "#B8422E"
+  neutral: "#F7F5F2"
+rounded:
+  sm: 4px
+---
+
+## Overview
+Architectural Minimalism meets
+Journalistic Gravitas.</pre>
+          </div>
+          <div class="panel pad">
+            <h3>AIが受け取れる情報</h3>
+            <ul class="check-list">
+              <li>主役の色、補助色、アクセント色</li>
+              <li>角丸や余白などの共通ルール</li>
+              <li>どんな雰囲気を目指すかという判断軸</li>
+              <li>値をどう適用すべきかの文脈</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: README.md</span></div>
+    </section>
+
+    <section class="slide" data-title="トークンで固定するもの">
+      <div class="kicker split"><b>Tokens</b><span>06</span></div>
+      <div class="body">
+        <h2>トークンは、<span class="highlight-text">迷わせたくない値</span>を固定する</h2>
+        <div class="grid-4 compact-cards">
+          <div class="card is-key-card"><span class="icon">colors</span><h3>色</h3><p>primary、secondary、tertiary、neutralなど。CSSで使える色値を指定する。</p></div>
+          <div class="card"><span class="icon">typography</span><h3>文字</h3><p>fontFamily、fontSize、fontWeight、lineHeight、letterSpacingを定義する。</p></div>
+          <div class="card"><span class="icon">spacing / rounded</span><h3>余白・形</h3><p>xs、sm、md、lgのようなスケールでUIのリズムを揃える。</p></div>
+          <div class="card"><span class="icon">components</span><h3>部品</h3><p>ボタンや入力欄などに、色、文字、角丸、paddingを関連付ける。</p></div>
+        </div>
+        <p class="band">「何となくいい感じ」を、AIが参照できる値に変える。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: docs/spec.md</span></div>
+    </section>
+
+    <section class="slide" data-title="文章で固定するもの">
+      <div class="kicker split"><b>Prose</b><span>07</span></div>
+      <div class="body">
+        <h2>文章は、<span class="highlight-text">値だけでは伝わらない判断</span>を固定する</h2>
+        <div class="principle-grid">
+          <div class="principle"><b>01</b><strong>誰に向けたUIか</strong><span>業務担当者向けなのか、消費者向けなのか。密度、余白、説明量の判断が変わる。</span></div>
+          <div class="principle"><b>02</b><strong>どんな印象にするか</strong><span>堅実、編集的、研究資料的、業務ツール的など、具体的な参照を置く。</span></div>
+          <div class="principle"><b>03</b><strong>どこで強調するか</strong><span>アクセント色をボタンだけに使うのか、図解にも使うのかを明確にする。</span></div>
+          <div class="principle"><b>04</b><strong>何を避けるか</strong><span>グラデーション、丸いカード、過剰な影など、壊れやすい方向を制限する。</span></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: PHILOSOPHY.md</span></div>
+    </section>
+
+    <section class="slide" data-title="推奨セクション">
+      <div class="kicker split"><b>Sections</b><span>08</span></div>
+      <div class="body">
+        <h2>本文は、<span class="highlight-text">決まった順番</span>で書くと読みやすい</h2>
+        <ul class="spec-stack">
+          <li><b>01</b><span>Overview / Brand & Style</span></li>
+          <li><b>02</b><span>Colors</span></li>
+          <li><b>03</b><span>Typography</span></li>
+          <li><b>04</b><span>Layout / Layout & Spacing</span></li>
+          <li><b>05</b><span>Elevation & Depth</span></li>
+          <li><b>06</b><span>Shapes</span></li>
+          <li><b>07</b><span>Components</span></li>
+          <li><b>08</b><span>Do's and Don'ts</span></li>
+        </ul>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: docs/spec.md</span></div>
+    </section>
+
+    <section class="slide" data-title="具体的な参照を置く">
+      <div class="kicker split"><b>Writing Point</b><span>09</span></div>
+      <div class="body">
+        <h2>「モダンで綺麗」より、<span class="highlight-text">具体的な参照</span>の方が強い</h2>
+        <div class="comparison">
+          <div class="panel pad">
+            <h3>弱い書き方</h3>
+            <ul class="x-list">
+              <li>モダンで清潔感のあるデザイン</li>
+              <li>信頼感があって高級感があるUI</li>
+              <li>いい感じの余白で読みやすく</li>
+            </ul>
+          </div>
+          <div class="panel pad">
+            <h3>強い書き方</h3>
+            <ul class="check-list">
+              <li>老舗大学の大学院向け講義資料のように</li>
+              <li>新聞の紙面設計のように、罫線と余白で階層を作る</li>
+              <li>アクセント色は図解の注釈だけに使う</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">曖昧な形容詞ではなく、AIが世界観を想像できる対象を指定する。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: PHILOSOPHY.md</span></div>
+    </section>
+
+    <section class="slide" data-title="DoとDon't">
+      <div class="kicker split"><b>Guardrails</b><span>10</span></div>
+      <div class="body">
+        <h2>制約は、<span class="highlight-text">デザインの性格</span>を守るために書く</h2>
+        <div class="before-after">
+          <div class="panel pad">
+            <h3>Do</h3>
+            <ul class="check-list">
+              <li>ページを印刷物として扱う</li>
+              <li>アクセント色の出番を絞る</li>
+              <li>小さなサイズ差で階層を作る</li>
+            </ul>
+          </div>
+          <div class="arrow">→</div>
+          <div class="panel pad">
+            <h3>Don't</h3>
+            <ul class="x-list">
+              <li>意味のないヒーロー表現を足す</li>
+              <li>グロー、強い影、丸いカードに寄せる</li>
+              <li>複数の表情を同じ画面で混ぜる</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">禁止事項は多すぎると弱くなる。世界観から自然に外れるものを選ぶ。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: PHILOSOPHY.md</span></div>
+    </section>
+
+    <section class="slide" data-title="CLIで検証する">
+      <div class="kicker split"><b>Lint</b><span>11</span></div>
+      <div class="body">
+        <h2>DESIGN.mdは、<span class="highlight-text">書いて終わり</span>ではなく検証できる</h2>
+        <div class="token-grid">
+          <div class="code-card">
+            <b>COMMAND</b>
+            <pre>npx @google/design.md lint DESIGN.md
+
+npx -p @google/design.md designmd lint DESIGN.md</pre>
+          </div>
+          <div class="panel pad">
+            <h3>検証できること</h3>
+            <ul class="check-list">
+              <li>存在しないトークン参照</li>
+              <li>コントラスト比の不足</li>
+              <li>セクション順序の崩れ</li>
+              <li>未知のキーや不足している情報</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: README.md / CLI Reference</span></div>
+    </section>
+
+    <section class="slide" data-title="diffで変更を見る">
+      <div class="kicker split"><b>Diff</b><span>12</span></div>
+      <div class="body">
+        <h2>変更時は、<span class="highlight-text">デザインシステムの差分</span>として確認する</h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>BEFORE</b><strong>DESIGN.md</strong><span>現在のブランドルール</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>CHANGE</b><strong>DESIGN-v2.md</strong><span>新しい色、文字、コンポーネント</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>REPORT</b><strong>diff</strong><span>追加、削除、変更、回帰をJSONで確認</span></div>
+        </div>
+        <p class="band">デザイン変更を「雰囲気が変わった」ではなく、レビューできる差分にする。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: README.md</span></div>
+    </section>
+
+    <section class="slide" data-title="exportでつなぐ">
+      <div class="kicker split"><b>Export</b><span>13</span></div>
+      <div class="body">
+        <h2>トークンは、<span class="highlight-text">実装側の形式</span>へ変換できる</h2>
+        <div class="hub-map">
+          <div class="hub-item"><strong>Tailwind v3</strong><span>theme.extend JSON</span></div>
+          <div class="hub-center"><span>DESIGN.md<br><span class="accent-text">Token Hub</span></span></div>
+          <div class="hub-item"><strong>Tailwind v4</strong><span>@theme CSS variables</span></div>
+          <div class="hub-item"><strong>DTCG</strong><span>Design Tokens Format</span></div>
+          <div class="hub-item"><strong>AI Agents</strong><span>見た目と意図を継承</span></div>
+          <div class="hub-item"><strong>Codebase</strong><span>実装値の参照元にする</span></div>
+          <div class="hub-item"><strong>Review</strong><span>差分と品質を確認</span></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>Source: README.md / Design Token Interoperability</span></div>
+    </section>
+
+    <section class="slide" data-title="導入ワークフロー">
+      <div class="kicker split"><b>Workflow</b><span>14</span></div>
+      <div class="body">
+        <h2>社内導入は、<span class="highlight-text">小さく書いて検証する</span>ところから始める</h2>
+        <div class="tool-flow">
+          <div class="tool-step"><b>STEP 1</b><span>既存UIから色、文字、余白、部品を棚卸しする</span></div>
+          <div class="tool-step"><b>STEP 2</b><span>DESIGN.mdにトークンと意図を書く</span></div>
+          <div class="tool-step"><b>STEP 3</b><span>AIに読み込ませて、画面を生成させる</span></div>
+          <div class="tool-step"><b>STEP 4</b><span>崩れた箇所を文章と制約に戻して育てる</span></div>
+        </div>
+        <p class="band">最初から完璧に作らず、生成結果を見ながらルールを強くする。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="AIに渡す使い方">
+      <div class="kicker split"><b>Agent Usage</b><span>15</span></div>
+      <div class="body">
+        <h2>AIに依頼するときは、<span class="highlight-text">DESIGN.mdを前提条件</span>にする</h2>
+        <div class="comparison">
+          <div class="panel pad">
+            <h3>従来の依頼</h3>
+            <ul class="x-list">
+              <li>この画面をいい感じに整えて</li>
+              <li>高級感のあるLPにして</li>
+              <li>既存デザインに合わせて</li>
+            </ul>
+          </div>
+          <div class="panel pad">
+            <h3>DESIGN.md前提の依頼</h3>
+            <ul class="check-list">
+              <li>このDESIGN.mdの制約に従って画面を作る</li>
+              <li>使っていないトークンは追加せず、既存値を優先する</li>
+              <li>逸脱が必要な場合は理由を説明する</li>
+            </ul>
+          </div>
+        </div>
+        <p class="lead">AIへの説明を毎回の会話から、リポジトリ内の資産へ移す。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="現場での管理">
+      <div class="kicker split"><b>Operations</b><span>16</span></div>
+      <div class="body">
+        <h2>DESIGN.mdは、<span class="highlight-text">デザインのREADME</span>として管理する</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>リポジトリに置く</h3><p>プロダクトのコードと同じ場所に置き、AIや開発者が必ず参照できるようにする。</p></div>
+          <div class="card"><span class="icon">02</span><h3>PRでレビューする</h3><p>色や余白の変更を、仕様変更として確認する。diffで崩れを見つけやすくする。</p></div>
+          <div class="card"><span class="icon">03</span><h3>生成結果で育てる</h3><p>AIが誤解した箇所は、トークン追加ではなく文章の明確化で直す。</p></div>
+        </div>
+        <p class="band">人間のデザイナー、開発者、AIエージェントが同じ仕様を読む状態を作る。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="今日のまとめ">
+      <div class="kicker split"><b>Summary</b><span>17</span></div>
+      <div class="body">
+        <h2>今日のポイントは、<span class="highlight-text">3つ</span></h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>AIに記憶を渡す</h3><p>DESIGN.mdは、セッションをまたいでデザイン判断を引き継ぐためのファイル。</p></div>
+          <div class="card"><span class="icon">02</span><h3>値と理由を分ける</h3><p>YAMLで値を固定し、Markdownで世界観、使い方、避けることを伝える。</p></div>
+          <div class="card"><span class="icon">03</span><h3>運用で育てる</h3><p>lint、diff、exportを使い、デザインをレビュー可能な資産として扱う。</p></div>
+        </div>
+        <p class="band">デザインは「感覚」から、AIと共有できる<span class="highlight-strong">設計情報</span>へ変わる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>github.com/google-labs-code/design.md</span></div>
+    </section>
+
+    <section class="slide" data-title="CTA">
+      <div class="kicker split"><b>Contact</b><span>18</span></div>
+      <div class="body center">
+        <h2>AI時代のデザイン運用を、<br>社内で再現できる形にする</h2>
+        <p class="sub">DESIGN.md作成・AI内製化研修・業務UI改善のご相談</p>
+        <div class="contact-stack">
+          <div class="contact-copy">
+            <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAi</span></p>
+            <div class="contact-list">
+              <span class="contact-line">contact@zettai.co.jp</span>
+              <span class="contact-line">claudecode.co.jp</span>
+            </div>
+          </div>
+          <figure class="contact-qr">
+            <img src="assets-lite/L_gainfriends_2dbarcodes_GW.png" alt="LINE相談用QRコード" width="540" height="540" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <!-- Archived original Claude Code content from the previous deck.
+    <section class="slide" data-title="4テーマ全体像">
+      <div class="kicker split"><b>Seminar Themes</b><span>01</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">無料セミナーは、<span class="highlight-text">4つの入口</span>からClaude Codeを体感する</h2>
+        <div class="grid-4 compact-cards">
+          <div class="card is-key-card"><span class="icon">01</span><h3>はじめての<br>Claude Code</h3><p>ローカルファイルを読ませ、AIがPC内で働く感覚をつかむ。</p></div>
+          <div class="card"><span class="icon">02</span><h3>リサーチ・<br>レポート編</h3><p>調査、要約、保存、資料化までを一連の業務として任せる。</p></div>
+          <div class="card"><span class="icon">03</span><h3>データ整理・<br>分析編</h3><p>散らかったファイルを読み、比較・集計・レポート化する。</p></div>
+          <div class="card"><span class="icon">04</span><h3>営業資料<br>作成編</h3><p>企業調査から提案切り口、提案資料のたたき台まで作る。</p></div>
+        </div>
+        <p class="band">本デッキでは、初回参加者向けの<span class="highlight-strong">はじめてのClaude Code</span>を扱う。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>出典：セミナー4テーマ設計_202606.pdf</span></div>
+    </section>
+
+    <section class="slide" data-title="設計思想">
+      <div class="kicker split"><b>Design Intent</b><span>02</span></div>
+      <div class="body">
+        <h2>このセミナーで見せるのは、<span class="highlight-text">スキルではなく体験</span></h2>
+        <div class="comparison">
+          <div class="panel pad">
+            <h3>見せるもの</h3>
+            <ul class="check-list">
+              <li>Claude Codeが業務を実行する画面</li>
+              <li>レポート、整理済みデータ、成果物</li>
+              <li>自分のPCでAIが働く未来像</li>
+            </ul>
+          </div>
+          <div class="panel pad">
+            <h3>ここでは深掘りしないもの</h3>
+            <ul class="x-list">
+              <li>プロンプトやコードの細かい作法</li>
+              <li>CLAUDE.mdやMCPの詳細設定</li>
+              <li>ツール画面そのものの長い説明</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">「できそう」と感じてもらい、詳しいHOWは研修へつなげる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="今日の到達点">
+      <div class="kicker split"><b>Goal</b><span>03</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">60分後、AIは<span class="highlight-text">会話相手</span>ではなく<span class="highlight-text">仕事相手</span>に変わる</h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>BEFORE</b><strong>AIに聞く</strong><span>文章で回答をもらい、自分で転記する</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>DEMO</b><strong>AIに任せる</strong><span>ファイルを読ませ、作業を進める様子を見る</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>AFTER</b><strong>研修で作る</strong><span>自分の業務に合わせてカスタマイズする</span></div>
+        </div>
+        <p class="lead">今日は「何ができるか」を体感し、研修で「どう作るか」を学ぶ入口にする。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="AIの現在地">
+      <div class="kicker split"><b>AI Now</b><span>04</span></div>
+      <div class="body">
+        <h2>ChatGPTやGeminiは、<span class="highlight-text">もう使ったことがある</span>人も多い</h2>
+        <div class="compare-map">
+          <div class="map-lane">
+            <h3>従来のAIチャット</h3>
+            <div class="lane-flow lane-flow-3">
+              <div class="flow-node"><small>入力</small><strong>ブラウザで質問</strong></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node"><small>回答</small><strong>文章が返る</strong></div>
+            </div>
+          </div>
+          <div class="map-lane">
+            <h3>現場で残る手間</h3>
+            <ul class="x-list">
+              <li>ファイルを毎回アップロードする</li>
+              <li>回答を別ツールへコピーする</li>
+              <li>続きをまた人が指示し直す</li>
+            </ul>
+          </div>
+        </div>
+        <p class="band">便利だが、まだ<span class="highlight-strong">チャットの中で完結</span>している。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide claude-explain-slide" data-title="Claude Codeとは">
+      <div class="kicker split"><b>What is Claude Code?</b><span>05</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">Claude Codeは、<span class="highlight-text">あなたのPCの中で働く</span>AI</h2>
+        <div class="compare-map">
+          <div class="map-lane">
+            <h3>AIチャット</h3>
+            <div class="lane-flow lane-flow-3"><div class="flow-node"><small>場所</small><strong>ブラウザの中</strong></div><div class="flow-arrow">→</div><div class="flow-node"><small>役割</small><strong>質問に答える</strong></div></div>
+          </div>
+          <div class="map-lane">
+            <h3>Claude Code</h3>
+            <div class="lane-flow lane-flow-3"><div class="flow-node is-key"><small>場所</small><strong>PCの中</strong></div><div class="flow-arrow">→</div><div class="flow-node is-key"><small>役割</small><strong>作業を進める</strong></div></div>
+          </div>
+        </div>
+        <p class="lead">ファイル、フォルダ、ブラウザ、アプリに触れながら、成果物まで作る。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="たとえるなら">
+      <div class="kicker split"><b>Metaphor</b><span>06</span></div>
+      <div class="body">
+        <h2>隣の席に、<span class="highlight-text">優秀なアシスタント</span>が座っているようなもの</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>いつでも頼める</h3><p>24時間、何度でも、同じ説明を嫌がらずに受け取る。</p></div>
+          <div class="card"><span class="icon">02</span><h3>日本語で通じる</h3><p>「これを整理して」「比較して」と自然な言葉で頼める。</p></div>
+          <div class="card"><span class="icon">03</span><h3>自分のPCで働く</h3><p>あなたのファイルやフォルダを前提に、作業を進める。</p></div>
+        </div>
+        <p class="band">今日のポイントは、<span class="highlight-strong">AIが仕事の外側にいる</span>状態から、<span class="highlight-strong">仕事の中に入る</span>状態への変化。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="できること全体像">
+      <div class="kicker split"><b>Capabilities</b><span>07</span></div>
+      <div class="body">
+        <h2>Claude Codeには、<span class="highlight-text">大きく4つの強み</span>がある</h2>
+        <div class="hub-map">
+          <div class="hub-item"><strong>01</strong><span>PCの中に入り込める</span></div>
+          <div class="hub-center"><span>Claude Code<br><span class="accent-text">4つの強み</span></span></div>
+          <div class="hub-item"><strong>02</strong><span>複数工程を最後まで進める</span></div>
+          <div class="hub-item"><strong>03</strong><span>自分仕様にカスタマイズできる</span></div>
+          <div class="hub-item"><strong>04</strong><span>ツールやアプリを作れる</span></div>
+          <div class="hub-item"><strong>体験</strong><span>今日はこの全体像をざっと見せる</span></div>
+          <div class="hub-item"><strong>研修</strong><span>詳しい作り方は研修で扱う</span></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="PCの中に入る">
+      <div class="kicker split"><b>Capability 01</b><span>08</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">AIチャットはブラウザの中。Claude Codeは<span class="highlight-text">PCの中</span></h2>
+        <div class="comparison">
+          <div class="panel pad"><h3>ブラウザ内のAI</h3><ul class="x-list"><li>必要なファイルを人が選ぶ</li><li>アップロードしてから相談する</li><li>結果は人が別ツールへ移す</li></ul></div>
+          <div class="panel pad"><h3>PC内のClaude Code</h3><ul class="check-list"><li>フォルダ全体を見ながら作業する</li><li>必要なファイルを読みに行ける</li><li>成果物をその場で保存できる</li></ul></div>
+        </div>
+        <p class="band">「AIに聞く」から「AIに作業場所へ来てもらう」へ。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="ファイル操作">
+      <div class="kicker split"><b>Files</b><span>09</span></div>
+      <div class="body">
+        <h2>ファイルやフォルダを、<span class="highlight-text">まとめて扱える</span></h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>INPUT</b><strong>散らかった<br>ファイル</strong><span>PDF、Excel、CSV、議事録、画像</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>PROCESS</b><strong>読取・分類・<br>要約</strong><span>内容を見て、用途ごとに整理</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>OUTPUT</b><strong>整理済み<br>成果物</strong><span>フォルダ分け、一覧表、レポート</span></div>
+        </div>
+        <p class="band">ファイルを1つずつアップロードする手間を減らせる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="ブラウザ操作">
+      <div class="kicker split"><b>Browser</b><span>10</span></div>
+      <div class="body">
+        <h2>Webサイトも、<span class="highlight-text">自分で見に行って</span>情報を集められる</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">調査</span><h3>サイトを確認</h3><p>指定された会社やサービスのWebページを見に行く。</p></div>
+          <div class="card"><span class="icon">比較</span><h3>複数サイトを整理</h3><p>競合、料金、特徴、導入事例を同じ軸で比較する。</p></div>
+          <div class="card"><span class="icon">記録</span><h3>スクリーンショット</h3><p>画面を残し、資料やレポートの裏付けに使う。</p></div>
+        </div>
+        <p class="lead">「この会社のサイトを見てきて」と頼むだけで、調査の入口を作れる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="仕事をやりきる">
+      <div class="kicker split"><b>Capability 02</b><span>11</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">ChatGPTは1問1答。Claude Codeは<span class="highlight-text">仕事をやりきる</span></h2>
+        <div class="before-after">
+          <div class="panel"><h3>AIチャット</h3><ul class="x-list"><li>質問する</li><li>回答を読む</li><li>コピーして別ツールへ移す</li><li>次の質問をまた書く</li></ul></div>
+          <div class="arrow">→</div>
+          <div class="panel"><h3 style="color: var(--orange);">Claude Code</h3><ul class="check-list"><li>やりたい作業を伝える</li><li>必要なファイルを読む</li><li>途中工程を進める</li><li>完成物として保存する</li></ul></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="定型業務の再現">
+      <div class="kicker split"><b>Repeatable Work</b><span>12</span></div>
+      <div class="body">
+        <h2>普段の仕事を、<span class="highlight-text">一連の流れ</span>として任せられる</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>競合調査レポート</h3><p>3社を調べ、比較表と要点をレポートにまとめる。</p></div>
+          <div class="card"><span class="icon">02</span><h3>メール下書き</h3><p>条件に合わせて、返信文を複数パターン作成する。</p></div>
+          <div class="card"><span class="icon">03</span><h3>議事録整理</h3><p>会議メモから決定事項、ToDo、期限を抜き出す。</p></div>
+        </div>
+        <p class="band">30分かかっていた作業が、最初の依頼だけで進み始める。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="Before After">
+      <div class="kicker split"><b>Before / After</b><span>13</span></div>
+      <div class="body">
+        <h2>実際の時間で比べると、<span class="highlight-text">削減余地</span>が見えてくる</h2>
+        <div class="time-table">
+          <div class="time-row time-head"><span>業務</span><span>今まで</span><span>Claude Code</span></div>
+          <div class="time-row"><span>競合調査レポート</span><b>2時間</b><strong>5分</strong></div>
+          <div class="time-row"><span>メール下書き5パターン</span><b>30分</b><strong>2分</strong></div>
+          <div class="time-row"><span>議事録整理・ToDo抽出</span><b>40分</b><strong>3分</strong></div>
+        </div>
+        <p class="band">重要なのは魔法ではなく、<span class="highlight-strong">毎日の小さな業務</span>に効くこと。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="カスタマイズ">
+      <div class="kicker split"><b>Capability 03</b><span>14</span></div>
+      <div class="body">
+        <h2>毎回ゼロから、<span class="highlight-text">同じ説明をしなくていい</span></h2>
+        <div class="comparison">
+          <div class="panel pad"><h3>毎回説明する状態</h3><ul class="x-list"><li>報告書の形式を毎回伝える</li><li>プロジェクト背景を毎回補足する</li><li>会社独自のルールを都度説明する</li></ul></div>
+          <div class="panel pad"><h3>覚えさせて使う状態</h3><ul class="check-list"><li>自社フォーマットで作る</li><li>案件の前提を引き継ぐ</li><li>次回から同じ型で処理する</li></ul></div>
+        </div>
+        <p class="lead">「うちのやり方」をAIに渡すほど、現場に合った仕事相手になる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="チーム知識">
+      <div class="kicker split"><b>Team Knowledge</b><span>15</span></div>
+      <div class="body">
+        <h2>個人の工夫が、<span class="highlight-text">チームの資産</span>になる</h2>
+        <div class="tool-flow">
+          <div class="tool-step"><b>STEP 1</b><span>自分の業務ルールを整理する</span></div>
+          <div class="tool-step"><b>STEP 2</b><span>Claude Codeに渡せる形にする</span></div>
+          <div class="tool-step"><b>STEP 3</b><span>チームで同じ型を共有する</span></div>
+          <div class="tool-step"><b>STEP 4</b><span>業務知識がAIに蓄積される</span></div>
+        </div>
+        <p class="band">属人化している業務知識を、AIに引き継げる状態へ変える。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="ツール作成">
+      <div class="kicker split"><b>Capability 04</b><span>16</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">プログラミング知識ゼロでも、<span class="highlight-text">業務ツールを作れる</span></h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">例</span><h3>簡易入力フォーム</h3><p>現場の入力漏れを減らすためのフォームを作る。</p></div>
+          <div class="card"><span class="icon">例</span><h3>チェックリスト</h3><p>月次作業や確認項目を一画面で管理する。</p></div>
+          <div class="card"><span class="icon">例</span><h3>集計ツール</h3><p>ExcelやCSVを読み、必要な形に整える。</p></div>
+        </div>
+        <p class="band">今日は深掘りせず、研修で重点的に扱う領域として紹介する。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="デモ導入">
+      <div class="kicker split"><b>Live Demo</b><span>17</span></div>
+      <div class="body">
+        <h2>では、<span class="highlight-text">実際に動かして</span>みます</h2>
+        <div class="pipeline-diagram">
+          <div class="pipeline-box"><b>REQUEST</b><strong>日本語で依頼</strong><span>このフォルダの3つのファイルを読んで</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box"><b>ACTION</b><strong>Claude Codeが作業</strong><span>内容を確認し、要点を整理する</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="pipeline-box is-key"><b>RESULT</b><strong>要約を保存</strong><span>一覧表やレポートとして残す</span></div>
+        </div>
+        <p class="lead">ここで見てほしいのは、細かい操作ではなく「仕事が進む画面」。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="デモの流れ">
+      <div class="kicker split"><b>Demo Flow</b><span>18</span></div>
+      <div class="body">
+        <h2>デモは、<span class="highlight-text">10分で全体像</span>を見せる</h2>
+        <div class="curriculum-map demo-map">
+          <div class="curriculum-step"><span class="step-no">01</span><h3>画面を見せる</h3><div class="mini-flow"><span>Claude CodeがPC上で動くことを確認</span><span>日本語で依頼を入力</span></div></div>
+          <div class="curriculum-step"><span class="step-no">02</span><h3>作業を見る</h3><div class="mini-flow"><span>ファイルを読みに行く</span><span>内容を整理していく</span></div></div>
+          <div class="curriculum-step is-key"><span class="step-no">03</span><h3>成果物を見る</h3><div class="mini-flow"><span>要約や一覧表が完成</span><span>今の作業を言葉で振り返る</span></div></div>
+        </div>
+        <p class="band">「私は最初にお願いしただけです」と伝える。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="他テーマ紹介">
+      <div class="kicker split"><b>Next Themes</b><span>19</span></div>
+      <div class="body">
+        <h2>今日見たのは、<span class="highlight-text">ほんの入口</span>です</h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">NEXT 01</span><h3>リサーチ・レポート編</h3><p>調査からレポート作成までを一つの業務として扱う。</p></div>
+          <div class="card"><span class="icon">NEXT 02</span><h3>データ整理・分析編</h3><p>ファイルを横断して比較、集計、示唆出しまで行う。</p></div>
+          <div class="card"><span class="icon">NEXT 03</span><h3>営業資料作成編</h3><p>企業調査、提案切り口、資料のたたき台を作る。</p></div>
+        </div>
+        <p class="band">テーマごとに実際のデモを見せ、研修への参加理由を広げる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="研修紹介">
+      <div class="kicker split"><b>Training</b><span>20</span></div>
+      <div class="body">
+        <h2 class="single-line-heading">今日見たことは、<span class="highlight-text">全部自分でできる</span>ようになる</h2>
+        <div class="curriculum-map">
+          <div class="curriculum-step"><span class="step-no">STEP 1</span><h3>セットアップ</h3><div class="mini-flow"><span>自分のPCに導入</span><span>最初の動作確認</span></div></div>
+          <div class="curriculum-step"><span class="step-no">STEP 2</span><h3>情報整理</h3><div class="mini-flow"><span>ファイルを読ませる</span><span>レポートや表を作る</span></div></div>
+          <div class="curriculum-step is-key"><span class="step-no">STEP 3</span><h3>業務化</h3><div class="mini-flow"><span>自社ルールに合わせる</span><span>毎月使える流れにする</span></div></div>
+        </div>
+        <p class="band">非エンジニアでも、最短10日で実務活用の入口を作る。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="ROI">
+      <div class="kicker split"><b>ROI</b><span>21</span></div>
+      <div class="body">
+        <h2>投資対効果は、<span class="highlight-text">月の削減時間</span>から考える</h2>
+        <div class="roi-layout">
+          <div class="automation-card"><strong>月5h</strong><span>削減できる業務が1つあるだけで、年間効果は見える</span><p class="small">月の削減時間 × 時給 × 12か月 = 年間の価値</p></div>
+          <div class="panel pad"><h3>セミナーで伝える論点</h3><ul class="check-list"><li>大きなDXではなく、日々の小さな作業から始める</li><li>外注せず、自分で直せることが価値になる</li><li>研修費用は業務削減で回収可能性を説明する</li></ul></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="Q&A">
+      <div class="kicker split"><b>Q&A</b><span>22</span></div>
+      <div class="body">
+        <h2>よくある質問</h2>
+        <div class="grid-3 qa-grid">
+          <div class="card"><span class="icon">Q</span><h3>プログラミング経験がなくても大丈夫ですか？</h3><p>受講者の多くは非エンジニア。日本語で進める前提で設計している。</p></div>
+          <div class="card"><span class="icon">Q</span><h3>情報セキュリティは大丈夫ですか？</h3><p>ローカルで扱う設計や、会社ルールに合わせた運用を研修で確認する。</p></div>
+          <div class="card"><span class="icon">Q</span><h3>どれくらいで使えるようになりますか？</h3><p>最短10日で、自分のPC上で実務活用の最初の型を作る。</p></div>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="まとめ">
+      <div class="kicker split"><b>Summary</b><span>23</span></div>
+      <div class="body">
+        <h2>今日のポイントは、<span class="highlight-text">3つ</span></h2>
+        <div class="grid-3">
+          <div class="card"><span class="icon">01</span><h3>PCの中で働く</h3><p>Claude Codeは、ブラウザの外に出てファイルやフォルダを扱う。</p></div>
+          <div class="card"><span class="icon">02</span><h3>仕事を進める</h3><p>質問への回答ではなく、途中工程から成果物まで作る。</p></div>
+          <div class="card"><span class="icon">03</span><h3>研修で自分のものにする</h3><p>今日見た使い方を、自分の業務に合わせて再現する。</p></div>
+        </div>
+        <p class="band">AIは、聞く相手から<span class="highlight-strong">任せる相手</span>へ変わる。</p>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+
+    <section class="slide" data-title="CTA">
+      <div class="kicker split"><b>Contact</b><span>24</span></div>
+      <div class="body center">
+        <h2>個別相談・研修のご案内</h2>
+        <p class="sub">アンケート回答でセミナー資料PDFをお送りします</p>
+        <div class="contact-stack">
+          <div class="contact-copy">
+            <p class="contact-company"><span class="contact-logo" aria-hidden="true"></span><span>株式会社ZETTAi</span></p>
+            <div class="contact-list">
+              <span class="contact-line">contact@zettai.co.jp</span>
+              <span class="contact-line">claudecode.co.jp</span>
+            </div>
+          </div>
+          <figure class="contact-qr">
+            <img src="assets-lite/L_gainfriends_2dbarcodes_GW.png" alt="LINE相談用QRコード" width="540" height="540" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="foot"><span class="brand">ZETTAi<i></i></span><span>claudecode.co.jp</span></div>
+    </section>
+    -->
+    </main>
+  </div>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button class="nav" type="button" data-action="prev" aria-label="前へ">‹</button>
+    <span class="count" id="count">1 / 19</span>
+    <button class="nav" type="button" data-action="next" aria-label="次へ">›</button>
+    <button class="nav" type="button" data-action="print" aria-label="印刷">⌘</button>
+  </nav>
+
+  <script>
+    const BASE_SLIDE_WIDTH = 1600;
+    const BASE_SLIDE_HEIGHT = 900;
+    const stage = document.getElementById("stage");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const count = document.getElementById("count");
+    const controls = document.querySelector(".controls");
+    let current = Number(new URLSearchParams(location.search).get("slide") || 1) - 1;
+
+    function clamp(value) {
+      return Math.max(0, Math.min(slides.length - 1, value));
+    }
+
+    function show() {
+      current = clamp(current);
+      slides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === current);
+      });
+      count.textContent = `${current + 1} / ${slides.length}`;
+      history.replaceState(null, "", `?slide=${current + 1}`);
+      document.title = `${current + 1}. ${slides[current].dataset.title} | 日本一わかりやすいDESIGN.md入門`;
+    }
+
+    function move(delta) {
+      current = clamp(current + delta);
+      show();
+    }
+
+    function numberFromPx(value) {
+      return Number.parseFloat(value) || 0;
+    }
+
+    function fitSlideToViewport() {
+      const bodyStyle = getComputedStyle(document.body);
+      const paddingX = numberFromPx(bodyStyle.paddingLeft) + numberFromPx(bodyStyle.paddingRight);
+      const paddingY = numberFromPx(bodyStyle.paddingTop) + numberFromPx(bodyStyle.paddingBottom);
+      const rowGap = numberFromPx(bodyStyle.rowGap);
+      const controlsHeight = controls.offsetHeight;
+      const viewport = window.visualViewport;
+      const viewportWidth = viewport ? viewport.width : window.innerWidth;
+      const viewportHeight = viewport ? viewport.height : window.innerHeight;
+      const availableWidth = Math.max(1, viewportWidth - paddingX);
+      const availableHeight = Math.max(1, viewportHeight - paddingY - rowGap - controlsHeight);
+      const scale = Math.max(0.05, Math.min(availableWidth / BASE_SLIDE_WIDTH, availableHeight / BASE_SLIDE_HEIGHT));
+
+      document.documentElement.style.setProperty("--slide-scale", scale.toFixed(5));
+      stage.style.width = `${BASE_SLIDE_WIDTH * scale}px`;
+      stage.style.height = `${BASE_SLIDE_HEIGHT * scale}px`;
+    }
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => move(-1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => move(1));
+    document.querySelector('[data-action="print"]').addEventListener("click", () => window.print());
+
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        move(1);
+      }
+      if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) {
+        event.preventDefault();
+        move(-1);
+      }
+      if (event.key === "Home") {
+        current = 0;
+        show();
+      }
+      if (event.key === "End") {
+        current = slides.length - 1;
+        show();
+      }
+    });
+
+    window.addEventListener("resize", fitSlideToViewport);
+    window.addEventListener("orientationchange", fitSlideToViewport);
+    window.addEventListener("load", fitSlideToViewport);
+    window.visualViewport?.addEventListener("resize", fitSlideToViewport);
+    window.visualViewport?.addEventListener("scroll", fitSlideToViewport);
+
+    fitSlideToViewport();
+    show();
+  </script>
+</body>
+</html>
