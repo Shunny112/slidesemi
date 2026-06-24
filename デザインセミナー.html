@@ -575,7 +575,7 @@
     }
 
     .speaker-slide .foot::before {
-      bottom: 52px;
+      display: none;
     }
 
     .speaker-body {
@@ -584,8 +584,8 @@
     }
 
     .speaker-hero {
-      grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
-      gap: 40px;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+      gap: 44px;
       align-items: stretch;
       height: 100%;
       min-height: 0;
@@ -758,21 +758,35 @@
     }
 
     .speaker-copy {
-      align-content: center;
-      justify-items: center;
-      gap: 0;
-      padding: 0;
+      --accent: #d82813;
+      align-content: space-between;
+      justify-items: start;
+      gap: 20px;
+      padding: 4px 0;
       height: 100%;
       min-width: 0;
       min-height: 0;
     }
 
-    .speaker-profile-img {
-      width: 88%;
+    .speaker-head {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      gap: 8px 18px;
+      width: 100%;
+    }
+
+    .speaker-headtext {
+      display: grid;
+      gap: 5px;
+    }
+
+    .speaker-hw {
+      align-self: start;
+      justify-self: end;
+      width: 100%;
+      max-width: 360px;
       height: auto;
-      max-width: 88%;
-      max-height: 100%;
-      object-fit: contain;
       mix-blend-mode: multiply;
     }
 
@@ -852,8 +866,8 @@
     }
 
     .speaker-bio {
-      font-size: 16px;
-      line-height: 1.95;
+      font-size: 19px;
+      line-height: 1.9;
       color: var(--muted);
       font-weight: 500;
       margin: 0;
@@ -864,7 +878,6 @@
       grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
       gap: 34px;
       padding-top: 20px;
-      border-top: 1px solid var(--line);
     }
 
     .col-label {
@@ -2464,7 +2477,37 @@
             <img src="assets-lite/speaker-kogata.png" alt="小潟 一翔" width="495" height="659" loading="lazy" decoding="async">
           </figure>
           <div class="profile-copy speaker-copy">
-            <img class="speaker-profile-img" src="assets-lite/speaker-profile.png" alt="小潟一翔 プロフィール" width="772" height="737" loading="lazy" decoding="async">
+            <div class="speaker-head">
+              <div class="speaker-headtext">
+                <div class="speaker-kicker">01 // CHIEF EXECUTIVE OFFICER</div>
+                <h2 class="speaker-name">小潟一翔</h2>
+                <div class="speaker-romaji">KAZUMA OGATA</div>
+              </div>
+              <img class="speaker-hw" src="assets-lite/handwriting.png" alt="描いたストーリーを具現化する環境に。" width="440" height="150" loading="lazy" decoding="async">
+            </div>
+            <blockquote class="speaker-quote">“自分も、仲間も、見たいストーリーを叶えるために走る。”</blockquote>
+            <a class="speaker-link" href="#">代表メッセージを読む <span>→</span></a>
+            <p class="speaker-bio">中学校を中退し、15歳で個人事業主の道へ。輸出ビジネス、アパレルの越境EC、サブスクアートECの立ち上げ・運営を経て法人化。現在は株式会社ZETTAiの代表取締役。AIは1000年に一度のテクノロジーであり、私たちはその革命のど真ん中にいる——という前提に立ち、「AIに使われる側」ではなく「AIを使う側」として、10年後にも残っている可能性が高い仕事をお客様と共に創ることをミッションに、コンサルティングから実装まで一気通貫で支援している。将来の夢は東証の鐘を鳴らすこと、それまでひたすら転びながら走り続けます。</p>
+            <div class="speaker-columns">
+              <div class="speaker-col">
+                <div class="col-label">Specialties</div>
+                <ul class="dot-list">
+                  <li>起業家精神</li>
+                  <li>ビジョン構築</li>
+                  <li>若者支援</li>
+                  <li>AI戦略</li>
+                </ul>
+              </div>
+              <div class="speaker-col">
+                <div class="col-label">Achievements</div>
+                <ul class="plus-list">
+                  <li>15歳で池袋を拠点に輸入、輸出業を行う</li>
+                  <li>18歳で日本政策金融公庫松戸支店から資金調達をし法人化</li>
+                  <li>19歳で越境EC『DomesticJP』事業譲渡</li>
+                  <li>20歳で株式会社ZETTAiを創業</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
