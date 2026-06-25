@@ -82,8 +82,7 @@
       overflow: hidden;
       transform: translate3d(0, 0, 0) scale(var(--slide-scale));
       transform-origin: top left;
-      will-change: transform;
-      backface-visibility: hidden;
+      contain: layout paint size;
     }
 
     .slide {
@@ -103,13 +102,12 @@
     .slide.active { display: grid; }
 
     .slide::before {
-      content: "";
+      content: none;
       position: absolute;
       inset: -120px;
       background:
         radial-gradient(ellipse at 50% 44%, rgba(237,165,106,.15), transparent 34%),
         radial-gradient(ellipse at 50% 60%, rgba(201,101,92,.07), transparent 32%);
-      filter: blur(48px);
       opacity: .44;
       pointer-events: none;
     }
@@ -132,6 +130,10 @@
         radial-gradient(ellipse at 84% 18%, rgba(237,165,106,.16), transparent 29%),
         radial-gradient(ellipse at 16% 82%, rgba(201,101,92,.075), transparent 32%);
       opacity: .44;
+    }
+
+    img[data-src]:not([src]) {
+      visibility: hidden;
     }
 
     .slide:nth-of-type(n+3)::after {
@@ -2233,174 +2235,6 @@
       transition: none !important;
     }
 
-    @keyframes slideRise {
-      from { opacity: 0; transform: translateY(22px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes lineReveal {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
-
-    @keyframes nodePunch {
-      0% { opacity: 0; transform: translateY(18px); }
-      70% { opacity: 1; transform: translateY(-3px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes barGrow {
-      from { width: 0; }
-      to { width: var(--w); }
-    }
-
-    @keyframes clawdPop {
-      0% { opacity: 0; transform: translateY(18px) scale(.86); }
-      72% { opacity: 1; transform: translateY(-4px) scale(1.04); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .slide.active .kicker {
-      animation: slideRise .78s cubic-bezier(.2,.8,.2,1) both;
-    }
-
-    .slide.active h1,
-    .slide.active h2 {
-      animation: slideRise .92s cubic-bezier(.2,.8,.2,1) .14s both;
-    }
-
-    .slide.active .lead,
-    .slide.active .sub,
-    .slide.active .band {
-      animation: slideRise .86s cubic-bezier(.2,.8,.2,1) .38s both;
-    }
-
-    .slide.active .foot::before,
-    .slide.active .map-lane h3,
-    .slide.active .comparison h3,
-    .slide.active .toc-list,
-    .slide.active .toc-item,
-    .slide.active .rule {
-      transform-origin: left center;
-      animation: lineReveal .96s cubic-bezier(.2,.8,.2,1) both;
-    }
-
-    .slide.active .card,
-    .slide.active .panel,
-    .slide.active .hub-item,
-    .slide.active .map-lane,
-    .slide.active .flow-node,
-    .slide.active .tool-step,
-    .slide.active .pipeline-box,
-    .slide.active .curriculum-step,
-    .slide.active .category,
-    .slide.active .time-stack,
-    .slide.active .automation-card,
-    .slide.active .logo-box,
-    .slide.active .contact-line {
-      animation: nodePunch .84s cubic-bezier(.2,.8,.2,1) both;
-    }
-
-    .slide.active .hub-center,
-    .slide.active .flow-node--character .claude-character {
-      animation: clawdPop 1.05s cubic-bezier(.2,.8,.2,1) .40s both;
-    }
-
-    .slide.active .time-fill {
-      animation: barGrow 1.35s cubic-bezier(.2,.8,.2,1) .40s both;
-    }
-
-    .slide.active .card:nth-child(2),
-    .slide.active .panel:nth-child(2),
-    .slide.active .hub-item:nth-child(3),
-    .slide.active .flow-node:nth-child(3),
-    .slide.active .tool-step:nth-child(2),
-    .slide.active .pipeline-box:nth-child(3),
-    .slide.active .curriculum-step:nth-child(2),
-    .slide.active .category:nth-child(2),
-    .slide.active .time-bar:nth-child(2),
-    .slide.active .logo-box:nth-child(2) {
-      animation-delay: .28s;
-    }
-
-    .slide.active .card:nth-child(3),
-    .slide.active .hub-item:nth-child(4),
-    .slide.active .flow-node:nth-child(5),
-    .slide.active .tool-step:nth-child(3),
-    .slide.active .pipeline-box:nth-child(5),
-    .slide.active .curriculum-step:nth-child(3),
-    .slide.active .category:nth-child(3),
-    .slide.active .time-bar:nth-child(3),
-    .slide.active .logo-box:nth-child(3) {
-      animation-delay: .46s;
-    }
-
-    .slide.active .card:nth-child(4),
-    .slide.active .hub-item:nth-child(5),
-    .slide.active .tool-step:nth-child(4),
-    .slide.active .category:nth-child(4),
-    .slide.active .time-bar:nth-child(4),
-    .slide.active .logo-box:nth-child(4) {
-      animation-delay: .64s;
-    }
-
-    .slide.active .card:nth-child(5),
-    .slide.active .hub-item:nth-child(6),
-    .slide.active .logo-box:nth-child(5) {
-      animation-delay: .82s;
-    }
-
-    .slide.active .card:nth-child(6),
-    .slide.active .hub-item:nth-child(7),
-    .slide.active .logo-box:nth-child(n+6) {
-      animation-delay: 1s;
-    }
-
-    .slide.active .hub-map .hub-center {
-      animation-delay: .34s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(1) {
-      animation-delay: .82s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(2) {
-      animation-delay: 1.22s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(3) {
-      animation-delay: 1.62s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(4) {
-      animation-delay: 2.02s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(5) {
-      animation-delay: 2.42s;
-    }
-
-    .slide.active .hub-map .hub-item:nth-of-type(6) {
-      animation-delay: 2.82s;
-    }
-
-    .slide.active.claude-explain-slide .map-lane:nth-child(2) {
-      animation-duration: 1.65s;
-      animation-delay: 2.05s;
-    }
-
-    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(1) {
-      animation-delay: 2.55s;
-    }
-
-    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(3) {
-      animation-delay: 3.30s;
-    }
-
-    .slide.active.claude-explain-slide .map-lane:nth-child(2) .flow-node:nth-child(5) {
-      animation-delay: 4.05s;
-    }
-
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -2446,7 +2280,8 @@
     }
   </style>
   <script>
-    if (new URLSearchParams(location.search).has("export")) {
+    const initialParams = new URLSearchParams(location.search);
+    if (initialParams.has("export")) {
       document.documentElement.classList.add("export-mode");
     }
   </script>
@@ -2474,7 +2309,7 @@
       <div class="body speaker-body">
         <div class="profile-hero speaker-hero">
           <figure class="profile-photo speaker-photo">
-            <img src="assets-lite/speaker-kogata.png" alt="小潟 一翔" width="495" height="659" loading="lazy" decoding="async">
+            <img data-src="assets-lite/speaker-kogata.png" alt="小潟 一翔" width="495" height="659" loading="lazy" decoding="async">
           </figure>
           <div class="profile-copy speaker-copy">
             <div class="speaker-head">
@@ -2483,7 +2318,7 @@
                 <h2 class="speaker-name">小潟一翔</h2>
                 <div class="speaker-romaji">KAZUMA OGATA</div>
               </div>
-              <img class="speaker-hw" src="assets-lite/handwriting.png" alt="描いたストーリーを具現化する環境に。" width="440" height="150" loading="lazy" decoding="async">
+              <img class="speaker-hw" data-src="assets-lite/handwriting.png" alt="描いたストーリーを具現化する環境に。" width="440" height="150" loading="lazy" decoding="async">
             </div>
             <blockquote class="speaker-quote">“自分も、仲間も、見たいストーリーを叶えるために走る。”</blockquote>
             <a class="speaker-link" href="#">代表メッセージを読む <span>→</span></a>
@@ -2539,7 +2374,7 @@
       <div class="body">
         <div class="profile-hero">
           <figure class="profile-photo profile-logo-photo">
-            <img src="assets-lite/zettai-logo-transparent.png" alt="株式会社ZETTAi ロゴ" width="512" height="512" loading="lazy" decoding="async">
+            <img data-src="assets-lite/zettai-logo-transparent.png" alt="株式会社ZETTAi ロゴ" width="512" height="512" loading="lazy" decoding="async">
             <figcaption class="photo-caption">株式会社ZETTAi</figcaption>
           </figure>
           <div class="profile-copy">
@@ -2563,10 +2398,10 @@
         <h2 class="single-line-heading">ZETTAiは、<span class="highlight-text">AI内製化</span>を軸に事業を展開している</h2>
         <div class="service-overview service-overview--photos">
           <div class="business-photo-grid" aria-label="株式会社ZETTAiの研修風景">
-            <figure class="business-photo-grid__wide"><img src="assets-lite/S__6135830.jpg" alt="株式会社ZETTAiの研修風景" width="900" height="675" loading="lazy" decoding="async"></figure>
-            <figure class="business-photo-grid__room"><img src="assets-lite/S__6135835.jpg" alt="株式会社ZETTAiの研修会場" width="900" height="675" loading="lazy" decoding="async"></figure>
-            <figure class="business-photo-grid__table"><img src="assets-lite/S__6135829.jpg" alt="株式会社ZETTAiの研修中の様子" width="675" height="900" loading="lazy" decoding="async"></figure>
-            <figure class="business-photo-grid__dev"><img src="assets-lite/S__6135831.jpg" alt="株式会社ZETTAiの開発支援の様子" width="900" height="675" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__wide"><img data-src="assets-lite/S__6135830.jpg" alt="株式会社ZETTAiの研修風景" width="900" height="675" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__room"><img data-src="assets-lite/S__6135835.jpg" alt="株式会社ZETTAiの研修会場" width="900" height="675" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__table"><img data-src="assets-lite/S__6135829.jpg" alt="株式会社ZETTAiの研修中の様子" width="675" height="900" loading="lazy" decoding="async"></figure>
+            <figure class="business-photo-grid__dev"><img data-src="assets-lite/S__6135831.jpg" alt="株式会社ZETTAiの開発支援の様子" width="900" height="675" loading="lazy" decoding="async"></figure>
           </div>
           <div class="service-list service-list--wide">
             <div class="service-line"><b>01</b><div><strong>AI内製化研修</strong><span>Claude Code研修を通じて、非エンジニアでも業務ツールを作れる状態を目指す。</span></div></div>
@@ -2963,7 +2798,7 @@
             </div>
           </div>
           <figure class="contact-qr">
-            <img src="assets-lite/L_gainfriends_2dbarcodes_GW.png" alt="LINE相談用QRコード" width="540" height="540" loading="lazy" decoding="async">
+            <img data-src="assets-lite/L_gainfriends_2dbarcodes_GW.png" alt="LINE相談用QRコード" width="540" height="540" loading="lazy" decoding="async">
           </figure>
         </div>
       </div>
@@ -2987,18 +2822,48 @@
     const count = document.getElementById("count");
     const controls = document.querySelector(".controls");
     let current = Number(new URLSearchParams(location.search).get("slide") || 1) - 1;
+    let activeSlide = document.querySelector(".slide.active");
 
     function clamp(value) {
       return Math.max(0, Math.min(slides.length - 1, value));
     }
 
+    function hydrateSlideImages(slide) {
+      slide?.querySelectorAll("img[data-src]").forEach((image) => {
+        image.src = image.dataset.src;
+        image.removeAttribute("data-src");
+      });
+    }
+
+    function hydrateNearbyImages(index) {
+      [index - 1, index, index + 1].forEach((slideIndex) => {
+        if (slideIndex >= 0 && slideIndex < slides.length) {
+          hydrateSlideImages(slides[slideIndex]);
+        }
+      });
+    }
+
+    function hydrateAllImages() {
+      slides.forEach(hydrateSlideImages);
+    }
+
+    function updateLocation() {
+      const search = new URLSearchParams(location.search);
+      search.set("slide", String(current + 1));
+      history.replaceState(null, "", `?${search.toString()}`);
+    }
+
     function show() {
       current = clamp(current);
-      slides.forEach((slide, index) => {
-        slide.classList.toggle("active", index === current);
-      });
+      hydrateNearbyImages(current);
+      const nextSlide = slides[current];
+      if (activeSlide !== nextSlide) {
+        activeSlide?.classList.remove("active");
+        nextSlide.classList.add("active");
+        activeSlide = nextSlide;
+      }
       count.textContent = `${current + 1} / ${slides.length}`;
-      history.replaceState(null, "", `?slide=${current + 1}`);
+      updateLocation();
       document.title = `${current + 1}. ${slides[current].dataset.title} | 日本一わかりやすいClaude Code研修`;
     }
 
@@ -3040,7 +2905,10 @@
 
     document.querySelector('[data-action="prev"]').addEventListener("click", () => move(-1));
     document.querySelector('[data-action="next"]').addEventListener("click", () => move(1));
-    document.querySelector('[data-action="print"]').addEventListener("click", () => window.print());
+    document.querySelector('[data-action="print"]').addEventListener("click", () => {
+      hydrateAllImages();
+      requestAnimationFrame(() => window.print());
+    });
 
     window.addEventListener("keydown", (event) => {
       if (["ArrowRight", "PageDown", " "].includes(event.key)) {
@@ -3068,10 +2936,14 @@
     window.addEventListener("resize", scheduleFit);
     window.addEventListener("orientationchange", scheduleFit);
     window.addEventListener("load", scheduleFit);
+    window.addEventListener("beforeprint", hydrateAllImages);
     window.visualViewport?.addEventListener("resize", scheduleFit);
     window.visualViewport?.addEventListener("scroll", scheduleFit);
     document.fonts?.ready.then(scheduleFit);
 
+    if (document.documentElement.classList.contains("export-mode")) {
+      hydrateAllImages();
+    }
     fitSlideToViewport();
     show();
   </script>
